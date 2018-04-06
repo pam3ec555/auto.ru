@@ -1,16 +1,20 @@
 const path = require(`path`);
 const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
+const CleanWebpackPlugin = require(`clean-webpack-plugin`);
 
 module.exports = {
-    entry: `./src/app.ts`,
+    entry: {
+        bundle: `./src/app.ts`,
+        style: `./src/sass/style.sass`
+    },
     output: {
         path: path.resolve(__dirname, `dist`),
-        filename: `bundle.js`
+        filename: `[name].js`
     },
     devtool: `inline-source-map`,
     module: {
         rules: [
-            /*{
+            {
                 test: /\.css$/,
                 include: path.join(__dirname, `src`),
                 use: [
@@ -25,7 +29,7 @@ module.exports = {
                         }
                     }
                 ]
-            },*/
+            },
             {
                 test: /\.sass$/,
                 use: ExtractTextPlugin.extract({
@@ -44,7 +48,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin(`style.css`)
+        // new CleanWebpackPlugin(`./dist`),
+        new ExtractTextPlugin(`style.css`, {
+            allChunks: true
+        })
     ],
     resolve: {
         extensions: [ `.tsx`, `.ts`, `.js` ]
