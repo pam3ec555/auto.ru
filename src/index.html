@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto.ru</title>
+</head>
+<body>
+<!-- MOBILE -->
+<header class="outer-block">
+  <button type="button" class="hamburger" id="menu-show">
+    <div class="hamburger__inner"></div>
+  </button>
+  <div class="logo">
+    <img src="img/logo.svg" alt="Car">
+  </div>
+  <button type="button" class="search-btn"></button>
+</header>
+
+<div class="m-menu m-menu--hidden" id="mobile-menu">
+  <div class="login">
+    Login
+  </div>
+
+  <nav class="nav">
+    Nav
+  </nav>
+
+  <div class="sort">
+    Sort
+  </div>
+
+  <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
+</div>
+
+<main class="content">
+  <section class="content__item"></section>
+</main>
+
+<script>
+  const menuShowBtn = document.querySelector(`#menu-show`);
+  const menuHideBtn = document.querySelector(`#menu-hide`);
+  const menu = document.querySelector(`#mobile-menu`);
+
+  const toggleOverlay = (show) => {
+      const body = document.querySelector(`body`);
+
+      if (show) {
+          const overlay = document.createElement(`DIV`);
+          overlay.className = `overlay`;
+          overlay.id = `overlay`;
+          body.appendChild(overlay);
+      } else {
+          const overlay = document.querySelector(`#overlay`);
+
+          if (overlay) {
+              overlay.remove();
+          }
+      }
+  };
+
+  if (menuShowBtn) {
+      menuShowBtn.addEventListener(`click`, () => {
+          if (menu) {
+              menu.classList.remove(`m-menu--hidden`);
+              toggleOverlay(true);
+          }
+      });
+  }
+
+  if (menuHideBtn) {
+      menuHideBtn.addEventListener(`click`, () => {
+          if (menu) {
+              menu.classList.add(`m-menu--hidden`);
+              toggleOverlay(false);
+          }
+      });
+  }
+</script>
+
+</body>
+</html>

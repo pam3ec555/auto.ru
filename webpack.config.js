@@ -1,6 +1,7 @@
 const path = require(`path`);
 const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
 const CleanWebpackPlugin = require(`clean-webpack-plugin`);
+const HtmlWebpackPlugin = require(`html-webpack-plugin`);
 
 module.exports = {
     entry: {
@@ -31,6 +32,13 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                loader: `file-loader`,
+                options: {
+                    name: `img/[name].[ext]`
+                }
+            },
+            {
                 test: /\.sass$/,
                 use: ExtractTextPlugin.extract({
                     fallback: `style-loader`,
@@ -44,6 +52,10 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: `ts-loader`,
                 exclude: /node_modules/
+            },
+            {
+                test: /\.html$/,
+                use: ['html-loader']
             }
         ]
     },
@@ -51,6 +63,12 @@ module.exports = {
         new CleanWebpackPlugin(`./dist`),
         new ExtractTextPlugin(`style.css`, {
             allChunks: true
+        }),
+        new HtmlWebpackPlugin({
+            template: `src/index.html`,
+            files: {
+                css: [`dist/style.css`]
+            }
         })
     ],
     resolve: {

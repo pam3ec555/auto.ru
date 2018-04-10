@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "webpack --watch",
-    "serv": "static build"
+    "start": "webpack --watch node server",
+    "serv": "node server"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,10 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.2.0",
     "node-sass": "^4.8.3",
     "node-static": "^0.7.10",
     "sass-loader": "^6.0.7",
