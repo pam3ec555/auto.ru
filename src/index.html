@@ -6,27 +6,43 @@
   <title>Auto.ru</title>
 </head>
 <body>
+
+<svg class="hidden"></svg>
+
 <!-- MOBILE -->
 <header class="outer-block">
   <button type="button" class="hamburger" id="menu-show">
     <div class="hamburger__inner"></div>
   </button>
   <div class="logo">
-    <img src="img/logo.svg" alt="Car">
+    <img src="img/icons/logo.svg" alt="Car">
   </div>
-  <button type="button" class="search-btn"></button>
+  <button type="button" class="search-btn" id="search-btn"></button>
 </header>
 
+<input type="text" class="search-input search-input--hidden" id="search-input">
+
 <div class="m-menu m-menu--hidden" id="mobile-menu">
-  <div class="login">
-    Login
+  <div class="m-menu__section login outer-block">
+    <span class="login__user-name">User name</span>
+    <button type="button" class="login__log-out" id="log-out"></button>
   </div>
 
-  <nav class="nav">
-    Nav
+  <nav class="m-menu__section nav outer-block">
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a href="#" class="nav__link">test</a>
+      </li>
+      <li class="nav__item">
+        <a href="#" class="nav__link">test</a>
+      </li>
+      <li class="nav__item">
+        <a href="#" class="nav__link">test</a>
+      </li>
+    </ul>
   </nav>
 
-  <div class="sort">
+  <div class="m-menu__section sort outer-block">
     Sort
   </div>
 
@@ -41,6 +57,8 @@
   const menuShowBtn = document.querySelector(`#menu-show`);
   const menuHideBtn = document.querySelector(`#menu-hide`);
   const menu = document.querySelector(`#mobile-menu`);
+  const searchBtn = document.querySelector(`#search-btn`);
+  const searchInput = document.querySelector(`#search-input`);
 
   const toggleOverlay = (show) => {
       const body = document.querySelector(`body`);
@@ -58,6 +76,24 @@
           }
       }
   };
+
+  if (searchBtn && searchInput) {
+      searchBtn.addEventListener(`click`, () => {
+          if (searchInput.classList.contains(`search-input--hidden`)) {
+              searchInput.classList.remove(`search-input--hidden`);
+              searchBtn.disabled = true;
+              searchInput.focus();
+          }
+      });
+
+      searchInput.addEventListener(`blur`, () => {
+          if (!searchInput.classList.contains(`search-input--hidden`)) {
+              searchInput.classList.add(`search-input--hidden`);
+              searchInput.value = ``;
+              searchBtn.disabled = false;
+          }
+      });
+  }
 
   if (menuShowBtn) {
       menuShowBtn.addEventListener(`click`, () => {
