@@ -5,7 +5,7 @@ export default abstract class View {
         throw new Error(`You have to define template for view`);
     }
 
-    private render(): HTMLElement {
+    public render(): HTMLElement {
         return createElement(this.template);
     }
 
