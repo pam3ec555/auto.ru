@@ -20,5 +20,10 @@ header
   width: 32px
   height: 32px
 
-  &:disabled
-    opacity: 0.1
+  transform: translateY(0) scale(1)
+  opacity: 1
+  transition: 0.2s
+
+.search-btn--hidden
+  transform: translateY(10px) scale(0.5)
+  opacity: 0

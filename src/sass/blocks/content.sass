@@ -1,0 +1,25 @@
+.content
+  margin-top: 46px
+
+.content__item
+  width: calc(100% - 20px)
+  max-width: 300px
+  margin: 0 auto
+
+  border: 1px solid $light-gray
+
+.content__preview
+  width: 100%
+  height: 160px
+
+.content__props
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.content__price
+  font-weight: bold
+  color: $red
+
+  &::after
+    content: $rub

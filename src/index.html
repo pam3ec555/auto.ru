@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,112 +7,7 @@
 </head>
 <body>
 
-<svg class="hidden"></svg>
-
-<!-- MOBILE -->
-<header class="outer-block">
-  <button type="button" class="hamburger" id="menu-show">
-    <div class="hamburger__inner"></div>
-  </button>
-  <div class="logo">
-    <img src="img/icons/logo.svg" alt="Car">
-  </div>
-  <button type="button" class="search-btn" id="search-btn"></button>
-</header>
-
-<input type="text" class="search-input search-input--hidden" id="search-input">
-
-<div class="m-menu m-menu--hidden" id="mobile-menu">
-  <div class="m-menu__section login outer-block">
-    <span class="login__user-name">User name</span>
-    <button type="button" class="login__log-out" id="log-out"></button>
-  </div>
-
-  <nav class="m-menu__section nav outer-block">
-    <ul class="nav__list">
-      <li class="nav__item">
-        <a href="#" class="nav__link">test</a>
-      </li>
-      <li class="nav__item">
-        <a href="#" class="nav__link">test</a>
-      </li>
-      <li class="nav__item">
-        <a href="#" class="nav__link">test</a>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="m-menu__section sort outer-block">
-    Sort
-  </div>
-
-  <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
-</div>
-
-<main class="content">
-  <section class="content__item"></section>
-</main>
-
-<script>
-  const menuShowBtn = document.querySelector(`#menu-show`);
-  const menuHideBtn = document.querySelector(`#menu-hide`);
-  const menu = document.querySelector(`#mobile-menu`);
-  const searchBtn = document.querySelector(`#search-btn`);
-  const searchInput = document.querySelector(`#search-input`);
-
-  const toggleOverlay = (show) => {
-      const body = document.querySelector(`body`);
-
-      if (show) {
-          const overlay = document.createElement(`DIV`);
-          overlay.className = `overlay`;
-          overlay.id = `overlay`;
-          body.appendChild(overlay);
-      } else {
-          const overlay = document.querySelector(`#overlay`);
-
-          if (overlay) {
-              overlay.remove();
-          }
-      }
-  };
-
-  if (searchBtn && searchInput) {
-      searchBtn.addEventListener(`click`, () => {
-          if (searchInput.classList.contains(`search-input--hidden`)) {
-              searchInput.classList.remove(`search-input--hidden`);
-              searchBtn.disabled = true;
-              searchInput.focus();
-          }
-      });
-
-      searchInput.addEventListener(`blur`, () => {
-          if (!searchInput.classList.contains(`search-input--hidden`)) {
-              searchInput.classList.add(`search-input--hidden`);
-              searchInput.value = ``;
-              searchBtn.disabled = false;
-          }
-      });
-  }
-
-  if (menuShowBtn) {
-      menuShowBtn.addEventListener(`click`, () => {
-          if (menu) {
-              menu.classList.remove(`m-menu--hidden`);
-              toggleOverlay(true);
-          }
-      });
-  }
-
-  if (menuHideBtn) {
-      menuHideBtn.addEventListener(`click`, () => {
-          if (menu) {
-              menu.classList.add(`m-menu--hidden`);
-              toggleOverlay(false);
-          }
-      });
-  }
-</script>
+<div id="app"></div>
 
 </body>
 </html>

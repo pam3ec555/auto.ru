@@ -65,10 +65,7 @@ module.exports = {
             allChunks: true
         }),
         new HtmlWebpackPlugin({
-            template: `src/index.html`,
-            files: {
-                css: [`dist/style.css`]
-            }
+            template: `src/index.html`
         })
     ],
     resolve: {
