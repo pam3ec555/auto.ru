@@ -1,6 +1,6 @@
 //TODO see http://autocomplete-js.com/
 
-import Menu from "./menu/menu";
+import MenuModel from './menu/menu-model';
 
 enum ControllerID {
     CAR_LIST = '',
@@ -20,7 +20,7 @@ class App {
     }
 
     private init(): void {
-        const menu = new Menu();
+        const menu = new MenuModel();
         menu.init();
     }
 }

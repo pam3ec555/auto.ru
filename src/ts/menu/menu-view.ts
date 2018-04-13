@@ -1,14 +1,16 @@
-import {navData} from "../data";
-import View from "../view";
+import View from '../view';
+import {MenuData, UserData} from './menu-data';
+import {logo} from '../images'
+import {toggleOverlay} from '../util';
 
 const drawLogo = (): string => {
     return `<div class="logo">
-              <img src="img/icons/logo.svg" alt="Car">
+              <img src="${logo}" alt="Car">
             </div>`;
 };
 
-const drawLog = (): string => {
-    return `<span class="login__user-name">User name</span>
+const drawLog = (data: UserData): string => {
+    return `<span class="login__user-name">${data.name}</span>
             <button type="button" class="login__log-out" id="log-out"></button>`;
 };
 
@@ -35,16 +37,54 @@ const drawMobileHeader = (): string => {
             </header>`;
 };
 
-const drawMobileMenu = (): string => {
+const drawMobileMenu = (data: MenuData): string => {
     return `${drawMobileHeader()}
             <div class="m-menu m-menu--hidden" id="mobile-menu">
-              <div class="m-menu__section login outer-block">${drawLog()}</div>
-              <nav class="m-menu__section nav outer-block">${drawNav(navData)}</nav>
+              <div class="m-menu__section login outer-block">${drawLog(data.userData)}</div>
+              <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>
             </div>`;
 };
 
 export default class MenuView extends View {
+    private data: MenuData;
+
+    constructor(data: MenuData) {
+        super();
+        this.data = data;
+    }
+
     protected get template(): string {
-        return drawMobileMenu();
+        return drawMobileMenu(this.data);
+    }
+
+    public bind(): void {
+        const menuShowBtn = this.element.querySelector(`#menu-show`);
+        const menuHideBtn = this.element.querySelector(`#menu-hide`);
+
+        if (menuShowBtn) {
+            menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
+        }
+
+        if (menuHideBtn) {
+            menuHideBtn.addEventListener(`clicl`, this.onMenuHideClick);
+        }
+    }
+
+    private onMenuHideClick(): void {
+        const menu = this.element.querySelector(`#mobile-menu`);
+
+        if (menu) {
+            menu.classList.add(`m-menu--hidden`);
+            toggleOverlay(false);
+        }
+    }
+
+    private onMenuShowClick(): void {
+        const menu = this.element.querySelector(`#mobile-menu`);
+
+        if (menu) {
+            menu.classList.remove(`m-menu--hidden`);
+            toggleOverlay(true);
+        }
     }
 }

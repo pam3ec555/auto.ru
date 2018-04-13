@@ -1,3 +1,5 @@
+import {UserData} from './menu/menu-data';
+
 export const navData: Array<object> = [
     {
         link: `#`,
@@ -12,3 +14,7 @@ export const navData: Array<object> = [
         name: `name`
     }
 ];
+
+export const userData: UserData = {
+    name: `Ramil`
+};
