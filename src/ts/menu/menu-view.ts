@@ -15,7 +15,7 @@ const drawLog = (data: UserData): string => {
 };
 
 const drawNav = (data: Array<object>): string => {
-    let navItems: string;
+    let navItems: string = ``;
 
     data.forEach((item: {link: string, name: string}) => {
          navItems += `<li class="nav__item">
@@ -34,7 +34,8 @@ const drawMobileHeader = (): string => {
               </button>
               ${drawLogo()}
               <button type="button" class="search-btn" id="search-btn"></button>
-            </header>`;
+            </header>
+            <input type="text" class="search-input search-input--hidden" id="search-input">`;
 };
 
 const drawMobileMenu = (data: MenuData): string => {
@@ -42,6 +43,7 @@ const drawMobileMenu = (data: MenuData): string => {
             <div class="m-menu m-menu--hidden" id="mobile-menu">
               <div class="m-menu__section login outer-block">${drawLog(data.userData)}</div>
               <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>
+              <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
             </div>`;
 };
 
@@ -58,20 +60,27 @@ export default class MenuView extends View {
     }
 
     public bind(): void {
-        const menuShowBtn = this.element.querySelector(`#menu-show`);
-        const menuHideBtn = this.element.querySelector(`#menu-hide`);
+        const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
+        const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
+        const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
+        const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
 
         if (menuShowBtn) {
             menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
         }
 
         if (menuHideBtn) {
-            menuHideBtn.addEventListener(`clicl`, this.onMenuHideClick);
+            menuHideBtn.addEventListener(`click`, this.onMenuHideClick);
+        }
+
+        if (searchBtn && searchInput) {
+            searchBtn.addEventListener(`click`, this.onSearchToggle);
+            searchInput.addEventListener(`blur`, this.onSearchToggle);
         }
     }
 
     private onMenuHideClick(): void {
-        const menu = this.element.querySelector(`#mobile-menu`);
+        const menu: HTMLElement = document.querySelector(`#mobile-menu`);
 
         if (menu) {
             menu.classList.add(`m-menu--hidden`);
@@ -80,11 +89,28 @@ export default class MenuView extends View {
     }
 
     private onMenuShowClick(): void {
-        const menu = this.element.querySelector(`#mobile-menu`);
+        const menu: HTMLElement = document.querySelector(`#mobile-menu`);
 
         if (menu) {
             menu.classList.remove(`m-menu--hidden`);
             toggleOverlay(true);
+        }
+    }
+
+    private onSearchToggle(): void {
+        const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
+        const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
+
+        if (searchInput.classList.contains(`search-input--hidden`)) {
+            searchInput.classList.remove(`search-input--hidden`);
+            searchBtn.classList.add(`search-btn--hidden`);
+            searchBtn.disabled = true;
+            searchInput.focus();
+        } else {
+            searchInput.classList.add(`search-input--hidden`);
+            searchBtn.classList.remove(`search-btn--hidden`);
+            searchInput.value = ``;
+            searchBtn.disabled = false;
         }
     }
 }

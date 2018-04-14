@@ -14,12 +14,4 @@ export default abstract class View {
     public bind(): void {
 
     }
-
-    get element() {
-        if (!this.block) {
-            this.block = this.render();
-            this.bind();
-        }
-        return this.block;
-    }
 }
