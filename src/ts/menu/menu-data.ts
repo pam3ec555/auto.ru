@@ -1,5 +1,5 @@
 export interface UserData {
-    name: string
+    name?: string
 }
 
 export interface NavData {

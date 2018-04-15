@@ -2,13 +2,35 @@ import MenuModel from './menu-model';
 import MenuView from './menu-view';
 import Controller from '../controller';
 import {toggleOverlay} from '../util';
+import {MenuData} from './menu-data';
+import App from '../app';
+
+const hideMenu = (): void => {
+    const menu: HTMLElement = document.querySelector(`#mobile-menu`);
+
+    if (menu) {
+        menu.classList.add(`m-menu--hidden`);
+        toggleOverlay(false);
+    }
+};
+
+const showMenu = (): void => {
+    const menu: HTMLElement = document.querySelector(`#mobile-menu`);
+
+    if (menu) {
+        menu.classList.remove(`m-menu--hidden`);
+        toggleOverlay(true);
+    }
+};
 
 export default class MenuController extends Controller {
+    private data: MenuData;
+
     public init(): void {
         const menuModel: MenuModel = new MenuModel();
-        const data = menuModel.data;
+        this.data = menuModel.data;
         const appWrap: HTMLElement = document.querySelector(`#app`);
-        const menuView = new MenuView(data);
+        const menuView = new MenuView(this.data);
         appWrap.appendChild(menuView.render());
         this.bind();
     }
@@ -31,24 +53,53 @@ export default class MenuController extends Controller {
             searchBtn.addEventListener(`click`, this.onSearchToggle);
             searchInput.addEventListener(`blur`, this.onSearchToggle);
         }
+
+        this.initLogLinks();
+    }
+
+    private initLogLinks(): void {
+        if (Object.keys(this.data.userData).length !== 0) {
+            const logoutBtn: HTMLButtonElement = document.querySelector(`#log-out`);
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener(`click`, this.onLogoutClick)
+            }
+        } else {
+            const loginBtn: HTMLHRElement = document.querySelector(`#log-in`);
+            const signUpBtn: HTMLHRElement = document.querySelector(`#sign-up`);
+
+            if (loginBtn) {
+                loginBtn.addEventListener(`click`, this.onLoginClick);
+            }
+
+            if (signUpBtn) {
+                signUpBtn.addEventListener(`click`, this.onSignUpClick);
+            }
+        }
+    }
+
+    private onLogoutClick(): void {
+        //Todo make logout
+    }
+
+    private onLoginClick(e: Event): void {
+        e.preventDefault();
+        App.showLogin();
+        hideMenu();
+    }
+
+    private onSignUpClick(e: Event): void {
+        e.preventDefault();
+        App.showRegistry();
+        hideMenu();
     }
 
     private onMenuHideClick(): void {
-        const menu: HTMLElement = document.querySelector(`#mobile-menu`);
-
-        if (menu) {
-            menu.classList.add(`m-menu--hidden`);
-            toggleOverlay(false);
-        }
+        hideMenu();
     }
 
     private onMenuShowClick(): void {
-        const menu: HTMLElement = document.querySelector(`#mobile-menu`);
-
-        if (menu) {
-            menu.classList.remove(`m-menu--hidden`);
-            toggleOverlay(true);
-        }
+        showMenu();
     }
 
     private onSearchToggle(): void {

@@ -9,6 +9,7 @@ export default class CarController extends Controller {
         const data: CarData = carModel.data;
         const carView: CarView = new CarView(data);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
+
         if (contentBlock) {
             contentBlock.appendChild(carView.render());
         }

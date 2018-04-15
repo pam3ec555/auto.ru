@@ -10,6 +10,7 @@ export default class CarListController extends Controller {
         const data: Array<CarListData> = carListModel.data;
         const carListView: CarListView = new CarListView(data);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
+
         if (contentBlock) {
             contentBlock.appendChild(carListView.render());
             this.bind();

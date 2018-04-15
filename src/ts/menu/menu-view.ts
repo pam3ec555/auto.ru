@@ -2,11 +2,19 @@ import View from '../view';
 import {MenuData, NavData, UserData} from './menu-data';
 import {logo} from '../images'
 import {toggleOverlay} from '../util';
+import {userData} from '../data';
 
 const drawLogo = (): string => {
     return `<div class="logo">
   <img src="${logo}" alt="Car">
 </div>`;
+};
+
+const drawGuest = ():string => {
+    return `<p>Вы не авторизованы.
+  <a href="#" class="login__log-in" id="log-in">Войти</a> или
+  <a href="#" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
+</p>`
 };
 
 const drawLog = (data: UserData): string => {
@@ -39,9 +47,10 @@ const drawMobileHeader = (): string => {
 };
 
 const drawMobileMenu = (data: MenuData): string => {
+    const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
     return `${drawMobileHeader()}
-            <div class="m-menu m-menu--hidden" id="mobile-menu">
-  <div class="m-menu__section login outer-block">${drawLog(data.userData)}</div>
+<div class="m-menu m-menu--hidden" id="mobile-menu">
+  <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>

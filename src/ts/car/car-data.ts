@@ -1,7 +1,7 @@
 export interface Engine {
     readonly volume: number,
     readonly power: number,
-    readonly type: number
+    readonly type: string
 }
 
 export interface Contact {
@@ -19,16 +19,16 @@ export interface CarData {
     readonly ownerCount: number,
     readonly photos: Array<any>,
     readonly description: string,
-    readonly city: number,
+    readonly city: string,
     readonly contact: Contact,
     readonly engine: Engine,
-    readonly bodyType: number,
+    readonly bodyType: string,
     readonly color: string,
-    readonly boxTransmission: number,
-    readonly wheelTransmission: number,
-    readonly leftHelm: boolean,
-    readonly state: number,
-    readonly originalPTS: boolean,
+    readonly boxTransmission: string,
+    readonly wheelTransmission: string,
+    readonly leftHelm: string,
+    readonly state: string,
+    readonly originalPTS: string,
     readonly views: number,
-    readonly postDate: number
+    readonly postDate: string
 }

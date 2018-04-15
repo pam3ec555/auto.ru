@@ -1,6 +1,7 @@
 .login
   display: flex
   align-items: center
+  flex-wrap: wrap
 
 .login__user-name
   margin-right: 10px
@@ -12,6 +13,17 @@
 
 .login__log-out
   width: 32px
-  height: 32px
+  height: 24px
 
   background-image: url("../img/icons/log-out.svg")
+  background-repeat: no-repeat
+
+.login__log-in,
+.login__sign-up
+  font-size: 1rem
+  font-weight: bold
+
+  &:hover
+    text-decoration: underline
+
+

@@ -3,7 +3,7 @@ import {createElement} from './util';
 export default abstract class View {
     protected data: any;
 
-    constructor(data: any) {
+    constructor(data: any = {}) {
         this.data = data;
     }
 

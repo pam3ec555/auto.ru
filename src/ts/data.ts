@@ -19,7 +19,7 @@ export const navData: Array<NavData> = [
 ];
 
 export const userData: UserData = {
-    name: `Ramil`
+
 };
 
 export const cars: Array<CarListData> = [
@@ -59,7 +59,7 @@ export const car: CarData = {
         photo1
     ],
     description: `best car`,
-    city: 1,
+    city: `Казань`,
     contact: {
         name: `Ramil`,
         phoneNum: 79673657611,
@@ -69,15 +69,15 @@ export const car: CarData = {
     engine: {
         volume: 1.6,
         power: 123,
-        type: 1
+        type: `Бензин`
     },
-    bodyType: 2,
+    bodyType: `Седан`,
     color: `Белый`,
-    boxTransmission: 1,
-    wheelTransmission: 1,
-    leftHelm: true,
-    state: 5,
-    originalPTS: true,
+    boxTransmission: `АКПП`,
+    wheelTransmission: `Передний`,
+    leftHelm: `Левый`,
+    state: `Отличное`,
+    originalPTS: `Оригинал`,
     views: 500,
-    postDate: Date.now()
+    postDate: `20.02.2018`
 };

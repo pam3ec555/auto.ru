@@ -3,10 +3,14 @@
 import MenuController from './menu/menu-controller';
 import CarListController from './car-list/car-list-controller';
 import CarController from './car/car-controller';
+import RegistryController from './registry/registry-controller';
+import LoginController from './login/login-controller';
 
 enum ControllerID {
     CAR_LIST = '',
-    CAR = 'car'
+    CAR = 'car',
+    REGISTRY = 'registry',
+    LOGIN = 'login'
 }
 
 interface Routes {
@@ -24,7 +28,9 @@ class App {
 
     private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(),
-        [ControllerID.CAR]: new CarController()
+        [ControllerID.CAR]: new CarController(),
+        [ControllerID.REGISTRY]: new RegistryController(),
+        [ControllerID.LOGIN]: new LoginController()
     };
 
     public showCarList(): void {
@@ -33,6 +39,14 @@ class App {
 
     public showCar(): void {
         location.hash = ControllerID.CAR;
+    }
+
+    public showRegistry(): void {
+        location.hash = ControllerID.REGISTRY;
+    }
+
+    public showLogin(): void {
+        location.hash = ControllerID.LOGIN;
     }
 
     private changeController(route: string = ``): void {
