@@ -1,13 +1,39 @@
-const drawCard = (data: object): string => {
+import {CarListData} from './car-list-data';
+import View from '../view';
+
+const drawCard = (data: CarListData): string => {
     return `<section class="content__item">
-              <img src="img/photos/_downloadfiles_wallpapers_1280_720_vw_golf_6_gti_wallpaper_volkswagen_cars_2129.jpg"
-                 alt="photo" class="content__preview">
-              <h3 class="content__title">Заголовок</h3>
-              <div class="content__props">
-                <span class="content__price">200 000</span>
-                <span class="content__year">2012</span>
-                <span class="content__mileage">150 000 км</span>
-              </div>
-            </section>`;
+  <a href="${data.link}" class="content-link">
+      <img src="${data.preview}"
+         alt="photo" class="content__preview">
+  </a>
+  <a href="${data.link}" class="content__title content-link">${data.name}</a>
+  <div class="content__props">
+    <span class="content__price">${data.price}</span>
+    <span class="content__year">${data.year}</span>
+    <span class="content__mileage">${data.mileage}</span>
+  </div>
+</section>`;
 };
-// TODO make car list view
+
+const drawCarList = (data: Array<CarListData>): string => {
+    let carList: string = ``;
+
+    if (data.length > 0) {
+        data.forEach((carData: CarListData) => {
+             carList += drawCard(carData);
+        });
+    }
+
+    return carList;
+};
+
+export default class CarListView extends View {
+    constructor(data: Array<CarListData>) {
+        super(data);
+    }
+
+    protected get template(): string {
+        return drawCarList(this.data);
+    }
+}

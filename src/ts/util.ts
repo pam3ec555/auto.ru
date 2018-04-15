@@ -1,5 +1,6 @@
 export const createElement = (template: string): HTMLElement => {
-    const outer = document.createElement(`div`);
+    const outer: HTMLElement = document.createElement(`DIV`);
+    outer.className = `wrapper`;
     outer.innerHTML = template;
     return outer;
 };
