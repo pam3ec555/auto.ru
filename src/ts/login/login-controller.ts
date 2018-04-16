@@ -8,8 +8,8 @@ export default class LoginController extends Controller {
 
         if (contentBlock) {
             contentBlock.appendChild(loginView.render());
+            this.bind();
         }
-        this.bind();
     }
 
     protected bind():void {

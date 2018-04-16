@@ -5,12 +5,14 @@ import CarListController from './car-list/car-list-controller';
 import CarController from './car/car-controller';
 import RegistryController from './registry/registry-controller';
 import LoginController from './login/login-controller';
+import AddPostController from './add-post/add-post-controller';
 
 enum ControllerID {
     CAR_LIST = '',
     CAR = 'car',
     REGISTRY = 'registry',
-    LOGIN = 'login'
+    LOGIN = 'login',
+    ADD_POST = 'add'
 }
 
 interface Routes {
@@ -30,7 +32,8 @@ class App {
         [ControllerID.CAR_LIST]: new CarListController(),
         [ControllerID.CAR]: new CarController(),
         [ControllerID.REGISTRY]: new RegistryController(),
-        [ControllerID.LOGIN]: new LoginController()
+        [ControllerID.LOGIN]: new LoginController(),
+        [ControllerID.ADD_POST]: new AddPostController()
     };
 
     public showCarList(): void {
@@ -47,6 +50,10 @@ class App {
 
     public showLogin(): void {
         location.hash = ControllerID.LOGIN;
+    }
+
+    public showAddingPost(): void {
+        location.hash = ControllerID.ADD_POST;
     }
 
     private changeController(route: string = ``): void {

@@ -25,9 +25,9 @@ const drawLog = (data: UserData): string => {
 const drawNav = (data: Array<NavData>): string => {
     let navItems: string = ``;
 
-    data.forEach((item: {link: string, name: string}) => {
+    data.forEach((item: {link: string, name: string, id: string}) => {
          navItems += `<li class="nav__item">
-  <a href="${item.link}" class="nav__link">${item.name}</a>
+  <a href="${item.link}" class="nav__link" id="${item.id}">${item.name}</a>
 </li>`;
     });
     return `<ul class="nav__list">

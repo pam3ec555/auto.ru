@@ -6,15 +6,8 @@ import {CarData, Contact, Engine} from './car/car-data';
 export const navData: Array<NavData> = [
     {
         link: `#`,
-        name: `name`
-    },
-    {
-        link: `#`,
-        name: `name`
-    },
-    {
-        link: `#`,
-        name: `name`
+        name: `Добавить объявление`,
+        id: `add-post`
     }
 ];
 

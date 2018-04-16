@@ -40,6 +40,7 @@ export default class MenuController extends Controller {
         const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
         const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
+        const addPostBtn: HTMLHRElement = document.querySelector(`#add-post`);
 
         if (menuShowBtn) {
             menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
@@ -52,6 +53,10 @@ export default class MenuController extends Controller {
         if (searchBtn && searchInput) {
             searchBtn.addEventListener(`click`, this.onSearchToggle);
             searchInput.addEventListener(`blur`, this.onSearchToggle);
+        }
+
+        if (addPostBtn) {
+            addPostBtn.addEventListener(`click`, this.onAddPostClick);
         }
 
         this.initLogLinks();
@@ -80,6 +85,12 @@ export default class MenuController extends Controller {
 
     private onLogoutClick(): void {
         //Todo make logout
+    }
+
+    private onAddPostClick(e: Event): void {
+        e.preventDefault();
+        App.showAddingPost();
+        hideMenu();
     }
 
     private onLoginClick(e: Event): void {

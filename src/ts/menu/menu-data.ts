@@ -4,7 +4,8 @@ export interface UserData {
 
 export interface NavData {
     link: string,
-    name: string
+    name: string,
+    id: string
 }
 
 export interface MenuData {
