@@ -1,7 +1,7 @@
 import View from '../view';
 import {MenuData, NavData, UserData} from './menu-data';
 import {logo} from '../images'
-import {toggleOverlay} from '../util';
+import {MenuType, toggleOverlay, ViewType} from '../util';
 import {userData} from '../data';
 
 const drawLogo = (): string => {
@@ -35,34 +35,45 @@ const drawNav = (data: Array<NavData>): string => {
 </ul>`;
 };
 
-const drawMobileHeader = (): string => {
-    return `<header class="outer-block">
-  <button type="button" class="hamburger" id="menu-show">
+const drawMobileHeader = (viewState: ViewType, menuType: MenuType): string => {
+    const hamburger = (menuType === MenuType.LIST) ? `<button type="button" class="hamburger" id="menu-show">
     <div class="hamburger__inner"></div>
-  </button>
+  </button>` : ``;
+    const searchBtn = (menuType === MenuType.LIST) ? `<button type="button" class="search-btn" id="search-btn"></button>` : ``;
+    const searchInput = (menuType === MenuType.LIST) ? `<input type="text" class="search-input search-input--hidden" id="search-input">` : ``;
+
+    return `<header class="outer-block">
+  ${hamburger}
   ${drawLogo()}
-  <button type="button" class="search-btn" id="search-btn"></button>
+  ${searchBtn}
 </header>
-<input type="text" class="search-input search-input--hidden" id="search-input">`;
+${searchInput}`;
 };
 
-const drawMobileMenu = (data: MenuData): string => {
+const drawMobileMenu = (data: MenuData, viewState: ViewType, menuType: MenuType): string => {
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
-    return `${drawMobileHeader()}
-<div class="m-menu m-menu--hidden" id="mobile-menu">
+    const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
-</div>
+</div>` : ``;
+
+    return `${drawMobileHeader(viewState, menuType)}
+${menu}
 <main class="inner" id="inner"></main>`;
 };
 
 export default class MenuView extends View {
-    constructor(data: MenuData) {
+    private viewState: ViewType;
+    private menuType: MenuType;
+
+    constructor(data: MenuData, viewState: ViewType, menuType: MenuType) {
         super(data);
+        this.viewState = viewState;
+        this.menuType = menuType;
     }
 
     protected get template(): string {
-        return drawMobileMenu(this.data);
+        return drawMobileMenu(this.data, this.viewState, this.menuType);
     }
 }

@@ -13,7 +13,7 @@
 
   height: 4px
 
-  background-color: $gray
+  background-color: $blue
   border-radius: 2px
 
 .hamburger__inner
@@ -60,7 +60,7 @@
     margin-top: -2px
     margin-left: -50%
 
-    background-color: $gray
+    background-color: $blue
     border-radius: 2px
 
   &::before
@@ -94,6 +94,12 @@
 .inner
   margin-top: 46px
 
+.group-title
+  color: $blue
+
+.title
+  color: $red
+
 // ----------------- search -------------------
 
 .search-input
@@ -109,7 +115,7 @@
 
   font-size: 18px
 
-  border-bottom: 1px solid $light-gray
+  border: none
   background-color: #fff
   background-image: url("../img/icons/search.svg")
   background-repeat: no-repeat
@@ -119,9 +125,83 @@
   transition: 0.3s all
 
   &:focus
-    box-shadow: 1px 0 6px 0 $orange
+    box-shadow: 1px 0 6px 0 $light-blue
 
 .search-input--hidden
   top: 0
+
+.submit
+  padding: 5px
+  align-self: center
+  min-width: 50%
+
+  font-weight: bold
+
+  border: 2px solid $dark-blue
+
+  transition: all 0.1s
+
+  &:hover
+    color: $light-blue
+
+    background-color: $dark-blue
+
+.form
+  margin-bottom: 20px
+
+.form-block
+  display: flex
+  flex-direction: column
+
+// --------------------------------------------
+
+// ----------------- fields -------------------
+
+.row
+  display: flex
+  flex-direction: column
+  margin-bottom: 5px
+
+.value
+  width: 100%
+
+  & input
+    padding: 5px
+    width: 100%
+
+    &:hover
+      box-shadow: 0 0 3px 3px $light-blue
+
+    &:focus
+      box-shadow: 0 0 5px 0 $blue
+      border-color: $dark-blue
+
+    &.error
+      color: $red
+
+      box-shadow: 0 0 5px 0 $red
+      border-color: $red
+
+.label
+  width: 100%
+  padding-right: 5px
+
+  &::after
+    content: ":"
+
+  &.error
+    color: $red
+
+.row--nowrap
+  flex-direction: row
+  align-items: center
+
+.value--nowrap
+  width: 60%
+
+.label--nowrap
+  width: 40%
+
+  text-align: right
 
 // --------------------------------------------

@@ -1,10 +1,15 @@
 import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
 import {CarListData} from './car-list-data';
-import Controller from '../controller';
 import App from '../app'
+import {ViewType} from '../util';
+import Controller from '../controller';
 
 export default class CarListController extends Controller {
+    constructor(viewState: ViewType) {
+        super(viewState);
+    }
+
     public init(): void {
         const carListModel: CarListModel = new CarListModel();
         const data: Array<CarListData> = carListModel.data;
@@ -17,7 +22,11 @@ export default class CarListController extends Controller {
         }
     }
 
-    protected bind(): void {
+    public resize(viewState: ViewType): void {
+
+    }
+
+    private bind(): void {
         const carLinks: NodeListOf<HTMLHRElement> = document.querySelectorAll(`.content-link`);
 
         if (carLinks.length > 0) {

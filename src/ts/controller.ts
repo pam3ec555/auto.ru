@@ -1,9 +1,9 @@
-export default abstract class Controller {
-    public init(): void {
-        throw new Error(`You have to define init your module`);
-    }
+import {ViewType} from './util';
 
-    protected bind(): void {
+export default class Controller {
+    protected viewState: ViewType;
 
+    constructor(viewState: ViewType) {
+        this.viewState = viewState;
     }
 }

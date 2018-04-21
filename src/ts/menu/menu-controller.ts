@@ -1,9 +1,12 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
-import Controller from '../controller';
-import {toggleOverlay} from '../util';
+import {MenuType, toggleOverlay, ViewType} from '../util';
 import {MenuData} from './menu-data';
 import App from '../app';
+import Controller from '../controller';
+
+const appWrap: HTMLElement = document.querySelector(`#app`);
+const innerBlock: HTMLElement = document.querySelector(`#inner`);
 
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
@@ -23,19 +26,57 @@ const showMenu = (): void => {
     }
 };
 
+const clearHeader = (): void => {
+    const header = document.querySelector(`header`);
+    const searchInput = document.querySelector(`#search-input`);
+
+    if (header) {
+        header.remove();
+    }
+
+    if (searchInput) {
+        searchInput.remove();
+    }
+};
+
+const clearMobileMenu = (): void => {
+    const mobileMenu = document.querySelector(`#mobile-menu`);
+
+    if (mobileMenu) {
+        mobileMenu.remove();
+    }
+};
+
 export default class MenuController extends Controller {
     private data: MenuData;
+    private menuModel: MenuModel;
+    private menuType: MenuType;
+
+    constructor(viewState: ViewType, menuType: MenuType) {
+        super(viewState);
+        this.menuType = menuType;
+    }
 
     public init(): void {
-        const menuModel: MenuModel = new MenuModel();
-        this.data = menuModel.data;
-        const appWrap: HTMLElement = document.querySelector(`#app`);
-        const menuView = new MenuView(this.data);
+        this.menuModel = new MenuModel();
+        this.data = this.menuModel.data;
+        const menuView = new MenuView(this.data, this.viewState, this.menuType);
         appWrap.appendChild(menuView.render());
         this.bind();
     }
 
-    protected bind(): void {
+    public resize(viewState: ViewType): void {
+        const menuView = new MenuView(this.data, viewState, this.menuType);
+    }
+
+    public changeMenuType(menuType: MenuType): void {
+        const menuView = new MenuView(this.data, this.viewState, menuType);
+        clearHeader();
+        clearMobileMenu();
+        appWrap.insertBefore(menuView.render(), innerBlock);
+    }
+
+    private bind(): void {
         const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
         const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);

@@ -1,7 +1,12 @@
-import Controller from '../controller';
 import LoginView from './login-view';
+import {ViewType} from '../util';
+import Controller from '../controller';
 
 export default class LoginController extends Controller {
+    constructor(viewState: ViewType) {
+        super(viewState);
+    }
+
     public init(): void {
         const loginView: LoginView = new LoginView();
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
@@ -12,7 +17,11 @@ export default class LoginController extends Controller {
         }
     }
 
-    protected bind():void {
+    public resize(viewState: ViewType): void {
+
+    }
+
+    private bind():void {
         //Todo login form events
     }
 }

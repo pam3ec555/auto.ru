@@ -1,23 +1,23 @@
 import View from '../view';
 
 const drawLogin = (): string => {
-    return `<div class="login-page">
-  <h2 class="login-page__title">Вход</h2>
-  <div class="login-page__form">
-      <div class="login-page__row">
-        <label for="login" class="login-page__label">Логин</label>
-        <div class="login-page__val">
+    return `<div class="form-block outer-block">
+  <h2 class="title">Вход</h2>
+  <div class="form">
+      <div class="row">
+        <label for="login" class="label">Логин</label>
+        <div class="value">
           <input type="text" id="login">
         </div>
       </div>
-      <div class="login-page__row">
-        <label for="password" class="login-page__label">Пароль</label>
-        <div class="login-page__val">
+      <div class="row">
+        <label for="password" class="label">Пароль</label>
+        <div class="value">
           <input type="password" id="password">
         </div>
       </div>
-      <button type="button" class="login-page__submit" id="submit">Войти</button>
   </div>
+  <button type="button" class="submit" id="submit">Войти</button>
 </div>`;
 };
 

@@ -1,71 +1,101 @@
 import View from '../view';
 
 const drawAddingPost = (): string => {
-    return `<div class="add-post">
-  <h2 class="add-post__title">Добавление</h2>
-  <div class="add-post__form">
-    <div class="add-post__row">
-      <span class="add-post__label">Марка автомобиля</span>
-      <div class="add-post__address"></div>
+    return `<div class="form-block outer-block">
+  <h2 class="title">Добавление</h2>
+  <div class="form">
+    <div class="row">
+      <span class="label">Марка автомобиля</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Модель автомобиля</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Модель автомобиля</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Кузов</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Кузов</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Объем двигателя</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Объем двигателя</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Мощность двигателя</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Мощность двигателя</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Тип двигателя</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Тип двигателя</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Коробка</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Коробка</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Привод</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Привод</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Руль</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Руль</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Состояние</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Состояние</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">ПТС</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">ПТС</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Владельцы</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Владельцы</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Год выпуска</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Год выпуска</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Пробег</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Пробег</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <div class="add-post__row">
-      <span class="add-post__label">Цвет</span>
-      <div class="add-post__address"></div>
+    <div class="row">
+      <span class="label">Цвет</span>
+      <div class="value">
+        <input type="text">
+      </div>
     </div>
-    <button type="button" class="add-post__submit" id="submit">Добавить</button>
   </div>
+  <button type="button" class="submit" id="submit">Добавить</button>
 </div>`
 };
 
