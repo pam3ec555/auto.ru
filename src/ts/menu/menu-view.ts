@@ -35,7 +35,7 @@ const drawNav = (data: Array<NavData>): string => {
 </ul>`;
 };
 
-const drawMobileHeader = (viewState: ViewType, menuType: MenuType): string => {
+const drawMobileHeader = (menuType: MenuType): string => {
     const leftBtn = (menuType === MenuType.LIST) ? `<button type="button" class="hamburger" id="menu-show">
   <div class="hamburger__inner"></div>
 </button>` : `<a href="#" class="back-btn" id="back-btn">
@@ -52,7 +52,15 @@ const drawMobileHeader = (viewState: ViewType, menuType: MenuType): string => {
 ${searchInput}`;
 };
 
-const drawMobileMenu = (data: MenuData, viewState: ViewType, menuType: MenuType): string => {
+const drawDesktopHeader = (data: MenuData): string => {
+    return `<header class="outer-block">
+  ${drawLogo()}
+  ${drawNav(data.navData)}
+  ${drawLog(data.userData)}
+</header>`;
+};
+
+const drawMobileMenu = (data: MenuData, menuType: MenuType): string => {
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
@@ -60,9 +68,24 @@ const drawMobileMenu = (data: MenuData, viewState: ViewType, menuType: MenuType)
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>` : ``;
 
-    return `${drawMobileHeader(viewState, menuType)}
+    return `${drawMobileHeader(menuType)}
 ${menu}
 <main class="inner" id="inner"></main>`;
+};
+
+const drawDesktopMenu = (data: MenuData, menuType: MenuType): string => {
+    const searchInput = (menuType === MenuType.LIST) ? `<input type="text" class="search-input" id="search-input">` : ``;
+    const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results"></div>` : ``;
+
+    return `${drawDesktopHeader(data)}
+<div class="menu">
+  <div class="sort"></div>
+  <div class="content-block">
+    ${searchInput}
+    ${sortResults}
+    <div class="inner" id="inner"></div>
+  </div>
+</div>`;
 };
 
 export default class MenuView extends View {
@@ -76,6 +99,14 @@ export default class MenuView extends View {
     }
 
     protected get template(): string {
-        return drawMobileMenu(this.data, this.viewState, this.menuType);
+        let template = ``;
+
+        if (this.viewState === ViewType.DESKTOP) {
+            template = drawDesktopMenu(this.data, this.menuType);
+        } else {
+            template = drawMobileMenu(this.data, this.menuType);
+        }
+
+        return template;
     }
 }
