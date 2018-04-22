@@ -89,10 +89,10 @@ class App {
         this.changeController(getControllerIDFromHash(location.hash));
 
         window.addEventListener(`hashchange`, () => {
-            this.changeController(getControllerIDFromHash(location.hash));
             if (this.viewState !== ViewType.DESKTOP) {
                 this.menu.changeMenuType(getMenuType());
             }
+            this.changeController(getControllerIDFromHash(location.hash));
         });
 
         let timeout = 0;

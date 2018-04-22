@@ -6,7 +6,6 @@ import App from '../app';
 import Controller from '../controller';
 
 const appWrap: HTMLElement = document.querySelector(`#app`);
-const innerBlock: HTMLElement = document.querySelector(`#inner`);
 
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
@@ -23,27 +22,6 @@ const showMenu = (): void => {
     if (menu) {
         menu.classList.remove(`m-menu--hidden`);
         toggleOverlay(true);
-    }
-};
-
-const clearHeader = (): void => {
-    const header = document.querySelector(`header`);
-    const searchInput = document.querySelector(`#search-input`);
-
-    if (header) {
-        header.remove();
-    }
-
-    if (searchInput) {
-        searchInput.remove();
-    }
-};
-
-const clearMobileMenu = (): void => {
-    const mobileMenu = document.querySelector(`#mobile-menu`);
-
-    if (mobileMenu) {
-        mobileMenu.remove();
     }
 };
 
@@ -70,91 +48,134 @@ export default class MenuController extends Controller {
     }
 
     public changeMenuType(menuType: MenuType): void {
+        this.bind(false);
         const menuView = new MenuView(this.data, this.viewState, menuType);
-        clearHeader();
-        clearMobileMenu();
-        appWrap.insertBefore(menuView.render(), innerBlock);
+        appWrap.innerHTML = ``;
+        appWrap.appendChild(menuView.render());
+        this.bind();
     }
 
-    private bind(): void {
+    private bind(bind: boolean = true): void {
         const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
         const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
         const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
         const addPostBtn: HTMLHRElement = document.querySelector(`#add-post`);
+        const backBtn: HTMLHRElement = document.querySelector(`#back-btn`);
 
         if (menuShowBtn) {
-            menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
+            if (bind) {
+                menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
+            } else {
+                menuShowBtn.removeEventListener(`click`, this.onMenuShowClick);
+            }
         }
 
         if (menuHideBtn) {
-            menuHideBtn.addEventListener(`click`, this.onMenuHideClick);
+            if (bind) {
+                menuHideBtn.addEventListener(`click`, this.onMenuHideClick);
+            } else {
+                menuHideBtn.removeEventListener(`click`, this.onMenuHideClick);
+            }
         }
 
         if (searchBtn && searchInput) {
-            searchBtn.addEventListener(`click`, this.onSearchToggle);
-            searchInput.addEventListener(`blur`, this.onSearchToggle);
+            if (bind) {
+                searchBtn.addEventListener(`click`, this.onSearchToggle);
+                searchInput.addEventListener(`blur`, this.onSearchToggle);
+            } else {
+                searchBtn.removeEventListener(`click`, this.onSearchToggle);
+                searchInput.removeEventListener(`blur`, this.onSearchToggle);
+            }
         }
 
         if (addPostBtn) {
-            addPostBtn.addEventListener(`click`, this.onAddPostClick);
+            if (bind) {
+                addPostBtn.addEventListener(`click`, this.onAddPostClick);
+            } else {
+                addPostBtn.removeEventListener(`click`, this.onAddPostClick);
+            }
         }
 
-        this.initLogLinks();
+        if (backBtn) {
+            if (bind) {
+                backBtn.addEventListener(`click`, this.onBackClick);
+            } else {
+                backBtn.removeEventListener(`click`, this.onBackClick);
+            }
+        }
+
+        this.bindLogLinks(bind);
     }
 
-    private initLogLinks(): void {
+    private bindLogLinks(bind: boolean = true): void {
         if (Object.keys(this.data.userData).length !== 0) {
             const logoutBtn: HTMLButtonElement = document.querySelector(`#log-out`);
 
             if (logoutBtn) {
-                logoutBtn.addEventListener(`click`, this.onLogoutClick)
+                if (bind) {
+                    logoutBtn.addEventListener(`click`, this.onLogoutClick)
+                } else {
+                    logoutBtn.removeEventListener(`click`, this.onLogoutClick)
+                }
             }
         } else {
             const loginBtn: HTMLHRElement = document.querySelector(`#log-in`);
             const signUpBtn: HTMLHRElement = document.querySelector(`#sign-up`);
 
             if (loginBtn) {
-                loginBtn.addEventListener(`click`, this.onLoginClick);
+                if (bind) {
+                    loginBtn.addEventListener(`click`, this.onLoginClick);
+                } else {
+                    loginBtn.removeEventListener(`click`, this.onLoginClick);
+                }
             }
 
             if (signUpBtn) {
-                signUpBtn.addEventListener(`click`, this.onSignUpClick);
+                if (bind) {
+                    signUpBtn.addEventListener(`click`, this.onSignUpClick);
+                } else {
+                    signUpBtn.removeEventListener(`click`, this.onSignUpClick);
+                }
             }
         }
     }
 
-    private onLogoutClick(): void {
+    private onLogoutClick = (): void => {
         //Todo make logout
-    }
+    };
 
-    private onAddPostClick(e: Event): void {
+    private onAddPostClick = (e: Event): void => {
         e.preventDefault();
         App.showAddingPost();
         hideMenu();
-    }
+    };
 
-    private onLoginClick(e: Event): void {
+    private onLoginClick = (e: Event): void => {
         e.preventDefault();
         App.showLogin();
         hideMenu();
-    }
+    };
 
-    private onSignUpClick(e: Event): void {
+    private onSignUpClick = (e: Event): void => {
         e.preventDefault();
         App.showRegistry();
         hideMenu();
-    }
+    };
 
-    private onMenuHideClick(): void {
+    private onMenuHideClick = (): void => {
         hideMenu();
-    }
+    };
 
-    private onMenuShowClick(): void {
+    private onMenuShowClick = (): void => {
         showMenu();
-    }
+    };
 
-    private onSearchToggle(): void {
+    private onBackClick = (): void => {
+        history.back();
+    };
+
+    private onSearchToggle = (): void => {
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
         const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
 

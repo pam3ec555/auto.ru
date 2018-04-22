@@ -17,13 +17,15 @@ const drawCard = (data: CarListData): string => {
 };
 
 const drawCarList = (data: Array<CarListData>): string => {
-    let carList: string = ``;
+    let carList: string = `<div class="content">`;
 
     if (data.length > 0) {
         data.forEach((carData: CarListData) => {
              carList += drawCard(carData);
         });
     }
+
+    carList += `</div>`;
 
     return carList;
 };

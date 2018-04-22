@@ -36,14 +36,16 @@ const drawNav = (data: Array<NavData>): string => {
 };
 
 const drawMobileHeader = (viewState: ViewType, menuType: MenuType): string => {
-    const hamburger = (menuType === MenuType.LIST) ? `<button type="button" class="hamburger" id="menu-show">
-    <div class="hamburger__inner"></div>
-  </button>` : ``;
-    const searchBtn = (menuType === MenuType.LIST) ? `<button type="button" class="search-btn" id="search-btn"></button>` : ``;
+    const leftBtn = (menuType === MenuType.LIST) ? `<button type="button" class="hamburger" id="menu-show">
+  <div class="hamburger__inner"></div>
+</button>` : `<a href="#" class="back-btn" id="back-btn">
+  <div class="back-btn__inner"></div>
+</a>`;
+    const searchBtn = (menuType === MenuType.LIST) ? `<button type="button" class="search-btn" id="search-btn"></button>` : `<span class="empty empty--header-btn"></span>`;
     const searchInput = (menuType === MenuType.LIST) ? `<input type="text" class="search-input search-input--hidden" id="search-input">` : ``;
 
     return `<header class="outer-block">
-  ${hamburger}
+  ${leftBtn}
   ${drawLogo()}
   ${searchBtn}
 </header>

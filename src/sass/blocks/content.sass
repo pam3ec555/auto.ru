@@ -1,3 +1,9 @@
+.content
+  display: grid
+  grid-template-columns: auto
+  grid-gap: 20px
+  justify-content: center
+
 .content__item
   width: calc(100% - 20px)
   max-width: 300px
@@ -24,3 +30,10 @@
 .content__mileage
   &::after
     content: " км"
+
+@media (min-width: $tablet)
+  .content
+    grid-template-columns: auto auto
+
+  .content__item
+    width: 100%

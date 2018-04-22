@@ -71,6 +71,51 @@
 
 // --------------------------------------------
 
+// --------------- back-button ----------------
+
+.back-btn
+  position: relative
+
+  width: 30px
+  height: 30px
+
+.back-btn__inner,
+.back-btn__inner::before,
+.back-btn__inner::after
+  position: absolute
+
+  height: 4px
+
+  background-color: $blue
+  border-radius: 2px
+
+.back-btn__inner
+  top: 50%
+  left: 50%
+
+  width: 80%
+  margin-left: -40%
+  margin-top: -2px
+
+  &::before,
+  &::after
+    content: ""
+
+    width: 50%
+    display: block
+
+  &::before
+    top: 4px
+
+    transform: rotate(45deg)
+
+  &::after
+    top: -4px
+
+    transform: rotate(-45deg)
+
+// --------------------------------------------
+
 .overlay
   position: fixed
   top: 0
@@ -99,6 +144,10 @@
 
 .title
   color: $red
+
+.empty--header-btn
+  width: 32px
+  height: 32px
 
 // ----------------- search -------------------
 
@@ -152,6 +201,11 @@
 .form-block
   display: flex
   flex-direction: column
+  max-width: 500px
+  margin: 0 auto
+
+.group-wrap
+  max-width: 500px
 
 // --------------------------------------------
 

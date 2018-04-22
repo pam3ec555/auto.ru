@@ -5,7 +5,7 @@ const drawMobileCar = (data: CarData): string => {
     return `<div class="outer-block">
   <h2 class="title">${data.name}</h2>
   <div class="gallery"></div>
-  <div class="contacts">
+  <div class="group-wrap">
     <h3 class="group-title">Контактные данные</h3>
     <div class="row row--nowrap">
       <span class="label label--nowrap">Продавец</span>
@@ -24,7 +24,7 @@ const drawMobileCar = (data: CarData): string => {
       <span class="value value--nowrap">${data.contact.email}</span>
     </div>
   </div>
-  <div class="car__data">
+  <div class="group-wrap">
     <h3 class="group-title">Данные о машине</h3>
     <div class="row row--nowrap">
       <span class="label label--nowrap">Год выпуска</span>
@@ -75,7 +75,7 @@ const drawMobileCar = (data: CarData): string => {
       <span class="value value--nowrap">${data.originalPTS}</span>
     </div>
   </div>
-  <div class="car__descr-block">
+  <div class="group-wrap">
     <h3 class="group-title">Комментарий продавца</h3>
     <p class="car__descr">${data.description}</p>
   </div>

@@ -26,18 +26,23 @@ export default class CarListController extends Controller {
 
     }
 
-    private bind(): void {
+    private bind(bind: boolean = true): void {
         const carLinks: NodeListOf<HTMLHRElement> = document.querySelectorAll(`.content-link`);
 
         if (carLinks.length > 0) {
             [].slice.call(carLinks).forEach((item: HTMLHRElement) => {
-                 item.addEventListener(`click`, this.onCardClick)
+                if (bind) {
+                    item.addEventListener(`click`, this.onCardClick);
+                } else {
+                    item.removeEventListener(`click`, this.onCardClick);
+                }
             });
         }
     }
 
-    private onCardClick(e: Event): void {
+    private onCardClick = (e: Event): void => {
         e.preventDefault();
+        this.bind(false);
         App.showCar();
     }
 }
