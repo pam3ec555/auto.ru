@@ -45,5 +45,5 @@ export enum ViewType {
 
 export enum ViewTypeWidths {
     TABLET = 768,
-    DESKTOP = 1000
+    DESKTOP = 1200
 }

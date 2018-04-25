@@ -1,13 +1,20 @@
 import View from '../view';
 import {MenuData, NavData, UserData} from './menu-data';
-import {logo} from '../images'
-import {MenuType, toggleOverlay, ViewType} from '../util';
+import {logo} from '../images';
+import {MenuType, ViewType} from '../util';
 import {userData} from '../data';
 
 const drawLogo = (): string => {
     return `<div class="logo">
   <img src="${logo}" alt="Car">
 </div>`;
+};
+
+const drawDesktopGuest = (): string => {
+    return `<p>
+  <a href="#" class="login__log-in" id="log-in">Войти</a> или
+  <a href="#" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
+</p>`;
 };
 
 const drawGuest = ():string => {
@@ -53,10 +60,16 @@ ${searchInput}`;
 };
 
 const drawDesktopHeader = (data: MenuData): string => {
+    const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawDesktopGuest();
+
     return `<header class="outer-block">
-  ${drawLogo()}
-  ${drawNav(data.navData)}
-  ${drawLog(data.userData)}
+  <div class="container">
+    <div class="flex">
+      ${drawLogo()}
+      ${drawNav(data.navData)}
+    </div>
+    ${loginView}
+  </div>
 </header>`;
 };
 
@@ -74,11 +87,14 @@ ${menu}
 };
 
 const drawDesktopMenu = (data: MenuData, menuType: MenuType): string => {
-    const searchInput = (menuType === MenuType.LIST) ? `<input type="text" class="search-input" id="search-input">` : ``;
+    const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap">
+  <input type="text" class="search-input" id="search-input">
+  <div class="search-input__border"></div>
+</div>` : ``;
     const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results"></div>` : ``;
 
     return `${drawDesktopHeader(data)}
-<div class="menu">
+<div class="menu container">
   <div class="sort"></div>
   <div class="content-block">
     ${searchInput}

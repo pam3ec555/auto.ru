@@ -149,7 +149,25 @@
   width: 32px
   height: 32px
 
+.flex
+  display: flex
+  align-items: center
+
 // ----------------- search -------------------
+
+.search-input__wrap
+  position: relative
+
+.search-input__border
+  position: absolute
+  bottom: 0
+  z-index: 2
+
+  height: 2px
+  width: 0
+  background-color: $red
+
+  transition: all 0.3s
 
 .search-input
   position: fixed
@@ -259,3 +277,27 @@
   text-align: right
 
 // --------------------------------------------
+
+@media (min-width: $desktop)
+  .container
+    width: $desktop
+    margin: 0 auto
+
+  .inner
+    margin: 0
+    width: 940px
+    padding: 20px 0
+
+  .search-input
+    position: relative
+    top: 0
+
+    padding-bottom: 1px
+
+    border-bottom: 1px solid $dark-blue
+
+    &:focus
+      box-shadow: none
+
+      &+.search-input__border
+        width: 100%
