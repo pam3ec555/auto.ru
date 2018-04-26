@@ -73,7 +73,8 @@ const drawDesktopHeader = (data: MenuData): string => {
 </header>`;
 };
 
-const drawMobileMenu = (data: MenuData, menuType: MenuType): string => {
+const drawMobileMenu = (data: MenuData, menuType: MenuType, resize: boolean): string => {
+    const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
@@ -83,44 +84,43 @@ const drawMobileMenu = (data: MenuData, menuType: MenuType): string => {
 
     return `${drawMobileHeader(menuType)}
 ${menu}
-<main class="inner" id="inner"></main>`;
+${inner}`;
 };
 
-const drawDesktopMenu = (data: MenuData, menuType: MenuType): string => {
-    const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap">
+const drawDesktopMenu = (data: MenuData, menuType: MenuType, resize: boolean): string => {
+    const inner = (!resize) ? `<div class="inner" id="inner"></div>` : ``;
+    const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap" id="search-wrap">
   <input type="text" class="search-input" id="search-input">
   <div class="search-input__border"></div>
 </div>` : ``;
-    const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results"></div>` : ``;
+    const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results" id="sort-results"></div>` : ``;
 
     return `${drawDesktopHeader(data)}
-<div class="menu container">
-  <div class="sort"></div>
-  <div class="content-block">
-    ${searchInput}
-    ${sortResults}
-    <div class="inner" id="inner"></div>
-  </div>
-</div>`;
+<div class="sort" id="sort"></div>
+${searchInput}
+${sortResults}
+${inner}`;
 };
 
 export default class MenuView extends View {
     private viewState: ViewType;
     private menuType: MenuType;
+    private resize: boolean;
 
-    constructor(data: MenuData, viewState: ViewType, menuType: MenuType) {
+    constructor(data: MenuData, viewState: ViewType, menuType: MenuType, resize: boolean = false) {
         super(data);
         this.viewState = viewState;
         this.menuType = menuType;
+        this.resize = resize;
     }
 
     protected get template(): string {
         let template = ``;
 
         if (this.viewState === ViewType.DESKTOP) {
-            template = drawDesktopMenu(this.data, this.menuType);
+            template = drawDesktopMenu(this.data, this.menuType, this.resize);
         } else {
-            template = drawMobileMenu(this.data, this.menuType);
+            template = drawMobileMenu(this.data, this.menuType, this.resize);
         }
 
         return template;

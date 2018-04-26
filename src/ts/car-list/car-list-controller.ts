@@ -6,14 +6,16 @@ import {ViewType} from '../util';
 import Controller from '../controller';
 
 export default class CarListController extends Controller {
+    private carsData: Array<CarListData>;
+
     constructor(viewState: ViewType) {
         super(viewState);
     }
 
     public init(): void {
         const carListModel: CarListModel = new CarListModel();
-        const data: Array<CarListData> = carListModel.data;
-        const carListView: CarListView = new CarListView(data);
+        this.carsData = carListModel.data;
+        const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {

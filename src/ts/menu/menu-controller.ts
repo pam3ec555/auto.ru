@@ -25,6 +25,27 @@ const showMenu = (): void => {
     }
 };
 
+const removeElems = (...elems: any[]): void => {
+    (<any>Array).from(elems).forEach((elem: any) => {
+        if (elem) {
+            elem.remove();
+        }
+    });
+};
+
+const removeMenuElems = (viewState: ViewType): void => {
+    removeElems(document.querySelector(`header`))
+
+    if (viewState === ViewType.DESKTOP) {
+        removeElems(document.querySelector(`#mobile-menu`),
+                    document.querySelector(`#search-input`));
+    } else {
+        removeElems(document.querySelector(`#sort`),
+                    document.querySelector(`#search-wrap`),
+                    document.querySelector(`#sort-results`))
+    }
+};
+
 export default class MenuController extends Controller {
     private data: MenuData;
     private menuModel: MenuModel;
@@ -44,7 +65,12 @@ export default class MenuController extends Controller {
     }
 
     public resize(viewState: ViewType): void {
-        const menuView = new MenuView(this.data, viewState, this.menuType);
+        this.bind(false);
+        toggleOverlay(false);
+        removeMenuElems(viewState);
+        // Todo make restore menu elems after remove
+        const menuView: MenuView = new MenuView(this.data, viewState, this.menuType);
+        this.bind();
     }
 
     public changeMenuType(menuType: MenuType): void {
