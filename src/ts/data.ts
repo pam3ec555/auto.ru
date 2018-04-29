@@ -1,9 +1,9 @@
-import {NavData, UserData} from './menu/menu-data';
-import {CarListData} from './car-list/car-list-data';
-import {photo1} from './images';
-import {CarData, Contact, Engine} from './car/car-data';
+import {INavData, IUserData} from './menu/menu';
+import {ICarList} from './car-list/car-list';
+import {photo1, photo2, photo3} from './images';
+import {ICar} from './car/car';
 
-export const navData: Array<NavData> = [
+export const navData: Array<INavData> = [
     {
         link: `#`,
         name: `Добавить объявление`,
@@ -11,11 +11,11 @@ export const navData: Array<NavData> = [
     }
 ];
 
-export const userData: UserData = {
+export const userData: IUserData = {
 
 };
 
-export const cars: Array<CarListData> = [
+export const cars: Array<ICarList> = [
     {
         name: `car1`,
         price: 100000,
@@ -42,14 +42,16 @@ export const cars: Array<CarListData> = [
     }
 ];
 
-export const car: CarData = {
+export const car: ICar = {
     name: `car1`,
     price: 100000,
     mileage: 100000,
     year: 2011,
     ownerCount: 1,
     photos: [
-        photo1
+        photo1,
+        photo2,
+        photo3
     ],
     description: `best car`,
     city: `Казань`,

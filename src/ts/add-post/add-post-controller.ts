@@ -15,8 +15,4 @@ export default class AddPostController extends Controller {
             contentBlock.appendChild(addPostView.render());
         }
     }
-
-    public resize(viewState: ViewType): void {
-
-    }
 }

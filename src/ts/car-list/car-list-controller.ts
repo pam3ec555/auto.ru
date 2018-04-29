@@ -1,12 +1,12 @@
 import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
-import {CarListData} from './car-list-data';
+import {ICarList} from './car-list';
 import App from '../app'
 import {ViewType} from '../util';
 import Controller from '../controller';
 
 export default class CarListController extends Controller {
-    private carsData: Array<CarListData>;
+    private carsData: Array<ICarList>;
 
     constructor(viewState: ViewType) {
         super(viewState);
@@ -24,15 +24,11 @@ export default class CarListController extends Controller {
         }
     }
 
-    public resize(viewState: ViewType): void {
-
-    }
-
     private bind(bind: boolean = true): void {
         const carLinks: NodeListOf<HTMLHRElement> = document.querySelectorAll(`.content-link`);
 
         if (carLinks.length > 0) {
-            [].slice.call(carLinks).forEach((item: HTMLHRElement) => {
+            (<any>Array).from(carLinks).forEach((item: HTMLHRElement): void => {
                 if (bind) {
                     item.addEventListener(`click`, this.onCardClick);
                 } else {

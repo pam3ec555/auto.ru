@@ -7,6 +7,7 @@ import RegistryController from './registry/registry-controller';
 import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
+import Timer = NodeJS.Timer;
 
 enum ControllerID {
     CAR_LIST = '',
@@ -68,17 +69,11 @@ class App {
         this.routes[route].init();
     }
 
-    private resizeView(route: string = ``): void {
-        this.routes[route].resize(this.viewState);
-    }
-
     private calcViewState(): void {
-        if (window.innerWidth < ViewTypeWidths.TABLET) {
-            this.viewState = ViewType.MOBILE;
-        } else if (window.innerWidth >= ViewTypeWidths.DESKTOP) {
+        if (window.innerWidth >= ViewTypeWidths.DESKTOP) {
             this.viewState = ViewType.DESKTOP;
         } else {
-            this.viewState = ViewType.TABLET;
+            this.viewState = ViewType.MOBILE;
         }
     }
 
@@ -89,14 +84,12 @@ class App {
         this.changeController(getControllerIDFromHash(location.hash));
 
         window.addEventListener(`hashchange`, () => {
-            if (this.viewState !== ViewType.DESKTOP) {
-                this.menu.changeMenuType(getMenuType());
-            }
+            this.menu.changeMenuType(getMenuType(), this.viewState);
             this.changeController(getControllerIDFromHash(location.hash));
         });
 
-        let timeout = 0;
-        const RESIZE_TIMEOUT = 100;
+        let timeout: Timer;
+        const RESIZE_TIMEOUT: number = 100;
         window.addEventListener(`resize`, () => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
@@ -104,7 +97,6 @@ class App {
                 this.calcViewState();
                 if (prevViewState !== this.viewState) {
                     this.menu.resize(this.viewState);
-                    this.resizeView(getControllerIDFromHash(location.hash));
                 }
             }, RESIZE_TIMEOUT);
         });

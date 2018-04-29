@@ -19,8 +19,16 @@ export default abstract class View {
         }
     }
 
-    public render(): HTMLElement {
-        this.clearInner();
+    /**
+     * Render template
+     * @param {boolean} clean - clean inner
+     * @returns {DocumentFragment}
+     */
+    public render(clean: boolean = true): DocumentFragment {
+        if (clean) {
+            this.clearInner();
+        }
+
         return createElement(this.template);
     }
 }

@@ -1,4 +1,4 @@
-export interface CarListData {
+export interface ICarList {
     readonly name: string,
     readonly price: number,
     readonly mileage: number,

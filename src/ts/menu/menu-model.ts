@@ -1,13 +1,13 @@
 import {navData, userData} from '../data';
-import {MenuData} from './menu-data';
+import {IMenu} from './menu';
 
 export default class MenuModel {
-    private menuData: MenuData = {
+    private menuData: IMenu = {
         navData,
         userData
     };
 
-    public get data(): MenuData {
+    public get data(): IMenu {
         return this.menuData;
     }
 }

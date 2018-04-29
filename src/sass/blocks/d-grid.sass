@@ -1,38 +1,47 @@
 // Grid setting for desktop width`s of app
 
 @media (min-width: $desktop)
-  #app
-    &>.wrapper
-      display: grid
-      grid-template-rows: 50px 30px 20px minmax(calc(100vh - 100px), auto)
-      grid-template-columns: auto 260px 940px auto
-      grid-template-areas: "header header header header" ". sort search ." ". sort sort-results ." ". sort inner ."
-
-  header
-    grid-area: header
-
-  .sort
-    grid-area: sort
+  .inner
+    margin: 0 auto
+    padding: 20px 0
+    width: $desktop
 
     background-color: #fff
     border-right: 1px solid $dark-blue
     border-left: 1px solid $dark-blue
 
-  .search-input__wrap
-    grid-area: search
+  .app--main
+    display: grid
+    grid-template-rows: 50px 30px 20px minmax(calc(100vh - 100px), auto)
+    grid-template-columns: auto 260px 940px auto
+    grid-template-areas: "header header header header" ". sort search ." ". sort sort-results ." ". sort inner ."
 
-    background-color: #fff
-    border-right: 1px solid $dark-blue
+    & header
+      grid-area: header
 
-  .sort-results
-    grid-area: sort-results
+    & .sort
+      grid-area: sort
 
-    background-color: #fff
-    border-right: 1px solid $dark-blue
-    border-bottom: 1px solid $dark-blue
+      background-color: #fff
+      border-right: 1px solid $dark-blue
+      border-left: 1px solid $dark-blue
 
-  .inner
-    grid-area: inner
+    & .search-input__wrap
+      grid-area: search
 
-    background-color: #fff
-    border-right: 1px solid $dark-blue
+      background-color: #fff
+      border-right: 1px solid $dark-blue
+
+    & .sort-results
+      grid-area: sort-results
+
+      background-color: #fff
+      border-right: 1px solid $dark-blue
+      border-bottom: 1px solid $dark-blue
+
+    & .inner
+      grid-area: inner
+      width: 940px
+      margin: 0
+
+      border-left: none

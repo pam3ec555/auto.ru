@@ -1,10 +1,10 @@
-import {CarData} from './car-data';
+import {ICar} from './car';
 import {car} from '../data';
 
 export default class CarModel {
-    private carData: CarData = car;
+    private carData: ICar = car;
 
-    public get data(): CarData {
+    public get data(): ICar {
         return this.carData;
     }
 }

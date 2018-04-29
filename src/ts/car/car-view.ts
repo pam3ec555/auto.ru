@@ -1,7 +1,19 @@
 import View from '../view';
-import {CarData} from './car-data';
+import {ICar} from './car';
 
-const drawMobileCar = (data: CarData): string => {
+const drawSliders = (images: Array<any>): string => {
+    let sliders: string = `<ul class="slides js_slides">`;
+    images.forEach((image: any): void => {
+        sliders += `<li class="js_slide"><img src="${image}" alt="Фото машины"></li>`
+    });
+    sliders += `</ul>`;
+
+    return sliders;
+}
+
+const drawMobileCar = (data: ICar): string => {
+    const sliders: string = drawSliders(data.photos);
+
     return `<div class="outer-block">
   <h2 class="title">${data.name}</h2>
   <div class="gallery"></div>
@@ -79,11 +91,18 @@ const drawMobileCar = (data: CarData): string => {
     <h3 class="group-title">Комментарий продавца</h3>
     <p class="car__descr">${data.description}</p>
   </div>
+  <div class="slider js_slider">
+    <div class="frame js_frame">
+      ${sliders}
+    </div>
+  </div>
 </div>`;
 };
 
+//Todo add buttons for slider and make styles for it
+
 export default class CarView extends View {
-    constructor(data: CarData) {
+    constructor(data: ICar) {
         super(data);
     }
 

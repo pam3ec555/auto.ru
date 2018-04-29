@@ -1,8 +1,12 @@
-export const createElement = (template: string): HTMLElement => {
-    const outer: HTMLElement = document.createElement(`DIV`);
-    outer.className = `wrapper`;
-    outer.innerHTML = template;
-    return outer;
+export const createElement = (template: string): DocumentFragment => {
+    const frag: DocumentFragment = document.createDocumentFragment();
+    const emptyElem: HTMLElement = document.createElement(`DIV`);
+    emptyElem.innerHTML = template;
+    (<any>Array).from(emptyElem.childNodes).forEach((child: HTMLElement): void => {
+         frag.appendChild(child);
+    });
+
+    return frag;
 };
 
 export const toggleOverlay = (show: boolean): void => {
@@ -39,11 +43,11 @@ export enum MenuType {
 
 export enum ViewType {
     MOBILE = 0,
-    TABLET = 1,
-    DESKTOP = 2
+    DESKTOP = 1
 }
 
 export enum ViewTypeWidths {
-    TABLET = 768,
     DESKTOP = 1200
 }
+
+export const appWrap: HTMLElement = document.querySelector(`#app`);

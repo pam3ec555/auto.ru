@@ -1,17 +1,4 @@
-export interface Engine {
-    readonly volume: number,
-    readonly power: number,
-    readonly type: string
-}
-
-export interface Contact {
-    readonly name: string,
-    readonly phoneNum: number,
-    readonly address: string
-    readonly email: string
-}
-
-export interface CarData {
+export interface ICar {
     readonly name: string,
     readonly price: number,
     readonly mileage: number,
@@ -20,8 +7,17 @@ export interface CarData {
     readonly photos: Array<any>,
     readonly description: string,
     readonly city: string,
-    readonly contact: Contact,
-    readonly engine: Engine,
+    readonly contact: {
+        readonly name: string,
+        readonly phoneNum: number,
+        readonly address: string
+        readonly email: string
+    },
+    readonly engine: {
+        readonly volume: number,
+        readonly power: number,
+        readonly type: string
+    },
     readonly bodyType: string,
     readonly color: string,
     readonly boxTransmission: string,

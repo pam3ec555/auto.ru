@@ -17,10 +17,6 @@ export default class LoginController extends Controller {
         }
     }
 
-    public resize(viewState: ViewType): void {
-
-    }
-
     private bind():void {
         //Todo login form events
     }

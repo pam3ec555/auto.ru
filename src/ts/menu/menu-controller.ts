@@ -1,11 +1,9 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
-import {MenuType, toggleOverlay, ViewType} from '../util';
-import {MenuData} from './menu-data';
+import {MenuType, toggleOverlay, ViewType, appWrap} from '../util';
+import {IMenu} from './menu';
 import App from '../app';
 import Controller from '../controller';
-
-const appWrap: HTMLElement = document.querySelector(`#app`);
 
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
@@ -26,7 +24,7 @@ const showMenu = (): void => {
 };
 
 const removeElems = (...elems: any[]): void => {
-    (<any>Array).from(elems).forEach((elem: any) => {
+    (<any>Array).from(elems).forEach((elem: any): void => {
         if (elem) {
             elem.remove();
         }
@@ -34,7 +32,7 @@ const removeElems = (...elems: any[]): void => {
 };
 
 const removeMenuElems = (viewState: ViewType): void => {
-    removeElems(document.querySelector(`header`))
+    removeElems(document.querySelector(`header`));
 
     if (viewState === ViewType.DESKTOP) {
         removeElems(document.querySelector(`#mobile-menu`),
@@ -46,8 +44,16 @@ const removeMenuElems = (viewState: ViewType): void => {
     }
 };
 
+const setMenuTypeStatus = (menuType: MenuType) => {
+    if (menuType === MenuType.LIST) {
+        appWrap.classList.add(`app--main`);
+    } else {
+        appWrap.classList.remove(`app--main`);
+    }
+};
+
 export default class MenuController extends Controller {
-    private data: MenuData;
+    private data: IMenu;
     private menuModel: MenuModel;
     private menuType: MenuType;
 
@@ -61,24 +67,29 @@ export default class MenuController extends Controller {
         this.data = this.menuModel.data;
         const menuView = new MenuView(this.data, this.viewState, this.menuType);
         appWrap.appendChild(menuView.render());
+        setMenuTypeStatus(this.menuType);
         this.bind();
     }
 
     public resize(viewState: ViewType): void {
+        this.viewState = viewState;
         this.bind(false);
         toggleOverlay(false);
         removeMenuElems(viewState);
-        // Todo make restore menu elems after remove
-        const menuView: MenuView = new MenuView(this.data, viewState, this.menuType);
+        const menuView: MenuView = new MenuView(this.data, viewState, this.menuType, true);
+        appWrap.insertBefore(menuView.render(false), document.querySelector(`#inner`));
         this.bind();
     }
 
-    public changeMenuType(menuType: MenuType): void {
+    public changeMenuType(menuType: MenuType, viewState: ViewType): void {
+        this.menuType = menuType;
+        setMenuTypeStatus(this.menuType);
         this.bind(false);
         const menuView = new MenuView(this.data, this.viewState, menuType);
         appWrap.innerHTML = ``;
         appWrap.appendChild(menuView.render());
         this.bind();
+        this.viewState = viewState;
     }
 
     private bind(bind: boolean = true): void {

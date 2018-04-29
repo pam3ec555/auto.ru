@@ -17,10 +17,6 @@ export default class RegistryController extends Controller{
         this.bind();
     }
 
-    public resize(viewState: ViewType): void {
-
-    }
-
     private bind(): void {
         //Todo add events for registry
     }

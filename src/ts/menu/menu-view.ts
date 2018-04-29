@@ -1,5 +1,5 @@
 import View from '../view';
-import {MenuData, NavData, UserData} from './menu-data';
+import {MenuD, NavData, UserData} from './menu';
 import {logo} from '../images';
 import {MenuType, ViewType} from '../util';
 import {userData} from '../data';
@@ -32,7 +32,7 @@ const drawLog = (data: UserData): string => {
 const drawNav = (data: Array<NavData>): string => {
     let navItems: string = ``;
 
-    data.forEach((item: {link: string, name: string, id: string}) => {
+    data.forEach((item: {link: string, name: string, id: string}): void => {
          navItems += `<li class="nav__item">
   <a href="${item.link}" class="nav__link" id="${item.id}">${item.name}</a>
 </li>`;
@@ -59,7 +59,7 @@ const drawMobileHeader = (menuType: MenuType): string => {
 ${searchInput}`;
 };
 
-const drawDesktopHeader = (data: MenuData): string => {
+const drawDesktopHeader = (data: MenuD): string => {
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawDesktopGuest();
 
     return `<header class="outer-block">
@@ -73,7 +73,7 @@ const drawDesktopHeader = (data: MenuData): string => {
 </header>`;
 };
 
-const drawMobileMenu = (data: MenuData, menuType: MenuType, resize: boolean): string => {
+const drawMobileMenu = (data: MenuD, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
@@ -87,16 +87,17 @@ ${menu}
 ${inner}`;
 };
 
-const drawDesktopMenu = (data: MenuData, menuType: MenuType, resize: boolean): string => {
+const drawDesktopMenu = (data: MenuD, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<div class="inner" id="inner"></div>` : ``;
     const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap" id="search-wrap">
   <input type="text" class="search-input" id="search-input">
   <div class="search-input__border"></div>
 </div>` : ``;
     const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results" id="sort-results"></div>` : ``;
+    const sort = (menuType === MenuType.LIST) ? `<div class="sort" id="sort"></div>` : ``;
 
     return `${drawDesktopHeader(data)}
-<div class="sort" id="sort"></div>
+${sort}
 ${searchInput}
 ${sortResults}
 ${inner}`;
@@ -107,7 +108,7 @@ export default class MenuView extends View {
     private menuType: MenuType;
     private resize: boolean;
 
-    constructor(data: MenuData, viewState: ViewType, menuType: MenuType, resize: boolean = false) {
+    constructor(data: MenuD, viewState: ViewType, menuType: MenuType, resize: boolean = false) {
         super(data);
         this.viewState = viewState;
         this.menuType = menuType;
