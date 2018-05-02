@@ -30,7 +30,6 @@ const getMenuType = (): MenuType => {
 };
 
 class App {
-    private menu: MenuController;
     private viewState: ViewType;
 
     constructor() {
@@ -79,26 +78,21 @@ class App {
 
     private init(): void {
         this.calcViewState();
-        this.menu = new MenuController(this.viewState, getMenuType());
-        this.menu.init();
+        const menu: MenuController = new MenuController(this.viewState, getMenuType());
+        menu.init();
         this.changeController(getControllerIDFromHash(location.hash));
 
         window.addEventListener(`hashchange`, () => {
-            this.menu.changeMenuType(getMenuType(), this.viewState);
+            menu.changeMenuType(getMenuType(), this.viewState);
             this.changeController(getControllerIDFromHash(location.hash));
         });
 
-        let timeout: number;
-        const RESIZE_TIMEOUT: number = 100;
         window.addEventListener(`resize`, () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                const prevViewState = this.viewState;
-                this.calcViewState();
-                if (prevViewState !== this.viewState) {
-                    this.menu.resize(this.viewState);
-                }
-            }, RESIZE_TIMEOUT);
+            const prevViewState = this.viewState;
+            this.calcViewState();
+            if (prevViewState !== this.viewState) {
+                menu.resize(this.viewState);
+            }
         });
     }
 }

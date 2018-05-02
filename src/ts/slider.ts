@@ -91,7 +91,7 @@ export default class Slider {
         if (target.classList.contains(`slider__item`) || target.classList.contains(`slider__img`)) {
             const id: number = parseInt(target.getAttribute(`data-id`));
 
-            if (typeof id !== `undefined`) {
+            if (typeof id !== `undefined` && id !== this.currentId) {
                 this.setPreview(id);
             }
         }

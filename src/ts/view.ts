@@ -1,7 +1,7 @@
 import {createElement} from './util';
 
 export default abstract class View {
-    protected data: any;
+    protected readonly data: any;
 
     constructor(data: any = {}) {
         this.data = data;
