@@ -17,7 +17,7 @@ enum ControllerID {
     ADD_POST = 'add'
 }
 
-interface Routes {
+interface IRoutes {
     [name: string]: any
 }
 
@@ -37,7 +37,7 @@ class App {
         this.init();
     }
 
-    private routes: Routes = {
+    private routes: IRoutes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(this.viewState),
         [ControllerID.REGISTRY]: new RegistryController(this.viewState),
@@ -88,7 +88,7 @@ class App {
             this.changeController(getControllerIDFromHash(location.hash));
         });
 
-        let timeout: Timer;
+        let timeout: number;
         const RESIZE_TIMEOUT: number = 100;
         window.addEventListener(`resize`, () => {
             clearTimeout(timeout);

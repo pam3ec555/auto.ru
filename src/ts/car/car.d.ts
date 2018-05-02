@@ -4,7 +4,7 @@ export interface ICar {
     readonly mileage: number,
     readonly year: number,
     readonly ownerCount: number,
-    readonly photos: Array<any>,
+    readonly photos: Array<string>,
     readonly description: string,
     readonly city: string,
     readonly contact: {

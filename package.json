@@ -37,10 +37,7 @@
     "typescript": "^2.8.1",
     "typings-for-css-modules-loader": "^1.7.0",
     "webpack": "^3.*",
-    "webpack-cli": "^2.0.14",
-    "yarn": "^1.6.0"
+    "webpack-cli": "^2.0.14"
   },
-  "dependencies": {
-    "lory.js": "^2.4.4"
-  }
+  "dependencies": {}
 }

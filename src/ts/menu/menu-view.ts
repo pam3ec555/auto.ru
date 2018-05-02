@@ -1,5 +1,5 @@
 import View from '../view';
-import {MenuD, NavData, UserData} from './menu';
+import {IMenu, INavData, IUserData} from './menu';
 import {logo} from '../images';
 import {MenuType, ViewType} from '../util';
 import {userData} from '../data';
@@ -24,12 +24,12 @@ const drawGuest = ():string => {
 </p>`
 };
 
-const drawLog = (data: UserData): string => {
+const drawLog = (data: IUserData): string => {
     return `<span class="login__user-name">${data.name}</span>
 <button type="button" class="login__log-out" id="log-out"></button>`;
 };
 
-const drawNav = (data: Array<NavData>): string => {
+const drawNav = (data: Array<INavData>): string => {
     let navItems: string = ``;
 
     data.forEach((item: {link: string, name: string, id: string}): void => {
@@ -59,7 +59,7 @@ const drawMobileHeader = (menuType: MenuType): string => {
 ${searchInput}`;
 };
 
-const drawDesktopHeader = (data: MenuD): string => {
+const drawDesktopHeader = (data: IMenu): string => {
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawDesktopGuest();
 
     return `<header class="outer-block">
@@ -73,7 +73,7 @@ const drawDesktopHeader = (data: MenuD): string => {
 </header>`;
 };
 
-const drawMobileMenu = (data: MenuD, menuType: MenuType, resize: boolean): string => {
+const drawMobileMenu = (data: IMenu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(userData) : drawGuest();
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
@@ -87,7 +87,7 @@ ${menu}
 ${inner}`;
 };
 
-const drawDesktopMenu = (data: MenuD, menuType: MenuType, resize: boolean): string => {
+const drawDesktopMenu = (data: IMenu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<div class="inner" id="inner"></div>` : ``;
     const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap" id="search-wrap">
   <input type="text" class="search-input" id="search-input">
@@ -108,7 +108,7 @@ export default class MenuView extends View {
     private menuType: MenuType;
     private resize: boolean;
 
-    constructor(data: MenuD, viewState: ViewType, menuType: MenuType, resize: boolean = false) {
+    constructor(data: IMenu, viewState: ViewType, menuType: MenuType, resize: boolean = false) {
         super(data);
         this.viewState = viewState;
         this.menuType = menuType;

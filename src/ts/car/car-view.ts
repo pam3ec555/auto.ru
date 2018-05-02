@@ -1,15 +1,15 @@
 import View from '../view';
 import {ICar} from './car';
 
-const drawSliders = (images: Array<any>): string => {
-    let sliders: string = `<ul class="slides js_slides">`;
-    images.forEach((image: any): void => {
-        sliders += `<li class="js_slide"><img src="${image}" alt="Фото машины"></li>`
+const drawSliders = (images: Array<string>): string => {
+    let sliders: string = `<ul class="slider__list">`;
+    images.forEach((image: string, index: number): void => {
+        sliders += `<li class="slider__item"><img src="${image}" alt="Фото машины" class="slider__img" data-id="${index}"></li>`
     });
     sliders += `</ul>`;
 
     return sliders;
-}
+};
 
 const drawMobileCar = (data: ICar): string => {
     const sliders: string = drawSliders(data.photos);
@@ -91,15 +91,22 @@ const drawMobileCar = (data: ICar): string => {
     <h3 class="group-title">Комментарий продавца</h3>
     <p class="car__descr">${data.description}</p>
   </div>
-  <div class="slider js_slider">
-    <div class="frame js_frame">
-      ${sliders}
+  <div class="slider" id="slider">
+    <div class="slider__preview-wrap">
+      <button class="slider__btn slider__btn--prev slider__btn--preview"></button>
+      <img src="" alt="Фото машины" class="slider__preview" data-id="0">
+      <button class="slider__btn slider__btn--next slider__btn--preview"></button>
+    </div>
+    <div class="slider__image-list-wrap">
+      <button class="slider__btn slider__btn--prev slider__btn--list"></button>
+      <div class="slider__list-wrap">
+        ${sliders}
+      </div>
+      <button class="slider__btn slider__btn--next slider__btn--list"></button>
     </div>
   </div>
 </div>`;
 };
-
-//Todo add buttons for slider and make styles for it
 
 export default class CarView extends View {
     constructor(data: ICar) {
