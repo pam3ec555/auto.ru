@@ -8,5 +8,3 @@ app.get(`/`, (req, res) => {
 app.listen(9000, () => {
     console.info(`Server run!`);
 });
-
-// Todo config eslint

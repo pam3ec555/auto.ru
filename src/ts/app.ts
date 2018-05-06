@@ -17,6 +17,8 @@ enum ControllerID {
     ADD_POST = 'add'
 }
 
+const test = 'tete';
+
 type Routes = {
     [name: string]: any
 };
