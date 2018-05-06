@@ -4,7 +4,9 @@ import {Car} from './car';
 const drawSliders = (images: Array<string>): string => {
     let sliders: string = `<ul class="slider__list">`;
     images.forEach((image: string, index: number): void => {
-        sliders += `<li class="slider__item"><img src="${image}" alt="Фото машины" class="slider__img" data-id="${index}"></li>`
+        sliders += `<li class="slider__item">
+  <img src="${image}" alt="Фото машины" class="slider__img" data-id="${index}">
+</li>`;
     });
     sliders += `</ul>`;
 

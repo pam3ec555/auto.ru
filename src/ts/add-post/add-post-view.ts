@@ -96,7 +96,7 @@ const drawAddingPost = (): string => {
     </div>
   </div>
   <button type="button" class="submit" id="submit">Добавить</button>
-</div>`
+</div>`;
 };
 
 export default class AddPostView extends View {

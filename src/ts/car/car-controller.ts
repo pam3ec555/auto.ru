@@ -24,6 +24,6 @@ export default class CarController extends Controller {
     }
 
     private bind(): void {
-
+        // Todo bind this
     }
 }

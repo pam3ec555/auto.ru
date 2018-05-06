@@ -5,4 +5,4 @@ export type CarList = {
     readonly year: number,
     readonly link: string,
     readonly preview: any
-}
+};

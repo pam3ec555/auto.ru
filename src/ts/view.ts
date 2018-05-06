@@ -7,18 +7,6 @@ export default abstract class View {
         this.data = data;
     }
 
-    protected get template(): string {
-        throw new Error(`You have to define template for view`);
-    }
-
-    private clearInner(): void {
-        const inner: HTMLElement = document.querySelector(`#inner`);
-
-        if (inner) {
-            inner.innerHTML = ``;
-        }
-    }
-
     /**
      * Render template
      * @param {boolean} clean - clean inner
@@ -30,5 +18,17 @@ export default abstract class View {
         }
 
         return createElement(this.template);
+    }
+
+    protected get template(): string {
+        throw new Error(`You have to define template for view`);
+    }
+
+    private clearInner(): void {
+        const inner: HTMLElement = document.querySelector(`#inner`);
+
+        if (inner) {
+            inner.innerHTML = ``;
+        }
     }
 }

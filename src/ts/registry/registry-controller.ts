@@ -2,7 +2,7 @@ import RegistryView from './registry-view';
 import {ViewType} from '../util';
 import Controller from '../controller';
 
-export default class RegistryController extends Controller{
+export default class RegistryController extends Controller {
     constructor(viewState: ViewType) {
         super(viewState);
     }
@@ -18,6 +18,6 @@ export default class RegistryController extends Controller{
     }
 
     private bind(): void {
-        //Todo add events for registry
+        // Todo add events for registry
     }
 }

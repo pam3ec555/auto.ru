@@ -27,4 +27,4 @@ export type Car = {
     readonly originalPTS: string,
     readonly views: number,
     readonly postDate: string
-}
+};

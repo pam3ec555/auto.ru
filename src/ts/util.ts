@@ -2,7 +2,7 @@ export const createElement = (template: string): DocumentFragment => {
     const frag: DocumentFragment = document.createDocumentFragment();
     const emptyElem: HTMLElement = document.createElement(`DIV`);
     emptyElem.innerHTML = template;
-    (<any>Array).from(emptyElem.childNodes).forEach((child: HTMLElement): void => {
+    (Array as any).from(emptyElem.childNodes).forEach((child: HTMLElement): void => {
          frag.appendChild(child);
     });
 

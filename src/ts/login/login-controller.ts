@@ -17,7 +17,7 @@ export default class LoginController extends Controller {
         }
     }
 
-    private bind():void {
-        //Todo login form events
+    private bind(): void {
+        // Todo login form events
     }
 }

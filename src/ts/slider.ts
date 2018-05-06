@@ -1,6 +1,6 @@
 type SliderOptions = {
 
-}
+};
 
 export default class Slider {
     private readonly selector: string;
@@ -27,11 +27,11 @@ export default class Slider {
     public init = (): void => {
         this.setPreview();
         this.bind();
-    };
+    }
 
     public destroy = (): void => {
         this.bind(false);
-    };
+    }
 
     private setPreview = (id: number = 0): void => {
         const image: HTMLImageElement = document.querySelector(`${this.selector} .slider__img[data-id="${id}"]`);
@@ -41,7 +41,7 @@ export default class Slider {
             this.previewImage.setAttribute(`data-id`, id.toString());
             this.currentId = id;
         }
-    };
+    }
 
     private bind = (bind: boolean = true): void => {
         const prevPreviewBtn = document.querySelector(`${this.selector} .slider__btn--prev.slider__btn--preview`);
@@ -66,7 +66,7 @@ export default class Slider {
                 list.removeEventListener(`click`, this.onListClick);
             }
         }
-    };
+    }
 
     private onPrevPreviewClick = (): void => {
         if (this.currentId !== 0) {
@@ -74,7 +74,7 @@ export default class Slider {
         } else {
             this.setPreview(this.totalImages - 1);
         }
-    };
+    }
 
     private onNextPreviewClick = (): void => {
         if (this.currentId !== this.totalImages - 1) {
@@ -82,7 +82,7 @@ export default class Slider {
         } else {
             this.setPreview(0);
         }
-    };
+    }
 
     private onListClick = (e: Event): void => {
         e.stopPropagation();
@@ -95,5 +95,5 @@ export default class Slider {
                 this.setPreview(id);
             }
         }
-    };
+    }
 }

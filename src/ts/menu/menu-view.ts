@@ -17,11 +17,11 @@ const drawDesktopGuest = (): string => {
 </p>`;
 };
 
-const drawGuest = ():string => {
+const drawGuest = (): string => {
     return `<p>Вы не авторизованы.
   <a href="#" class="login__log-in" id="log-in">Войти</a> или
   <a href="#" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
-</p>`
+</p>`;
 };
 
 const drawLog = (data: UserData): string => {
@@ -32,7 +32,11 @@ const drawLog = (data: UserData): string => {
 const drawNav = (data: Array<NavData>): string => {
     let navItems: string = ``;
 
-    data.forEach((item: {link: string, name: string, id: string}): void => {
+    data.forEach((item: {
+        link: string,
+        name: string,
+        id: string
+    }): void => {
          navItems += `<li class="nav__item">
   <a href="${item.link}" class="nav__link" id="${item.id}">${item.name}</a>
 </li>`;
@@ -48,8 +52,12 @@ const drawMobileHeader = (menuType: MenuType): string => {
 </button>` : `<a href="#" class="back-btn" id="back-btn">
   <div class="back-btn__inner"></div>
 </a>`;
-    const searchBtn = (menuType === MenuType.LIST) ? `<button type="button" class="search-btn" id="search-btn"></button>` : `<span class="empty empty--header-btn"></span>`;
-    const searchInput = (menuType === MenuType.LIST) ? `<input type="text" class="search-input search-input--hidden" id="search-input">` : ``;
+    const searchBtn = (menuType === MenuType.LIST) ?
+        `<button type="button" class="search-btn" id="search-btn"></button>` :
+        `<span class="empty empty--header-btn"></span>`;
+    const searchInput = (menuType === MenuType.LIST) ?
+        `<input type="text" class="search-input search-input--hidden" id="search-input">` :
+        ``;
 
     return `<header class="outer-block">
   ${leftBtn}

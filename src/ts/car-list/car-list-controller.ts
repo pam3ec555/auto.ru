@@ -1,7 +1,7 @@
 import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
 import {CarList} from './car-list';
-import App from '../app'
+import App from '../app';
 import {ViewType} from '../util';
 import Controller from '../controller';
 
@@ -28,7 +28,7 @@ export default class CarListController extends Controller {
         const carLinks: NodeListOf<HTMLHRElement> = document.querySelectorAll(`.content-link`);
 
         if (carLinks.length > 0) {
-            (<any>Array).from(carLinks).forEach((item: HTMLHRElement): void => {
+            (Array as any).from(carLinks).forEach((item: HTMLHRElement): void => {
                 if (bind) {
                     item.addEventListener(`click`, this.onCardClick);
                 } else {

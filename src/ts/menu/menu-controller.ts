@@ -24,7 +24,7 @@ const showMenu = (): void => {
 };
 
 const removeElems = (...elems: any[]): void => {
-    (<any>Array).from(elems).forEach((elem: any): void => {
+    (Array as any).from(elems).forEach((elem: any): void => {
         if (elem) {
             elem.remove();
         }
@@ -40,7 +40,7 @@ const removeMenuElems = (viewState: ViewType): void => {
     } else {
         removeElems(document.querySelector(`#sort`),
                     document.querySelector(`#search-wrap`),
-                    document.querySelector(`#sort-results`))
+                    document.querySelector(`#sort-results`));
     }
 };
 
@@ -151,9 +151,9 @@ export default class MenuController extends Controller {
 
             if (logoutBtn) {
                 if (bind) {
-                    logoutBtn.addEventListener(`click`, this.onLogoutClick)
+                    logoutBtn.addEventListener(`click`, this.onLogoutClick);
                 } else {
-                    logoutBtn.removeEventListener(`click`, this.onLogoutClick)
+                    logoutBtn.removeEventListener(`click`, this.onLogoutClick);
                 }
             }
         } else {
@@ -179,38 +179,38 @@ export default class MenuController extends Controller {
     }
 
     private onLogoutClick = (): void => {
-        //Todo make logout
-    };
+        // Todo make logout
+    }
 
     private onAddPostClick = (e: Event): void => {
         e.preventDefault();
         App.showAddingPost();
         hideMenu();
-    };
+    }
 
     private onLoginClick = (e: Event): void => {
         e.preventDefault();
         App.showLogin();
         hideMenu();
-    };
+    }
 
     private onSignUpClick = (e: Event): void => {
         e.preventDefault();
         App.showRegistry();
         hideMenu();
-    };
+    }
 
     private onMenuHideClick = (): void => {
         hideMenu();
-    };
+    }
 
     private onMenuShowClick = (): void => {
         showMenu();
-    };
+    }
 
     private onBackClick = (): void => {
         history.back();
-    };
+    }
 
     private onSearchToggle = (): void => {
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);

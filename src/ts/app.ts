@@ -1,4 +1,4 @@
-//TODO see http://autocomplete-js.com/
+// TODO see http://autocomplete-js.com/
 
 import MenuController from './menu/menu-controller';
 import CarListController from './car-list/car-list-controller';
@@ -19,7 +19,7 @@ enum ControllerID {
 
 type Routes = {
     [name: string]: any
-}
+};
 
 const getControllerIDFromHash = (hash: string): string => {
     return hash.replace(`#`, ``);
@@ -31,11 +31,6 @@ const getMenuType = (): MenuType => {
 
 class App {
     private viewState: ViewType;
-
-    constructor() {
-        this.init();
-    }
-
     private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(this.viewState),
@@ -43,6 +38,10 @@ class App {
         [ControllerID.LOGIN]: new LoginController(this.viewState),
         [ControllerID.ADD_POST]: new AddPostController(this.viewState)
     };
+
+    constructor() {
+        this.init();
+    }
 
     public showCarList(): void {
         location.hash = ControllerID.CAR_LIST;
