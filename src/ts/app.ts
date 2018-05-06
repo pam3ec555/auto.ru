@@ -17,7 +17,7 @@ enum ControllerID {
     ADD_POST = 'add'
 }
 
-interface IRoutes {
+type Routes = {
     [name: string]: any
 }
 
@@ -36,7 +36,7 @@ class App {
         this.init();
     }
 
-    private routes: IRoutes = {
+    private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(this.viewState),
         [ControllerID.REGISTRY]: new RegistryController(this.viewState),

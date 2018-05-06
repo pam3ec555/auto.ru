@@ -1,4 +1,4 @@
-export interface ICar {
+export type Car = {
     readonly name: string,
     readonly price: number,
     readonly mileage: number,

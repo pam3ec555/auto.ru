@@ -1,7 +1,7 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
 import {MenuType, toggleOverlay, ViewType, appWrap} from '../util';
-import {IMenu} from './menu';
+import {Menu} from './menu';
 import App from '../app';
 import Controller from '../controller';
 
@@ -53,7 +53,7 @@ const setMenuTypeStatus = (menuType: MenuType) => {
 };
 
 export default class MenuController extends Controller {
-    private data: IMenu;
+    private data: Menu;
     private menuModel: MenuModel;
     private menuType: MenuType;
 

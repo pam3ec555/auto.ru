@@ -1,12 +1,12 @@
 import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
-import {ICarList} from './car-list';
+import {CarList} from './car-list';
 import App from '../app'
 import {ViewType} from '../util';
 import Controller from '../controller';
 
 export default class CarListController extends Controller {
-    private carsData: Array<ICarList>;
+    private carsData: Array<CarList>;
 
     constructor(viewState: ViewType) {
         super(viewState);

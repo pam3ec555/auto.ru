@@ -1,5 +1,5 @@
 import View from '../view';
-import {ICar} from './car';
+import {Car} from './car';
 
 const drawSliders = (images: Array<string>): string => {
     let sliders: string = `<ul class="slider__list">`;
@@ -11,7 +11,7 @@ const drawSliders = (images: Array<string>): string => {
     return sliders;
 };
 
-const drawMobileCar = (data: ICar): string => {
+const drawMobileCar = (data: Car): string => {
     const sliders: string = drawSliders(data.photos);
 
     return `<div class="outer-block">
@@ -109,7 +109,7 @@ const drawMobileCar = (data: ICar): string => {
 };
 
 export default class CarView extends View {
-    constructor(data: ICar) {
+    constructor(data: Car) {
         super(data);
     }
 

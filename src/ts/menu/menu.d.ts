@@ -1,14 +1,14 @@
-export interface IUserData {
+export type UserData = {
     name?: string
 }
 
-export interface INavData {
+export type NavData = {
     link: string,
     name: string,
     id: string
 }
 
-export interface IMenu {
-    readonly navData: Array<INavData>,
-    readonly userData: IUserData
+export type Menu = {
+    readonly navData: Array<NavData>,
+    readonly userData: UserData
 }

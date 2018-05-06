@@ -1,9 +1,9 @@
-import {INavData, IUserData} from './menu/menu';
-import {ICarList} from './car-list/car-list';
+import {NavData, UserData} from './menu/menu';
+import {CarList} from './car-list/car-list';
 import {photo1, photo2, photo3} from './images';
-import {ICar} from './car/car';
+import {Car} from './car/car';
 
-export const navData: Array<INavData> = [
+export const navData: Array<NavData> = [
     {
         link: `#`,
         name: `Добавить объявление`,
@@ -11,11 +11,11 @@ export const navData: Array<INavData> = [
     }
 ];
 
-export const userData: IUserData = {
+export const userData: UserData = {
 
 };
 
-export const cars: Array<ICarList> = [
+export const cars: Array<CarList> = [
     {
         name: `car1`,
         price: 100000,
@@ -42,7 +42,7 @@ export const cars: Array<ICarList> = [
     }
 ];
 
-export const car: ICar = {
+export const car: Car = {
     name: `car1`,
     price: 100000,
     mileage: 100000,

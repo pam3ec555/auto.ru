@@ -20,7 +20,6 @@
   "homepage": "https://github.com/pam3ec555/auto.ru#readme",
   "devDependencies": {
     "@types/node": "^10.0.0",
-    "autocomplete-js": "^2.6.4",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -39,5 +38,7 @@
     "webpack": "^3.*",
     "webpack-cli": "^2.0.14"
   },
-  "dependencies": {}
+  "dependencies": {
+    "autocomplete-js": "^2.6.4"
+  }
 }

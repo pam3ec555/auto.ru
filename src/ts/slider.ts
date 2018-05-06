@@ -1,16 +1,16 @@
-interface ISliderOptions {
+type SliderOptions = {
 
 }
 
 export default class Slider {
     private readonly selector: string;
     private readonly container: HTMLElement;
-    private readonly options: ISliderOptions;
+    private readonly options: SliderOptions;
     private readonly previewImage: HTMLImageElement;
     private currentId: number;
     private readonly totalImages: number;
 
-    constructor(selector: string, options: ISliderOptions = {}) {
+    constructor(selector: string, options: SliderOptions = {}) {
         const container: HTMLElement = document.querySelector(selector);
 
         if (container) {

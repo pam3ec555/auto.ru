@@ -1,5 +1,5 @@
 import CarModel from './car-model';
-import {ICar} from './car';
+import {Car} from './car';
 import CarView from './car-view';
 import {ViewType} from '../util';
 import Controller from '../controller';
@@ -12,7 +12,7 @@ export default class CarController extends Controller {
 
     public init(): void {
         const carModel: CarModel = new CarModel();
-        const data: ICar = carModel.data;
+        const data: Car = carModel.data;
         const carView: CarView = new CarView(data);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
