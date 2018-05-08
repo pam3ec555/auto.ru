@@ -9,9 +9,10 @@
     "test:server:lint": "eslint './server/**/*.js'",
     "test:server": "npm run test:server:lint",
     "test": "npm run test:src && npm run test:server",
-    "build": "webpack",
+    "dev:build": "webpack",
     "serv": "node server/server",
-    "start": "webpack --watch"
+    "dev:start": "webpack --watch",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
   },
   "dependencies": {
     "autocomplete-js": "^2.6.4",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7"
   }
 }

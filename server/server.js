@@ -1,10 +1,16 @@
 const express = require(`express`);
 const app = express();
 
-app.get(`/`, (req, res) => {
-    res.send(`Hello World!`);
-});
+app.use(express.static(`dist`));
 
-app.listen(9000, () => {
-    console.info(`Server run!`);
-});
+const PORT = 9000;
+const serverAddress = `http://localhost:${PORT}`;
+
+module.exports = {
+    run() {
+        app.listen(PORT, () => {
+            console.info(`Server run at ${serverAddress}`);
+        });
+    },
+    app
+};
