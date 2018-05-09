@@ -15,6 +15,7 @@ export const userData: UserData = {
 };
 
 export const car: Car = {
+    id: `test`,
     name: `car1`,
     price: 100000,
     mileage: 100000,

@@ -1,4 +1,4 @@
-const db = require(`./database`);
+const db = require(`../database/database`);
 
 const setupCollection = async () => {
     const dBase = await db;

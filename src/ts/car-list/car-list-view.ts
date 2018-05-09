@@ -4,7 +4,7 @@ import View from '../view';
 const drawCard = (data: Car): string => {
     return `<section class="content__item">
   <a href="${data.link}" class="content-link">
-      <img src=""
+      <img src="/cars/${data.id}/photo"
          alt="photo" class="content__preview">
   </a>
   <a href="${data.link}" class="content__title content-link">${data.name}</a>

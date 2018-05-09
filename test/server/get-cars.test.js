@@ -1,7 +1,7 @@
 const request = require(`supertest`);
 const app = require(`express`)();
 const CodeStatus = require(`../../server/util/code-status`);
-const carsRouter = require(`../../server/route`);
+const carsRouter = require(`./server/cars/route`);
 
 app.use(``, carsRouter);
 
