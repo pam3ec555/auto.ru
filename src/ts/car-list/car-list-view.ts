@@ -1,10 +1,10 @@
-import {CarList} from './car-list';
+import {Car} from '../car/car';
 import View from '../view';
 
-const drawCard = (data: CarList): string => {
+const drawCard = (data: Car): string => {
     return `<section class="content__item">
   <a href="${data.link}" class="content-link">
-      <img src="${data.preview}"
+      <img src=""
          alt="photo" class="content__preview">
   </a>
   <a href="${data.link}" class="content__title content-link">${data.name}</a>
@@ -16,11 +16,11 @@ const drawCard = (data: CarList): string => {
 </section>`;
 };
 
-const drawCarList = (data: Array<CarList>): string => {
+const drawCarList = (data: Array<Car>): string => {
     let carList: string = `<div class="content">`;
 
     if (data.length > 0) {
-        data.forEach((carData: CarList): void => {
+        data.forEach((carData: Car): void => {
              carList += drawCard(carData);
         });
     }
@@ -31,7 +31,7 @@ const drawCarList = (data: Array<CarList>): string => {
 };
 
 export default class CarListView extends View {
-    constructor(data: Array<CarList>) {
+    constructor(data: Array<Car>) {
         super(data);
     }
 

@@ -7,17 +7,13 @@ export type Car = {
     readonly photos: Array<string>,
     readonly description: string,
     readonly city: string,
-    readonly contact: {
-        readonly name: string,
-        readonly phoneNum: number,
-        readonly address: string
-        readonly email: string
-    },
-    readonly engine: {
-        readonly volume: number,
-        readonly power: number,
-        readonly type: string
-    },
+    readonly ownerName: string,
+    readonly phoneNum: number,
+    readonly address: string
+    readonly email: string
+    readonly volume: number,
+    readonly power: number,
+    readonly type: string
     readonly bodyType: string,
     readonly color: string,
     readonly boxTransmission: string,
@@ -26,5 +22,6 @@ export type Car = {
     readonly state: string,
     readonly originalPTS: string,
     readonly views: number,
-    readonly postDate: string
+    readonly postDate: string,
+    readonly link: string
 };

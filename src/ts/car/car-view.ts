@@ -23,19 +23,19 @@ const drawMobileCar = (data: Car): string => {
     <h3 class="group-title">Контактные данные</h3>
     <div class="row row--nowrap">
       <span class="label label--nowrap">Продавец</span>
-      <span class="value value--nowrap">${data.contact.name}</span>
+      <span class="value value--nowrap">${data.ownerName}</span>
     </div>
     <div class="row row--nowrap">
       <span class="label label--nowrap">Адрес осмотра</span>
-      <span class="value value--nowrap">${data.contact.address}</span>
+      <span class="value value--nowrap">${data.address}</span>
     </div>
     <div class="row row--nowrap">
       <span class="label label--nowrap">Телефон</span>
-      <span class="value value--nowrap">${data.contact.phoneNum}</span>
+      <span class="value value--nowrap">${data.phoneNum}</span>
     </div>
     <div class="row row--nowrap">
       <span class="label label--nowrap">E-mail</span>
-      <span class="value value--nowrap">${data.contact.email}</span>
+      <span class="value value--nowrap">${data.email}</span>
     </div>
   </div>
   <div class="group-wrap">
@@ -59,9 +59,9 @@ const drawMobileCar = (data: Car): string => {
     <div class="row row--nowrap">
       <span class="label label--nowrap">Двигатель</span>
       <span class="value value--nowrap">
-        <span class="car__data-engine car__data-engine--volume">${data.engine.volume}</span>
-        <span class="car__data-engine car__data-engine--power">${data.engine.power}</span>
-        <span class="car__data-engine">${data.engine.type}</span>
+        <span class="car__data-engine car__data-engine--volume">${data.volume}</span>
+        <span class="car__data-engine car__data-engine--power">${data.power}</span>
+        <span class="car__data-engine">${data.type}</span>
       </span>
     </div>
     <div class="row row--nowrap">

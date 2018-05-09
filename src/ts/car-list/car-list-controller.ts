@@ -1,20 +1,20 @@
 import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
-import {CarList} from './car-list';
+import {Car} from '../car/car';
 import App from '../app';
 import {ViewType} from '../util';
 import Controller from '../controller';
 
 export default class CarListController extends Controller {
-    private carsData: Array<CarList>;
+    private carsData: Array<Car>;
 
     constructor(viewState: ViewType) {
         super(viewState);
     }
 
-    public init(): void {
+    public async init() {
         const carListModel: CarListModel = new CarListModel();
-        this.carsData = carListModel.data;
+        this.carsData = await carListModel.data;
         const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
