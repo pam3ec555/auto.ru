@@ -2,9 +2,13 @@ import {Car} from '../car/car';
 import View from '../view';
 
 const drawCard = (data: Car): string => {
+    const imageSrc: string = (data.photos && (Array as any).from(data.photos).length > 0) ?
+        `/cars/${data.id}/photo/0` :
+        ``;
+
     return `<section class="content__item">
   <a href="${data.link}" class="content-link">
-      <img src="/cars/${data.id}/photo"
+      <img src="${imageSrc}"
          alt="photo" class="content__preview">
   </a>
   <a href="${data.link}" class="content__title content-link">${data.name}</a>

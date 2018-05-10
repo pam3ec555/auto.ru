@@ -1,7 +1,7 @@
 import AddPostView from './add-post-view';
 import {ViewType} from '../util';
 import Controller from '../controller';
-import AddPostModel from "./add-post-model";
+import Model from "../model";
 
 export default class AddPostController extends Controller {
     constructor(viewState: ViewType) {
@@ -35,8 +35,10 @@ export default class AddPostController extends Controller {
 
         if (form) {
             const formData: FormData = new FormData(form);
-            const addPostModel: AddPostModel = new AddPostModel(formData);
-            addPostModel.save();
+            const addPostModel: Model = new Model();
+            addPostModel.save(`/add-post/create`, {
+                body: formData
+            });
         }
     }
 }

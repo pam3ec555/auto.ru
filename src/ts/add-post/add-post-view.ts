@@ -97,7 +97,7 @@ const drawAddingPost = (): string => {
     <div class="row">
       <span class="label">Фотографии</span>
       <div class="value">
-        <input type="file" name="photo">
+        <input type="file" name="photos" multiple>
       </div>
     </div>
   </form>

@@ -1,3 +1,12 @@
+export type CarPhotos = {
+    readonly fieldname: string,
+    readonly originalname: string,
+    readonly buffer: string,
+    readonly encoding: string,
+    readonly mimetype: string,
+    readonly size: number
+};
+
 export type Car = {
     readonly id: string,
     readonly name: string,
@@ -7,7 +16,7 @@ export type Car = {
     readonly model: string,
     readonly year: number,
     readonly ownerCount: number,
-    readonly photos: Array<string>,
+    readonly photos: Array<CarPhotos>,
     readonly description: string,
     readonly city: string,
     readonly ownerName: string,

@@ -39,7 +39,9 @@
         "timeEnd",
         "trace"
       ]
-    }
+    },
+    "align": false,
+    "max-classes-per-file": [0]
   },
   "jsRules": {
     "max-line-length": {

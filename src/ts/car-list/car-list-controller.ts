@@ -1,9 +1,23 @@
-import CarListModel from './car-list-model';
 import CarListView from './car-list-view';
-import {Car} from '../car/car';
+import {Car, CarPhotos} from '../car/car';
 import App from '../app';
 import {ViewType} from '../util';
 import Controller from '../controller';
+import Model from "../model";
+import DefaultAdapter from "../default-adapter";
+
+const adapter = new class extends DefaultAdapter {
+    public preprocess(data: {
+        [index: number]: CarPhotos;
+    }): Array<CarPhotos> {
+        const preprocessed: Array<CarPhotos> = [];
+        (Array as any).from(data).forEach((it: CarPhotos) => {
+            preprocessed.push(it);
+        });
+
+        return preprocessed;
+    }
+}();
 
 export default class CarListController extends Controller {
     private carsData: Array<Car>;
@@ -13,8 +27,8 @@ export default class CarListController extends Controller {
     }
 
     public async init() {
-        const carListModel: CarListModel = new CarListModel();
-        this.carsData = await carListModel.data;
+        const model: Model = new Model();
+        this.carsData = await model.load(`/cars`, {}, adapter);
         const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 

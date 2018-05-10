@@ -1,11 +1,11 @@
 import View from '../view';
-import {Car} from './car';
+import {Car, CarPhotos} from './car';
 
-const drawSliders = (images: Array<string>): string => {
+const drawSliders = (images: Array<CarPhotos>, id: string): string => {
     let sliders: string = `<ul class="slider__list">`;
-    images.forEach((image: string, index: number): void => {
+    images.forEach((image: CarPhotos, index: number): void => {
         sliders += `<li class="slider__item">
-  <img src="${image}" alt="Фото машины" class="slider__img" data-id="${index}">
+  <img src="/cars/${id}/photo/${index}" alt="Фото машины" class="slider__img" data-id="${index}">
 </li>`;
     });
     sliders += `</ul>`;
@@ -14,7 +14,7 @@ const drawSliders = (images: Array<string>): string => {
 };
 
 const drawMobileCar = (data: Car): string => {
-    const sliders: string = drawSliders(data.photos);
+    const sliders: string = drawSliders(data.photos, data.id);
 
     return `<div class="outer-block">
   <h2 class="title">${data.name}</h2>

@@ -28,7 +28,6 @@ carsRouter.use((req, res, next) => {
 
 carsRouter.get(`/cars` || `/`, async(async (req, res) => {
     const data = await toPage(await carStore.getAllCars());
-    console.info(data);
 
     return res.send(data);
 }));
@@ -59,23 +58,26 @@ carsRouter.get(`/cars/:id/photo`, async(async (req, res) => {
     stream.pipe(res);
 }));
 
-carsRouter.post(`/add-post/create`, upload.single(`photo`), async(async (req, res) => {
+carsRouter.post(`/add-post/create`, upload.array(`photos`), async(async (req, res) => {
     const data = req.body;
-    const photo = req.file;
+    const photos = req.files;
     data.id = generateId();
 
     while (await carStore.getCar(data.id) !== null) {
         data.id = generateId();
     }
 
-    if (photo) {
-        data.photo = photo;
-        const photoInfo = {
-            path: `/cars/${data.id}/photo`,
-            mimetype: photo.mimetype
-        };
-        await imageStore.save(photoInfo.path, createStreamFromBuffer(photo.buffer));
-        data.photo = photoInfo;
+    if (photos) {
+        data.photos = {};
+        photos.forEach(async (photo, i) => {
+            data.photos[i] = photo;
+            const photoInfo = {
+                path: `/cars/${data.id}/photo/${i}`,
+                mimetype: photo.mimetype
+            };
+            await imageStore.save(photoInfo.path, createStreamFromBuffer(photo.buffer));
+            data.photos[i] = photoInfo;
+        });
     }
     await carStore.createCar(data);
 
