@@ -59,9 +59,9 @@ const drawMobileCar = (data: Car): string => {
     <div class="row row--nowrap">
       <span class="label label--nowrap">Двигатель</span>
       <span class="value value--nowrap">
-        <span class="car__data-engine car__data-engine--volume">${data.volume}</span>
-        <span class="car__data-engine car__data-engine--power">${data.power}</span>
-        <span class="car__data-engine">${data.type}</span>
+        <span class="car__data-engine car__data-engine--volume">${data.engineVolume}</span>
+        <span class="car__data-engine car__data-engine--power">${data.enginePower}</span>
+        <span class="car__data-engine">${data.engineType}</span>
       </span>
     </div>
     <div class="row row--nowrap">

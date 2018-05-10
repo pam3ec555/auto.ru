@@ -3,6 +3,8 @@ export type Car = {
     readonly name: string,
     readonly price: number,
     readonly mileage: number,
+    readonly brand: string,
+    readonly model: string,
     readonly year: number,
     readonly ownerCount: number,
     readonly photos: Array<string>,
@@ -12,9 +14,9 @@ export type Car = {
     readonly phoneNum: number,
     readonly address: string
     readonly email: string
-    readonly volume: number,
-    readonly power: number,
-    readonly type: string
+    readonly engineVolume: number,
+    readonly enginePower: number,
+    readonly engineType: string
     readonly bodyType: string,
     readonly color: string,
     readonly boxTransmission: string,
