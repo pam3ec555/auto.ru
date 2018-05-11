@@ -51,3 +51,8 @@ export enum ViewTypeWidths {
 }
 
 export const appWrap: HTMLElement = document.querySelector(`#app`);
+
+export const pushUrl = (href: string) => {
+    history.pushState({}, '', href);
+    window.dispatchEvent(new Event('popstate'));
+};

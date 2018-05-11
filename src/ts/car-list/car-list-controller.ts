@@ -1,18 +1,23 @@
 import CarListView from './car-list-view';
 import {Car, CarPhotos} from '../car/car';
-import App from '../app';
-import {ViewType} from '../util';
+import {pushUrl, ViewType} from '../util';
 import Controller from '../controller';
 import Model from "../model";
 import DefaultAdapter from "../default-adapter";
+import {Data} from "./car-list";
 
 const adapter = new class extends DefaultAdapter {
-    public preprocess(data: {
-        [index: number]: CarPhotos;
-    }): Array<CarPhotos> {
-        const preprocessed: Array<CarPhotos> = [];
-        (Array as any).from(data).forEach((it: CarPhotos) => {
-            preprocessed.push(it);
+    public preprocess(data: Data): Data {
+        const preprocessed: Data = (Object as any).assign({}, data);
+        preprocessed.data.forEach((car: Car, index: number) => {
+            const photos: {
+                [name: number]: CarPhotos
+            } = car.photos;
+            preprocessed.data[index].photos = [];
+
+            for (const key in photos) {
+                preprocessed.data[index].photos.push(photos[key]);
+            }
         });
 
         return preprocessed;
@@ -20,7 +25,7 @@ const adapter = new class extends DefaultAdapter {
 }();
 
 export default class CarListController extends Controller {
-    private carsData: Array<Car>;
+    private carsData: Data;
 
     constructor(viewState: ViewType) {
         super(viewState);
@@ -28,7 +33,7 @@ export default class CarListController extends Controller {
 
     public async init() {
         const model: Model = new Model();
-        this.carsData = await model.load(`/cars`, {}, adapter);
+        this.carsData = await model.load(`/cars-api/cars`, {}, adapter);
         const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
@@ -55,6 +60,6 @@ export default class CarListController extends Controller {
     private onCardClick = (e: Event): void => {
         e.preventDefault();
         this.bind(false);
-        App.showCar();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 }

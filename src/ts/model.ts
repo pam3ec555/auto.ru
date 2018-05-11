@@ -3,7 +3,7 @@ import {default as DefaultAdapter, IAdapter} from "./default-adapter";
 const defaultAdapter: IAdapter = new class extends DefaultAdapter {}();
 
 export default class Model {
-    public async load(url: string, params: object = {}, adapter: IAdapter = defaultAdapter) {
+    public load(url: string, params: object = {}, adapter: IAdapter = defaultAdapter) {
         return fetch(url, params)
             .then((res: Response): object|Array<object> => {
                 return res.json();
@@ -16,7 +16,7 @@ export default class Model {
             });
     }
 
-    public async save(url: string, params: {
+    public save(url: string, params: {
         method?: string,
         body: object
     }, adapter: IAdapter = defaultAdapter) {

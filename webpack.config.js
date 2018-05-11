@@ -6,7 +6,8 @@ const HtmlWebpackPlugin = require(`html-webpack-plugin`);
 module.exports = {
     entry: {
         bundle: `./src/ts/app.ts`,
-        style: `./src/sass/style.sass`
+        style: `./src/sass/style.sass`,
+        icon: `./src/img/icons/logo.svg`
     },
     output: {
         path: path.resolve(__dirname, `dist`),
@@ -55,7 +56,7 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                use: ['html-loader']
+                use: [`html-loader`]
             }
         ]
     },
@@ -69,6 +70,6 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: [ `.tsx`, `.ts`, `.js` ]
+        extensions: [`.tsx`, `.ts`, `.js`]
     }
 };

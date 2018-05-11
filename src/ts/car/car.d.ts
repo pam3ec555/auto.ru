@@ -16,7 +16,7 @@ export type Car = {
     readonly model: string,
     readonly year: number,
     readonly ownerCount: number,
-    readonly photos: Array<CarPhotos>,
+    photos: Array<CarPhotos>,
     readonly description: string,
     readonly city: string,
     readonly ownerName: string,

@@ -1,5 +1,6 @@
 import {Car} from '../car/car';
 import View from '../view';
+import {Data} from "./car-list";
 
 const drawCard = (data: Car): string => {
     const imageSrc: string = (data.photos && (Array as any).from(data.photos).length > 0) ?
@@ -7,11 +8,11 @@ const drawCard = (data: Car): string => {
         ``;
 
     return `<section class="content__item">
-  <a href="${data.link}" class="content-link">
+  <a href="/cars/${data.id}" class="content-link">
       <img src="${imageSrc}"
          alt="photo" class="content__preview">
   </a>
-  <a href="${data.link}" class="content__title content-link">${data.name}</a>
+  <a href="/cars/${data.id}" class="content__title content-link">${data.name}</a>
   <div class="content__props">
     <span class="content__price">${data.price}</span>
     <span class="content__year">${data.year}</span>
@@ -35,11 +36,11 @@ const drawCarList = (data: Array<Car>): string => {
 };
 
 export default class CarListView extends View {
-    constructor(data: Array<Car>) {
+    constructor(data: Data) {
         super(data);
     }
 
     protected get template(): string {
-        return drawCarList(this.data);
+        return drawCarList(this.data.data);
     }
 }

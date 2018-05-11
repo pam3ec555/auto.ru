@@ -1,12 +1,16 @@
 import View from '../view';
 import {Menu, NavData, UserData} from './menu';
-import {logo} from '../images';
 import {MenuType, ViewType} from '../util';
-import {userData} from '../data';
+
+/*declare const require: any;
+const logo: any = require(`../../img/icons/logo.svg`);*/
+const userData: UserData = {
+    // Todo refactor this
+};
 
 const drawLogo = (): string => {
     return `<div class="logo">
-  <img src="${logo}" alt="Car">
+  <img src="/src/img/icons/logo.svg" alt="Car">
 </div>`;
 };
 

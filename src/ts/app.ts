@@ -7,24 +7,17 @@ import RegistryController from './registry/registry-controller';
 import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
-import Timer = NodeJS.Timer;
 
 enum ControllerID {
-    CAR_LIST = '',
+    CAR_LIST = 'car-list',
     CAR = 'car',
     REGISTRY = 'registry',
     LOGIN = 'login',
     ADD_POST = 'add'
 }
 
-const test = 'tete';
-
 type Routes = {
     [name: string]: any
-};
-
-const getControllerIDFromHash = (hash: string): string => {
-    return hash.replace(`#`, ``);
 };
 
 const getMenuType = (): MenuType => {
@@ -49,10 +42,6 @@ class App {
         location.hash = ControllerID.CAR_LIST;
     }
 
-    public showCar(): void {
-        location.hash = ControllerID.CAR;
-    }
-
     public showRegistry(): void {
         location.hash = ControllerID.REGISTRY;
     }
@@ -65,7 +54,17 @@ class App {
         location.hash = ControllerID.ADD_POST;
     }
 
-    private changeController(route: string = ``): void {
+    private changeController(): void {
+        const path: string = location.pathname;
+        const pathChunks = path.slice(1).split(`/`);
+        let route: ControllerID;
+
+        if (pathChunks.length === 1 && (pathChunks[0] === `cars` || pathChunks[0] === ``)) {
+            route = ControllerID.CAR_LIST;
+        } else if (pathChunks.length === 2 && pathChunks[0] === `cars`) {
+            route = ControllerID.CAR;
+        }
+
         this.routes[route].init();
     }
 
@@ -81,11 +80,11 @@ class App {
         this.calcViewState();
         const menu: MenuController = new MenuController(this.viewState, getMenuType());
         menu.init();
-        this.changeController(getControllerIDFromHash(location.hash));
+        this.changeController();
 
-        window.addEventListener(`hashchange`, () => {
+        window.addEventListener(`popstate`, () => {
             menu.changeMenuType(getMenuType(), this.viewState);
-            this.changeController(getControllerIDFromHash(location.hash));
+            this.changeController();
         });
 
         window.addEventListener(`resize`, () => {

@@ -1,4 +1,4 @@
-const {Router} = require(`express`);
+const express = require(`express`);
 const multer = require(`multer`);
 const bodyParser = require(`body-parser`);
 const async = require(`../util/async`);
@@ -7,6 +7,7 @@ const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 const generateId = require(`../util/generate-id`);
 
+const {Router} = express;
 const carsRouter = new Router();
 const upload = multer({storage: multer.memoryStorage()});
 
@@ -26,27 +27,36 @@ carsRouter.use((req, res, next) => {
     next();
 });
 
-carsRouter.get(`/cars` || `/`, async(async (req, res) => {
+carsRouter.get(`/cars-api/cars`, async(async (req, res) => {
     const data = await toPage(await carStore.getAllCars());
 
     return res.send(data);
 }));
 
-carsRouter.get(`/cars/:id/photo`, async(async (req, res) => {
+carsRouter.get(`/cars-api/cars/:id`, async(async (req, res) => {
     const {id} = req.params;
+    const car = await carStore.getCar(id);
+
+    return res.send(car);
+}));
+
+carsRouter.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
+    const {id, photoIndex} = req.params;
     const car = await carStore.getCar(id);
 
     if (!car) {
         // throw new NotFoundError(`Car with id "${id}" not found`);
     }
 
-    const {photo} = car;
+    const {photos} = car;
+    const photo = photos[photoIndex];
+    const photoPath = `/cars/${id}/photo/${photoIndex}`;
 
     if (!photo) {
         // throw new NotFoundError(`Wizard with name "${wizardName}" didn't upload avatar`);
     }
 
-    const {info, stream} = await imageStore.get(photo.path);
+    const {info, stream} = await imageStore.get(photoPath);
 
     if (!info) {
         // throw new NotFoundError(`File was not found`);
@@ -58,7 +68,7 @@ carsRouter.get(`/cars/:id/photo`, async(async (req, res) => {
     stream.pipe(res);
 }));
 
-carsRouter.post(`/add-post/create`, upload.array(`photos`), async(async (req, res) => {
+carsRouter.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res) => {
     const data = req.body;
     const photos = req.files;
     data.id = generateId();
@@ -83,6 +93,38 @@ carsRouter.post(`/add-post/create`, upload.array(`photos`), async(async (req, re
 
     return res.send(data);
 }));
+
+/*carsRouter.get(`/cars`, async(async (req, res) => {
+    return res.sendFile(`index.html`, {
+        root: `__dirname/../dist`
+    });
+}));
+
+carsRouter.get(`/cars/:id`, async(async (req, res) => {
+    return res.sendFile(`index.html`, {
+        root: `__dirname/../dist`
+    });
+}));
+
+carsRouter.get(`/add-post`, async(async (req, res) => {
+    return res.sendFile(`index.html`, {
+        // root: `/dist`
+    });
+}));
+
+carsRouter.get(`/login`, async(async (req, res) => {
+    return res.sendFile(`index.html`, {
+        root: `__dirname/../dist`
+    });
+}));
+
+carsRouter.get(`/registry`, async(async (req, res) => {
+    return res.sendFile(`index.html`, {
+        root: `__dirname/../dist`
+    });
+}));*/
+
+// Todo make routing
 
 carsRouter.delete(`/drop-cars`, async(async (req, res) => {
     await carStore.removeAllCars();
