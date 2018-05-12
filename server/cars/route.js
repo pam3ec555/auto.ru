@@ -6,6 +6,7 @@ const carStore = require(`../cars/store`);
 const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 const generateId = require(`../util/generate-id`);
+const path = require(`path`);
 
 const {Router} = express;
 const carsRouter = new Router();
@@ -94,35 +95,14 @@ carsRouter.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, 
     return res.send(data);
 }));
 
-/*carsRouter.get(`/cars`, async(async (req, res) => {
-    return res.sendFile(`index.html`, {
-        root: `__dirname/../dist`
-    });
-}));
+const htmlFilePath = path.join(`${__dirname}/../../dist/index.html`);
+const defaultUrls = new Set([`/cars`, `/cars/:id`, `/add-post`, `/login`, `/registry`]);
 
-carsRouter.get(`/cars/:id`, async(async (req, res) => {
-    return res.sendFile(`index.html`, {
-        root: `__dirname/../dist`
-    });
-}));
-
-carsRouter.get(`/add-post`, async(async (req, res) => {
-    return res.sendFile(`index.html`, {
-        // root: `/dist`
-    });
-}));
-
-carsRouter.get(`/login`, async(async (req, res) => {
-    return res.sendFile(`index.html`, {
-        root: `__dirname/../dist`
-    });
-}));
-
-carsRouter.get(`/registry`, async(async (req, res) => {
-    return res.sendFile(`index.html`, {
-        root: `__dirname/../dist`
-    });
-}));*/
+defaultUrls.forEach((url) => {
+    carsRouter.get(url, async(async (req, res) => {
+        return res.sendFile(htmlFilePath);
+    }));
+});
 
 // Todo make routing
 

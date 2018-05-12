@@ -16,15 +16,15 @@ const drawLogo = (): string => {
 
 const drawDesktopGuest = (): string => {
     return `<p>
-  <a href="#" class="login__log-in" id="log-in">Войти</a> или
-  <a href="#" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
+  <a href="/login" class="login__log-in" id="log-in">Войти</a> или
+  <a href="/registry" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
 </p>`;
 };
 
 const drawGuest = (): string => {
     return `<p>Вы не авторизованы.
-  <a href="#" class="login__log-in" id="log-in">Войти</a> или
-  <a href="#" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
+  <a href="/login" class="login__log-in" id="log-in">Войти</a> или
+  <a href="/registry" class="login__sign-up" id="sign-up">Зарегистрироваться</a>
 </p>`;
 };
 

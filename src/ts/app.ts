@@ -13,15 +13,35 @@ enum ControllerID {
     CAR = 'car',
     REGISTRY = 'registry',
     LOGIN = 'login',
-    ADD_POST = 'add'
+    ADD_POST = 'add-post'
 }
 
 type Routes = {
     [name: string]: any
 };
 
+const getRoute = () => {
+    const path: string = location.pathname;
+    const pathChunks: Array<string> = path.slice(1).split(`/`);
+    let route: ControllerID;
+
+    if (pathChunks.length === 1 && (pathChunks[0] === `cars` || pathChunks[0] === ``)) {
+        route = ControllerID.CAR_LIST;
+    } else if (pathChunks.length === 2 && pathChunks[0] === `cars`) {
+        route = ControllerID.CAR;
+    } else if (pathChunks.length === 1 && pathChunks[0] === ControllerID.ADD_POST) {
+        route = ControllerID.ADD_POST;
+    } else if (pathChunks.length === 1 && pathChunks[0] === ControllerID.LOGIN) {
+        route = ControllerID.LOGIN;
+    } else if (pathChunks.length === 1 && pathChunks[0] === ControllerID.REGISTRY) {
+        route = ControllerID.REGISTRY;
+    }
+
+    return route;
+};
+
 const getMenuType = (): MenuType => {
-    return (location.hash === ControllerID.CAR_LIST) ? MenuType.LIST : MenuType.OTHER;
+    return (getRoute() === ControllerID.CAR_LIST) ? MenuType.LIST : MenuType.OTHER;
 };
 
 class App {
@@ -38,34 +58,8 @@ class App {
         this.init();
     }
 
-    public showCarList(): void {
-        location.hash = ControllerID.CAR_LIST;
-    }
-
-    public showRegistry(): void {
-        location.hash = ControllerID.REGISTRY;
-    }
-
-    public showLogin(): void {
-        location.hash = ControllerID.LOGIN;
-    }
-
-    public showAddingPost(): void {
-        location.hash = ControllerID.ADD_POST;
-    }
-
     private changeController(): void {
-        const path: string = location.pathname;
-        const pathChunks = path.slice(1).split(`/`);
-        let route: ControllerID;
-
-        if (pathChunks.length === 1 && (pathChunks[0] === `cars` || pathChunks[0] === ``)) {
-            route = ControllerID.CAR_LIST;
-        } else if (pathChunks.length === 2 && pathChunks[0] === `cars`) {
-            route = ControllerID.CAR;
-        }
-
-        this.routes[route].init();
+        this.routes[getRoute()].init();
     }
 
     private calcViewState(): void {

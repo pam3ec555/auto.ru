@@ -5,7 +5,7 @@ const carsRouter = require(`./cars/route`);
 app.use(express.static(`dist`));
 app.use(``, carsRouter);
 
-const PORT = 9001;
+const PORT = 9000;
 const HOSTNAME = `127.0.0.1`;
 const serverAddress = `http://${HOSTNAME}:${PORT}`;
 

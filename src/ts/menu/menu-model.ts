@@ -2,7 +2,7 @@ import {Menu, NavData, UserData} from './menu';
 
 export const navData: Array<NavData> = [
     {
-        link: `#`,
+        link: `/add-post`,
         name: `Добавить объявление`,
         id: `add-post`
     }

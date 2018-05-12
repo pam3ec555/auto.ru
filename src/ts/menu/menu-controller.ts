@@ -1,6 +1,6 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
-import {MenuType, toggleOverlay, ViewType, appWrap} from '../util';
+import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl} from '../util';
 import {Menu} from './menu';
 import App from '../app';
 import Controller from '../controller';
@@ -184,20 +184,20 @@ export default class MenuController extends Controller {
 
     private onAddPostClick = (e: Event): void => {
         e.preventDefault();
-        App.showAddingPost();
         hideMenu();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 
     private onLoginClick = (e: Event): void => {
         e.preventDefault();
-        App.showLogin();
         hideMenu();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 
     private onSignUpClick = (e: Event): void => {
         e.preventDefault();
-        App.showRegistry();
         hideMenu();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 
     private onMenuHideClick = (): void => {
