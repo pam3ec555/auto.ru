@@ -1,5 +1,7 @@
 export type UserData = {
-    name?: string
+    name: string,
+    tel: string,
+    email: string
 };
 
 export type NavData = {

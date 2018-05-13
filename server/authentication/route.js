@@ -5,7 +5,6 @@ const mongoose = require(`mongoose`);
 const async = require(`../util/async`);
 const bodyParser = require(`body-parser`);
 const multer = require(`multer`);
-const validateUserData = require(`./validate`);
 const authenticationStore = require(`./store`);
 const setAccessHeaders = require(`../util/set-access-headers`);
 const CodeStatus = require(`../util/code-status`);
@@ -31,23 +30,36 @@ router.use(session({
     }
 }));
 
-router.post(``, upload.none(), async(async (req, res) => {
-    const {login, password} = req.body;
-    const userData = await authenticationStore.getUser(login);
-    console.log(userData);
-    let authenticationStatus;
+router.route(``)
+    .post(upload.none(), async(async (req, res) => {
+        const {login, password} = req.body;
+        const userData = await authenticationStore.getUser(login);
+        let authenticationStatus;
 
-    if (userData) {
-        if (passwordHash.verify(password, userData.password)) {
-            authenticationStatus = CodeStatus.OK;
+        if (userData) {
+            if (passwordHash.verify(password, userData.password)) {
+                authenticationStatus = CodeStatus.OK;
+                req.session.name = userData.name;
+                req.session.email = userData.email;
+                req.session.tel = userData.tel;
+                // Todo save session status
+            } else {
+                authenticationStatus = CodeStatus.BAD_REQUEST;
+            }
         } else {
-            authenticationStatus = CodeStatus.BAD_REQUEST;
+            authenticationStatus = CodeStatus.NOT_FOUND;
         }
-    } else {
-        authenticationStatus = CodeStatus.NOT_FOUND;
-    }
 
-    return res.send(authenticationStatus);
-}));
+        return res.sendStatus(authenticationStatus);
+    }))
+    .get(async(async (req, res) => {
+        const user = {
+            name: req.session.name,
+            email: req.session.email,
+            tel: req.session.tel
+        };
+        console.log(req.session);
+        res.send(user);
+    }));
 
 module.exports = router;

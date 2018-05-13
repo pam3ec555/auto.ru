@@ -62,9 +62,9 @@ export default class MenuController extends Controller {
         this.menuType = menuType;
     }
 
-    public init(): void {
+    public async init() {
         this.menuModel = new MenuModel();
-        this.data = this.menuModel.data;
+        this.data = await this.menuModel.getData();
         const menuView = new MenuView(this.data, this.viewState, this.menuType);
         appWrap.appendChild(menuView.render());
         setMenuTypeStatus(this.menuType);

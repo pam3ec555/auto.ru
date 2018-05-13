@@ -70,10 +70,10 @@ class App {
         }
     }
 
-    private init(): void {
+    private async init() {
         this.calcViewState();
         const menu: MenuController = new MenuController(this.viewState, getMenuType());
-        menu.init();
+        await menu.init();
         this.changeController();
 
         window.addEventListener(`popstate`, () => {

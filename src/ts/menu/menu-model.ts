@@ -1,4 +1,5 @@
 import {Menu, NavData, UserData} from './menu';
+import Model from "../model";
 
 export const navData: Array<NavData> = [
     {
@@ -8,17 +9,29 @@ export const navData: Array<NavData> = [
     }
 ];
 
-const userData: UserData = {
-    // Todo refactor this
-};
+export default class MenuModel extends Model {
+    private userData: UserData;
+    private menuData: Menu;
 
-export default class MenuModel {
-    private menuData: Menu = {
-        navData,
-        userData
-    };
+    public async getData() {
+        this.userData = await this.getUser();
 
-    public get data(): Menu {
-        return this.menuData;
+        return {
+            navData,
+            userData: this.userData
+        };
+    }
+
+    private getUser(): any {
+        return fetch(`/authentication-api`)
+            .then((res: Response) => {
+                return res.json();
+            })
+            .then((user: UserData): UserData => {
+                return user;
+            })
+            .catch(() => {
+                return new Object();
+            });
     }
 }
