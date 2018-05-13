@@ -35,8 +35,8 @@ export default class AddPostController extends Controller {
 
         if (form) {
             const formData: FormData = new FormData(form);
-            const addPostModel: Model = new Model();
-            addPostModel.save(`/cars-api/add-post`, {
+            const model: Model = new Model();
+            model.save(`/cars-api/add-post`, {
                 body: formData
             });
         }

@@ -53,7 +53,7 @@ const drawNav = (data: Array<NavData>): string => {
 const drawMobileHeader = (menuType: MenuType): string => {
     const leftBtn = (menuType === MenuType.LIST) ? `<button type="button" class="hamburger" id="menu-show">
   <div class="hamburger__inner"></div>
-</button>` : `<a href="#" class="back-btn" id="back-btn">
+</button>` : `<a href="/" class="back-btn" id="back-btn">
   <div class="back-btn__inner"></div>
 </a>`;
     const searchBtn = (menuType === MenuType.LIST) ?

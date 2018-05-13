@@ -1,4 +1,5 @@
 const db = require(`../database/database`);
+const Store = require(`../store`);
 
 const setupCollection = async () => {
     const dBase = await db;
@@ -8,11 +9,7 @@ const setupCollection = async () => {
     return collection;
 };
 
-class CarStore {
-    constructor(collection) {
-        this.collection = collection;
-    }
-
+class CarStore extends Store {
     async getCar(id) {
         return (await this.collection).findOne({id});
     }
@@ -30,4 +27,7 @@ class CarStore {
     }
 }
 
-module.exports = new CarStore(setupCollection().catch(() => console.error(`Failed to set up "cars collection"`)));
+module.exports = new CarStore(setupCollection()
+    .catch(() => {
+        console.error(`Failed to set up "cars collection"`);
+    }));

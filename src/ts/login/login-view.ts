@@ -3,20 +3,20 @@ import View from '../view';
 const drawLogin = (): string => {
     return `<div class="form-block outer-block">
   <h2 class="title">Вход</h2>
-  <div class="form">
+  <form class="form" id="login-form">
       <div class="row">
         <label for="login" class="label">Логин</label>
         <div class="value">
-          <input type="text" id="login">
+          <input type="text" name="login" id="login">
         </div>
       </div>
       <div class="row">
         <label for="password" class="label">Пароль</label>
         <div class="value">
-          <input type="password" id="password">
+          <input type="password" name="password" id="password">
         </div>
       </div>
-  </div>
+  </form>
   <button type="button" class="submit" id="submit">Войти</button>
 </div>`;
 };

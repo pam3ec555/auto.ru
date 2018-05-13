@@ -6,10 +6,10 @@ const carStore = require(`../cars/store`);
 const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 const generateId = require(`../util/generate-id`);
-const path = require(`path`);
+const setAccessHeaders = require(`../util/set-access-headers`);
 
 const {Router} = express;
-const carsRouter = new Router();
+const router = new Router();
 const upload = multer({storage: multer.memoryStorage()});
 
 const toPage = async (cursor, skip = 0, limit = 20) => {
@@ -21,27 +21,24 @@ const toPage = async (cursor, skip = 0, limit = 20) => {
     };
 };
 
-carsRouter.use(bodyParser.json());
-carsRouter.use((req, res, next) => {
-    res.header(`Access-Control-Allow-Origin`, `*`);
-    res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
-    next();
-});
+router.use(bodyParser.json());
 
-carsRouter.get(`/cars-api/cars`, async(async (req, res) => {
+router.use(setAccessHeaders);
+
+router.get(`/cars-api/cars`, async(async (req, res) => {
     const data = await toPage(await carStore.getAllCars());
 
     return res.send(data);
 }));
 
-carsRouter.get(`/cars-api/cars/:id`, async(async (req, res) => {
+router.get(`/cars-api/cars/:id`, async(async (req, res) => {
     const {id} = req.params;
     const car = await carStore.getCar(id);
 
     return res.send(car);
 }));
 
-carsRouter.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
+router.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
     const {id, photoIndex} = req.params;
     const car = await carStore.getCar(id);
 
@@ -69,7 +66,7 @@ carsRouter.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
     stream.pipe(res);
 }));
 
-carsRouter.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res) => {
+router.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res) => {
     const data = req.body;
     const photos = req.files;
     data.id = generateId();
@@ -95,21 +92,10 @@ carsRouter.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, 
     return res.send(data);
 }));
 
-const htmlFilePath = path.join(`${__dirname}/../../dist/index.html`);
-const defaultUrls = new Set([`/cars`, `/cars/:id`, `/add-post`, `/login`, `/registry`]);
-
-defaultUrls.forEach((url) => {
-    carsRouter.get(url, async(async (req, res) => {
-        return res.sendFile(htmlFilePath);
-    }));
-});
-
-// Todo make routing
-
-carsRouter.delete(`/drop-cars`, async(async (req, res) => {
+router.delete(`/drop-cars`, async(async (req, res) => {
     await carStore.removeAllCars();
 
     return res.send(`Removed all cars`);
 }));
 
-module.exports = carsRouter;
+module.exports = router;

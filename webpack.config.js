@@ -11,7 +11,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, `dist`),
-        filename: `[name].js`
+        filename: `[name].js`,
+        publicPath: `/`
     },
     devtool: `inline-source-map`,
     module: {

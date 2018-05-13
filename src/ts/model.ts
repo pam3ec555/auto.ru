@@ -18,7 +18,7 @@ export default class Model {
 
     public save(url: string, params: {
         method?: string,
-        body: object
+        body: object|FormData
     }, adapter: IAdapter = defaultAdapter) {
         const reqParams: object = {
             method: params.method || `POST`,
