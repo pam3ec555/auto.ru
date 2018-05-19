@@ -2,7 +2,6 @@ import MenuModel from './menu-model';
 import MenuView from './menu-view';
 import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl} from '../util';
 import {Menu} from './menu';
-import App from '../app';
 import Controller from '../controller';
 
 const hideMenu = (): void => {
@@ -146,7 +145,7 @@ export default class MenuController extends Controller {
     }
 
     private bindLogLinks(bind: boolean = true): void {
-        if (Object.keys(this.data.userData).length !== 0) {
+        if (this.data.userData) {
             const logoutBtn: HTMLButtonElement = document.querySelector(`#log-out`);
 
             if (logoutBtn) {
@@ -179,7 +178,9 @@ export default class MenuController extends Controller {
     }
 
     private onLogoutClick = (): void => {
-        // Todo make logout
+        localStorage.removeItem(`user-token`);
+        toggleOverlay(false);
+        pushUrl(`/`);
     }
 
     private onAddPostClick = (e: Event): void => {
@@ -208,8 +209,9 @@ export default class MenuController extends Controller {
         showMenu();
     }
 
-    private onBackClick = (): void => {
-        history.back();
+    private onBackClick = (e: Event): void => {
+        e.preventDefault();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 
     private onSearchToggle = (): void => {

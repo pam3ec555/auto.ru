@@ -66,7 +66,7 @@ ${searchInput}`;
 };
 
 const drawDesktopHeader = (data: Menu): string => {
-    const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(data.userData) : drawDesktopGuest();
+    const loginView: string = (data.userData) ? drawLog(data.userData) : drawDesktopGuest();
 
     return `<header class="outer-block">
   <div class="container">
@@ -81,7 +81,7 @@ const drawDesktopHeader = (data: Menu): string => {
 
 const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
-    const loginView: string = (Object.keys(data.userData).length !== 0) ? drawLog(data.userData) : drawGuest();
+    const loginView: string = (data.userData) ? drawLog(data.userData) : drawGuest();
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>

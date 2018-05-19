@@ -44,7 +44,7 @@ const getMenuType = (): MenuType => {
     return (getRoute() === ControllerID.CAR_LIST) ? MenuType.LIST : MenuType.OTHER;
 };
 
-class App {
+export default new class App {
     private viewState: ViewType;
     private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
@@ -89,6 +89,4 @@ class App {
             }
         });
     }
-}
-
-export default new App();
+}();

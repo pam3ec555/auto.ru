@@ -1,7 +1,8 @@
 import LoginView from './login-view';
-import {ViewType} from '../util';
+import {StatusCode, ViewType} from '../util';
 import Controller from '../controller';
-import Model from "../model";
+import Model from '../model';
+import App from '../app';
 
 export default class LoginController extends Controller {
     constructor(viewState: ViewType) {
@@ -37,8 +38,18 @@ export default class LoginController extends Controller {
             const formData: FormData = new FormData(form);
             const model: Model = new Model();
             model.save(`/authentication-api`, {
-                body: formData
-            });
+                    body: formData
+                })
+                .then((response: Response) => {
+                    if (response.status === StatusCode.OK) {
+                        return response.json();
+                    }
+                })
+                .then((data: {
+                        token: string
+                    }) => {
+                    localStorage.setItem(`user-token`, data.token);
+                });
         }
     }
 }
