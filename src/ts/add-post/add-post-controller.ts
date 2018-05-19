@@ -1,7 +1,9 @@
 import AddPostView from './add-post-view';
 import {ViewType} from '../util';
 import Controller from '../controller';
-import Model from "../model";
+import Model from '../model';
+import App from '../app';
+import {UserData} from "../menu/menu";
 
 export default class AddPostController extends Controller {
     constructor(viewState: ViewType) {
@@ -9,7 +11,8 @@ export default class AddPostController extends Controller {
     }
 
     public init(viewState: ViewType): void {
-        const addPostView: AddPostView = new AddPostView();
+        const userData: UserData = App.userData;
+        const addPostView: AddPostView = new AddPostView(userData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {

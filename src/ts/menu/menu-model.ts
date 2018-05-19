@@ -1,15 +1,6 @@
 import {Menu, NavData, UserData} from './menu';
 import Model from '../model';
-import {Car, CarPhotos} from "../car/car";
 import DefaultAdapter from "../default-adapter";
-
-export const navData: Array<NavData> = [
-    {
-        link: `/add-post`,
-        name: `Добавить объявление`,
-        id: `add-post`
-    }
-];
 
 const adapter = new class extends DefaultAdapter {
     public preprocess(data: {
@@ -28,6 +19,16 @@ export default class MenuModel extends Model {
         if (!this.userData) {
             this.userData = await this.getUser();
         }
+
+        const navData: Array<NavData> = (this.userData) ?
+            [
+                {
+                    link: `/add-post`,
+                    name: `Добавить объявление`,
+                    id: `add-post`
+                }
+            ] :
+            [];
 
         return {
             navData,

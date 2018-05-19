@@ -1,6 +1,7 @@
 import View from '../view';
+import {UserData} from "../menu/menu";
 
-const drawAddingPost = (): string => {
+const drawAddingPost = (userData: UserData): string => {
     return `<div class="form-block outer-block">
   <h2 class="title">Добавление</h2>
   <form class="form" id="add-post-form">
@@ -95,18 +96,37 @@ const drawAddingPost = (): string => {
       </div>
     </div>
     <div class="row">
+      <span class="label">Адрес осмотра</span>
+      <div class="value">
+        <input type="text" name="address">
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Описание</span>
+      <div class="value">
+        <textarea name="description" rows="5"></textarea>
+      </div>
+    </div>
+    <div class="row">
       <span class="label">Фотографии</span>
       <div class="value">
         <input type="file" name="photos" multiple>
       </div>
     </div>
+    <input type="hidden" name="ownerName" value="${userData.name}">
+    <input type="hidden" name="phoneNum" value="${userData.tel}">
+    <input type="hidden" name="email" value="${userData.email}">
   </form>
   <button type="button" class="submit" id="submit">Добавить</button>
 </div>`;
 };
 
 export default class AddPostView extends View {
+    constructor(data: UserData) {
+        super(data);
+    }
+
     protected get template(): string {
-        return drawAddingPost();
+        return drawAddingPost(this.data);
     }
 }

@@ -95,6 +95,10 @@ export default class MenuController extends Controller {
         this.viewState = viewState;
     }
 
+    public get menuData() {
+        return this.data;
+    }
+
     protected bind(bind: boolean = true): void {
         const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
         const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);

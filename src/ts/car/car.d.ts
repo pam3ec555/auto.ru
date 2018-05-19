@@ -21,8 +21,8 @@ export type Car = {
     readonly city: string,
     readonly ownerName: string,
     readonly phoneNum: number,
-    readonly address: string
-    readonly email: string
+    readonly address: string,
+    readonly email: string,
     readonly engineVolume: number,
     readonly enginePower: number,
     readonly engineType: string

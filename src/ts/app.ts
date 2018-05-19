@@ -7,6 +7,7 @@ import RegistryController from './registry/registry-controller';
 import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
+import {UserData} from "./menu/menu";
 
 enum ControllerID {
     CAR_LIST = 'car-list',
@@ -48,6 +49,7 @@ export default new class App {
     private viewState: ViewType;
     private prevRoute: Routes;
     private menu: MenuController;
+    private _userData: UserData;
     private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(this.viewState),
@@ -65,7 +67,12 @@ export default new class App {
         this.menu.destroy();
         this.menu = new MenuController(this.viewState, getMenuType());
         await this.menu.init();
+        this._userData = this.menu.menuData.userData;
         this.changeController();
+    }
+
+    public get userData() {
+        return this._userData;
     }
 
     private changeController(): void {
@@ -90,6 +97,7 @@ export default new class App {
         this.calcViewState();
         this.menu = new MenuController(this.viewState, getMenuType());
         await this.menu.init();
+        this._userData = this.menu.menuData.userData;
         this.changeController();
 
         window.addEventListener(`popstate`, () => {

@@ -39,6 +39,7 @@ const drawNav = (data: Array<NavData>): string => {
   <a href="${item.link}" class="nav__link" id="${item.id}">${item.name}</a>
 </li>`;
     });
+
     return `<ul class="nav__list">
   ${navItems}
 </ul>`;
@@ -82,9 +83,10 @@ const drawDesktopHeader = (data: Menu): string => {
 const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (data.userData) ? drawLog(data.userData) : drawGuest();
+    const emptyNav = (data.navData.length === 0) ? ` m-menu__section--empty` : ``;
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
-  <nav class="m-menu__section nav outer-block">${drawNav(data.navData)}</nav>
+  <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>` : ``;
 
