@@ -19,7 +19,7 @@ export default class LoginController extends Controller {
         }
     }
 
-    private bind(bind: boolean = true): void {
+    protected bind(bind: boolean = true): void {
         const submit: HTMLButtonElement = document.querySelector(`#submit`);
 
         if (submit) {
@@ -49,6 +49,8 @@ export default class LoginController extends Controller {
                         token: string
                     }) => {
                     localStorage.setItem(`user-token`, data.token);
+                    history.pushState({}, '', `/`);
+                    App.replaceAuthStatus();
                 });
         }
     }

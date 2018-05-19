@@ -18,7 +18,7 @@ export default class AddPostController extends Controller {
         }
     }
 
-    private bind(bind: boolean = true): void {
+    protected bind(bind: boolean = true): void {
         const submit: HTMLButtonElement = document.querySelector(`#submit`);
 
         if (submit) {

@@ -43,7 +43,7 @@ export default class CarListController extends Controller {
         }
     }
 
-    private bind(bind: boolean = true): void {
+    protected bind(bind: boolean = true): void {
         const carLinks: NodeListOf<HTMLHRElement> = document.querySelectorAll(`.content-link`);
 
         if (carLinks.length > 0) {
@@ -59,7 +59,6 @@ export default class CarListController extends Controller {
 
     private onCardClick = (e: Event): void => {
         e.preventDefault();
-        this.bind(false);
         pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 }

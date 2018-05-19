@@ -40,7 +40,7 @@ export default class CarController extends Controller {
         }
     }
 
-    private bind(): void {
+    protected bind(bind: boolean = true): void {
         // Todo bind this
     }
 }

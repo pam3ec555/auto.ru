@@ -3,6 +3,7 @@ import MenuView from './menu-view';
 import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl} from '../util';
 import {Menu} from './menu';
 import Controller from '../controller';
+import App from '../app';
 
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
@@ -70,9 +71,13 @@ export default class MenuController extends Controller {
         this.bind();
     }
 
+    public destroy() {
+        this.bind(false);
+        appWrap.innerHTML = ``;
+    }
+
     public resize(viewState: ViewType): void {
         this.viewState = viewState;
-        this.bind(false);
         toggleOverlay(false);
         removeMenuElems(viewState);
         const menuView: MenuView = new MenuView(this.data, viewState, this.menuType, true);
@@ -83,7 +88,6 @@ export default class MenuController extends Controller {
     public changeMenuType(menuType: MenuType, viewState: ViewType): void {
         this.menuType = menuType;
         setMenuTypeStatus(this.menuType);
-        this.bind(false);
         const menuView = new MenuView(this.data, this.viewState, menuType);
         appWrap.innerHTML = ``;
         appWrap.appendChild(menuView.render());
@@ -91,7 +95,7 @@ export default class MenuController extends Controller {
         this.viewState = viewState;
     }
 
-    private bind(bind: boolean = true): void {
+    protected bind(bind: boolean = true): void {
         const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
         const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
@@ -180,7 +184,8 @@ export default class MenuController extends Controller {
     private onLogoutClick = (): void => {
         localStorage.removeItem(`user-token`);
         toggleOverlay(false);
-        pushUrl(`/`);
+        history.pushState({}, '', `/`);
+        App.replaceAuthStatus();
     }
 
     private onAddPostClick = (e: Event): void => {

@@ -20,7 +20,7 @@ type Routes = {
     [name: string]: any
 };
 
-const getRoute = () => {
+const getRoute = (): string => {
     const path: string = location.pathname;
     const pathChunks: Array<string> = path.slice(1).split(`/`);
     let route: ControllerID;
@@ -46,6 +46,8 @@ const getMenuType = (): MenuType => {
 
 export default new class App {
     private viewState: ViewType;
+    private prevRoute: Routes;
+    private menu: MenuController;
     private routes: Routes = {
         [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(this.viewState),
@@ -58,8 +60,22 @@ export default new class App {
         this.init();
     }
 
-    private changeController(): void {
+    public async replaceAuthStatus() {
         this.routes[getRoute()].init();
+        this.menu.destroy();
+        this.menu = new MenuController(this.viewState, getMenuType());
+        await this.menu.init();
+        this.changeController();
+    }
+
+    private changeController(): void {
+        if (this.prevRoute) {
+            this.prevRoute.destroy();
+        }
+
+        const route = getRoute();
+        this.prevRoute = this.routes[route];
+        this.routes[route].init();
     }
 
     private calcViewState(): void {
@@ -72,12 +88,12 @@ export default new class App {
 
     private async init() {
         this.calcViewState();
-        const menu: MenuController = new MenuController(this.viewState, getMenuType());
-        await menu.init();
+        this.menu = new MenuController(this.viewState, getMenuType());
+        await this.menu.init();
         this.changeController();
 
         window.addEventListener(`popstate`, () => {
-            menu.changeMenuType(getMenuType(), this.viewState);
+            this.menu.changeMenuType(getMenuType(), this.viewState);
             this.changeController();
         });
 
@@ -85,7 +101,7 @@ export default new class App {
             const prevViewState = this.viewState;
             this.calcViewState();
             if (prevViewState !== this.viewState) {
-                menu.resize(this.viewState);
+                this.menu.resize(this.viewState);
             }
         });
     }

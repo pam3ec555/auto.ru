@@ -6,4 +6,12 @@ export default abstract class Controller {
     constructor(viewState: ViewType) {
         this.viewState = viewState;
     }
+
+    public destroy(): void {
+        this.bind(false);
+    }
+
+    protected bind(bind: boolean = true) {
+        //
+    }
 }
