@@ -40,6 +40,7 @@
         "trace"
       ]
     },
+    "variable-name": false,
     "forin": false,
     "align": false,
     "max-classes-per-file": [0]

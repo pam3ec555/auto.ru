@@ -1,12 +1,10 @@
 const express = require(`express`);
 const multer = require(`multer`);
-const bodyParser = require(`body-parser`);
 const async = require(`../util/async`);
 const carStore = require(`../cars/store`);
 const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 const generateId = require(`../util/generate-id`);
-const setAccessHeaders = require(`../util/set-access-headers`);
 
 const {Router} = express;
 const router = new Router();
@@ -20,10 +18,6 @@ const toPage = async (cursor, skip = 0, limit = 20) => {
         total: await cursor.count()
     };
 };
-
-router.use(bodyParser.json());
-
-router.use(setAccessHeaders);
 
 router.get(`/cars-api/cars`, async(async (req, res) => {
     const data = await toPage(await carStore.getAllCars());

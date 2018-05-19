@@ -1,5 +1,7 @@
 import {Menu, NavData, UserData} from './menu';
-import Model from "../model";
+import Model from '../model';
+import {Car, CarPhotos} from "../car/car";
+import DefaultAdapter from "../default-adapter";
 
 export const navData: Array<NavData> = [
     {
@@ -9,12 +11,23 @@ export const navData: Array<NavData> = [
     }
 ];
 
+const adapter = new class extends DefaultAdapter {
+    public preprocess(data: {
+        user: UserData,
+        iat: number
+    }): UserData {
+        return data.user;
+    }
+}();
+
 export default class MenuModel extends Model {
     private userData: UserData;
     private menuData: Menu;
 
     public async getData() {
-        this.userData = await this.getUser();
+        if (!this.userData) {
+            this.userData = await this.getUser();
+        }
 
         return {
             navData,
@@ -23,15 +36,19 @@ export default class MenuModel extends Model {
     }
 
     private getUser(): any {
-        return fetch(`/authentication-api`)
-            .then((res: Response) => {
-                return res.json();
-            })
-            .then((user: UserData): UserData => {
-                return user;
-            })
+        const headers: Headers = new Headers();
+        const userToken: string = localStorage.getItem(`user-token`);
+        if (userToken) {
+            headers.append(`authorization`, userToken);
+        }
+
+        const options: object = {
+            headers
+        };
+
+        return this.load(`/authentication-api`, options, adapter)
             .catch(() => {
-                return new Object();
+                return null;
             });
     }
 }

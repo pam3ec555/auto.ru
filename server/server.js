@@ -1,11 +1,18 @@
 const express = require(`express`);
 const app = express();
 const carsRouter = require(`./cars/route`);
-const authorizationRouter = require(`./authentication/route`);
+const authorizationRouter = require(`./authorization/route`);
 const registryRouter = require(`./registry/route`);
 const path = require(`path`);
 const async = require(`./util/async`);
+const bodyParser = require(`body-parser`);
 
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+    res.header(`Access-Control-Allow-Origin`, `*`);
+    res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
+    next();
+});
 app.use(express.static(`dist`));
 app.use(``, carsRouter);
 app.use(`/authentication-api`, authorizationRouter);

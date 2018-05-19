@@ -31,6 +31,11 @@ export enum KeyCode {
     ESC = 27
 }
 
+export enum StatusCode {
+    OK = 200,
+    NOT_FOUND = 404
+}
+
 /**
  * Type of menu`s view
  * if = 0, Render menu for car-list view
