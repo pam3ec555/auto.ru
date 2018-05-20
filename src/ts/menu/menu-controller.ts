@@ -1,9 +1,47 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
-import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl} from '../util';
+import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl, hide, showBlock, StatusCode} from '../util';
 import {Menu} from './menu';
 import Controller from '../controller';
 import App from '../app';
+import Model from "../model";
+import Validation from "../validation";
+
+declare const require: any;
+
+const AutoComplete = require("autocomplete-js");
+
+const autocompleteOptions = {
+    _Blur(): void {
+        hide(this.DOMResults);
+    },
+    _Focus(): void {
+        if (this.Input.id === `sort-model`) {
+            const brandField = document.querySelector(`#sort-brand`);
+
+            if (brandField) {
+                const brandName = brandField.getAttribute(`data-autocomplete-old-value`);
+
+                if (brandName !== ``) {
+                    const modelApiUrl = `/cars-data-api/${brandName}`;
+                    this.Input.setAttribute(`data-autocomplete`, modelApiUrl);
+                }
+            }
+        }
+
+        showBlock(this.DOMResults);
+    },
+    _Select(item: HTMLElement): void {
+        if (item.hasAttribute(`data-autocomplete-value`)) {
+            this.Input.value = item.getAttribute(`data-autocomplete-value`);
+        } else {
+            this.Input.value = item.innerHTML;
+        }
+
+        this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
+        this._Blur();
+    }
+};
 
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
@@ -68,6 +106,7 @@ export default class MenuController extends Controller {
         const menuView = new MenuView(this.data, this.viewState, this.menuType);
         appWrap.appendChild(menuView.render());
         setMenuTypeStatus(this.menuType);
+        AutoComplete(autocompleteOptions);
         this.bind();
     }
 
@@ -82,6 +121,7 @@ export default class MenuController extends Controller {
         removeMenuElems(viewState);
         const menuView: MenuView = new MenuView(this.data, viewState, this.menuType, true);
         appWrap.insertBefore(menuView.render(false), document.querySelector(`#inner`));
+        AutoComplete(autocompleteOptions);
         this.bind();
     }
 
@@ -91,6 +131,7 @@ export default class MenuController extends Controller {
         const menuView = new MenuView(this.data, this.viewState, menuType);
         appWrap.innerHTML = ``;
         appWrap.appendChild(menuView.render());
+        AutoComplete(autocompleteOptions);
         this.bind();
         this.viewState = viewState;
     }
@@ -106,6 +147,7 @@ export default class MenuController extends Controller {
         const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
         const addPostBtn: HTMLHRElement = document.querySelector(`#add-post`);
         const backBtn: HTMLHRElement = document.querySelector(`#back-btn`);
+        const sortSumit: HTMLButtonElement = document.querySelector(`#sort-submit`);
 
         if (menuShowBtn) {
             if (bind) {
@@ -149,6 +191,14 @@ export default class MenuController extends Controller {
             }
         }
 
+        if (sortSumit) {
+            if (bind) {
+                sortSumit.addEventListener(`click`, this.onSortSubmit);
+            } else {
+                sortSumit.removeEventListener(`click`, this.onSortSubmit);
+            }
+        }
+
         this.bindLogLinks(bind);
     }
 
@@ -183,6 +233,79 @@ export default class MenuController extends Controller {
                 }
             }
         }
+    }
+
+    private onSortSubmit = (): void => {
+        const validation: Validation = new Validation();
+        const sortByObj: {
+            [name: string]: string
+        } = {};
+        const sortBrand: HTMLInputElement = document.querySelector(`#sort-brand`);
+
+        if (sortBrand) {
+            if (validation.validateEmpty(sortBrand.value)) {
+                sortByObj.brand = sortBrand.value;
+            }
+        }
+
+        const sortModel: HTMLInputElement = document.querySelector(`#sort-model`);
+
+        if (sortModel) {
+            if (validation.validateEmpty(sortModel.value)) {
+                sortByObj.model = sortModel.value;
+            }
+        }
+
+        const sortYear: HTMLInputElement = document.querySelector(`#sort-year`);
+
+        if (sortYear) {
+            if (validation.validateEmpty(sortYear.value)) {
+                if (validation.validateNum(sortYear.value)) {
+                    sortByObj.year = sortYear.value;
+                } else {
+                    alert(`Вы не правильно заполнили год в сортировке`);
+                }
+            }
+        }
+
+        const sortPrice: HTMLInputElement = document.querySelector(`#sort-price`);
+
+        if (sortPrice) {
+            if (validation.validateEmpty(sortPrice.value)) {
+                if (validation.validateNum(sortPrice.value)) {
+                    sortByObj.price = sortPrice.value;
+                } else {
+                    alert(`Вы не правильно заполнили цену в сортировке`);
+                }
+            }
+        }
+
+        const sortMileage: HTMLInputElement = document.querySelector(`#sort-mileage`);
+
+        if (sortMileage) {
+            if (validation.validateEmpty(sortMileage.value)) {
+                if (validation.validateNum(sortMileage.value)) {
+                    sortByObj.mileage = sortMileage.value;
+                } else {
+                    alert(`Вы не правильно заполнили пробег в сортировке`);
+                }
+            }
+        }
+
+        let sortParams: string = `/cars`;
+
+        if (Object.keys(sortByObj).length > 0) {
+            sortParams += `?`;
+
+            for (const key in sortByObj) {
+                const val = sortByObj[key];
+                sortParams += `${key}=${val}&`;
+            }
+
+            sortParams = sortParams.substring(0, sortParams.length - 1);
+        }
+
+        pushUrl(sortParams);
     }
 
     private onLogoutClick = (): void => {

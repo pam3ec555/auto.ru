@@ -33,7 +33,7 @@ export default class CarListController extends Controller {
 
     public async init() {
         const model: Model = new Model();
-        this.carsData = await model.load(`/cars-api/cars`, {}, adapter);
+        this.carsData = await model.load(`/cars-api/cars?brand=BMW`, {}, adapter);
         const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 

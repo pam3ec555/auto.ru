@@ -122,6 +122,10 @@ const drawAddingPost = (userData: UserData): string => {
     <input type="hidden" name="ownerName" value="${userData.name}">
     <input type="hidden" name="phoneNum" value="${userData.tel}">
     <input type="hidden" name="email" value="${userData.email}">
+    <ul class="error-list">
+      <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
+      <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
+    </ul>
   </form>
   <button type="button" class="submit" id="submit">Добавить</button>
 </div>`;

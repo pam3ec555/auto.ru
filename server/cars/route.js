@@ -20,7 +20,13 @@ const toPage = async (cursor, skip = 0, limit = 20) => {
 };
 
 router.get(`/cars-api/cars`, async(async (req, res) => {
-    const data = await toPage(await carStore.getAllCars());
+    let data = {};
+    if (req.query && Object.keys(req.query).length > 0) {
+        data = await toPage(await carStore.getCarsBySort(req.query));
+        console.log(data);
+    } else {
+        data = await toPage(await carStore.getAllCars());
+    }
 
     return res.send(data);
 }));

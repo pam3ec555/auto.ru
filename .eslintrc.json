@@ -15,7 +15,9 @@
         "no-underscore-dangle": 0,
         "no-await-in-loop": 0,
         "spaced-comment": 0,
-        "no-plusplus": 0
+        "no-plusplus": 0,
+        "guard-for-in": 0,
+        ""
     },
     "parserOptions": {
         "ecmaVersion": 8

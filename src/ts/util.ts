@@ -68,4 +68,4 @@ export const hide = (elem: HTMLElement): void => {
 
 export const showBlock = (elem: HTMLElement): void => {
     elem.style.display = `block`;
-}
+};

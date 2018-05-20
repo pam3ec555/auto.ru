@@ -2,6 +2,20 @@ import View from '../view';
 import {Menu, NavData, UserData} from './menu';
 import {MenuType, ViewType} from '../util';
 
+const drawSort = (): string => {
+    return `
+<div class="empty-wrap">
+  <input type="text" data-autocomplete="/cars-data-api/brand" id="sort-brand" placeholder="Марка">
+</div>
+<div class="empty-wrap">
+  <input type="text" data-autocomplete="/cars-data-api/:brand" id="sort-model" placeholder="Модель">
+</div>
+<input type="text" id="sort-year" placeholder="Год от">
+<input type="text" id="sort-price" placeholder="Цена до, &#8381;">
+<input type="text" id="sort-mileage" placeholder="Пробег до, км">
+<button type="button" id="sort-submit">Применить</button>`;
+};
+
 const drawLogo = (): string => {
     return `<div class="logo">
   <img src="/src/img/icons/logo.svg" alt="Car">
@@ -89,6 +103,7 @@ const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>
+  <div class="m-menu__section sort outer-block">${drawSort()}</div>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>` : ``;
 
@@ -104,7 +119,7 @@ const drawDesktopMenu = (data: Menu, menuType: MenuType, resize: boolean): strin
   <div class="search-input__border"></div>
 </div>` : ``;
     const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results" id="sort-results"></div>` : ``;
-    const sort = (menuType === MenuType.LIST) ? `<div class="sort" id="sort"></div>` : ``;
+    const sort = (menuType === MenuType.LIST) ? `<div class="sort" id="sort">${drawSort()}</div>` : ``;
 
     return `${drawDesktopHeader(data)}
 ${sort}

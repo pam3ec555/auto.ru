@@ -14,6 +14,21 @@ class CarStore extends Store {
         return (await this.collection).findOne({id});
     }
 
+    async getCarsBySort(sortObj) {
+        let sortResultData = await this.getAllCars();
+
+        for (const key in sortObj) {
+            const val = sortObj[key];
+
+            sortResultData = sortResultData.filter((car) => {
+                return car[key] === val;
+            });
+            // Todo make sort
+        }
+
+        return sortResultData;
+    }
+
     async getAllCars() {
         return (await this.collection).find();
     }
