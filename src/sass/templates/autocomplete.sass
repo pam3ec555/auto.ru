@@ -1,0 +1,26 @@
+.autocomplete
+  display: none
+
+input:focus+.autocomplete
+  position: absolute
+  z-index: 3
+
+  max-height: 300px
+
+  border-left: 1px solid $dark-blue
+  border-right: 1px solid $dark-blue
+  border-bottom: 1px solid $dark-blue
+  background-color: #fff
+
+  overflow: auto
+
+  & li
+    padding: 5px
+
+    border-bottom: 1px solid $dark-blue
+
+    &:last-child
+      border-bottom: none
+
+    &.active
+      background-color: $light-blue

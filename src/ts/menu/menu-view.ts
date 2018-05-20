@@ -23,8 +23,10 @@ const drawGuest = (): string => {
 };
 
 const drawLog = (data: UserData): string => {
-    return `<span class="login__user-name">${data.name}</span>
-<button type="button" class="login__log-out" id="log-out"></button>`;
+    return `<div class="login">
+  <span class="login__user-name">${data.name}</span>
+  <button type="button" class="login__log-out" id="log-out"></button>
+</div>`;
 };
 
 const drawNav = (data: Array<NavData>): string => {
@@ -83,7 +85,7 @@ const drawDesktopHeader = (data: Menu): string => {
 const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (data.userData) ? drawLog(data.userData) : drawGuest();
-    const emptyNav = (data.navData.length === 0) ? ` m-menu__section--empty` : ``;
+    const emptyNav = (data.navData.length === 0) ? ` login__user-name--empty` : ``;
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>

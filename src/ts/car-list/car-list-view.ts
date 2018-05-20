@@ -12,7 +12,7 @@ const drawCard = (data: Car): string => {
       <img src="${imageSrc}"
          alt="photo" class="content__preview">
   </a>
-  <a href="/cars/${data.id}" class="content__title content-link">${data.name}</a>
+  <a href="/cars/${data.id}" class="content__title content-link">${data.brand} ${data.model}</a>
   <div class="content__props">
     <span class="content__price">${data.price}</span>
     <span class="content__year">${data.year}</span>

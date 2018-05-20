@@ -8,13 +8,13 @@ const drawAddingPost = (userData: UserData): string => {
     <div class="row">
       <span class="label">Марка автомобиля</span>
       <div class="value">
-        <input type="text" name="brand">
+        <input type="text" name="brand" data-autocomplete="/cars-data-api/brand" id="brand-field">
       </div>
     </div>
     <div class="row">
       <span class="label">Модель автомобиля</span>
       <div class="value">
-        <input type="text" name="model">
+        <input type="text" name="model" data-autocomplete="/cars-data-api/:brand" id="model-field">
       </div>
     </div>
     <div class="row">
@@ -99,6 +99,12 @@ const drawAddingPost = (userData: UserData): string => {
       <span class="label">Адрес осмотра</span>
       <div class="value">
         <input type="text" name="address">
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Цена</span>
+      <div class="value">
+        <input type="text" name="price">
       </div>
     </div>
     <div class="row">

@@ -17,7 +17,7 @@ const drawMobileCar = (data: Car): string => {
     const sliders: string = drawSliders(data.photos, data.id);
 
     return `<div class="outer-block">
-  <h2 class="title">${data.name}</h2>
+  <h2 class="title">${data.brand} ${data.model}</h2>
   <div class="gallery"></div>
   <div class="group-wrap">
     <h3 class="group-title">Контактные данные</h3>

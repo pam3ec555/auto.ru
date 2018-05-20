@@ -61,3 +61,11 @@ export const pushUrl = (href: string) => {
     history.pushState({}, '', href);
     window.dispatchEvent(new Event('popstate'));
 };
+
+export const hide = (elem: HTMLElement): void => {
+    elem.style.display = `none`;
+};
+
+export const showBlock = (elem: HTMLElement): void => {
+    elem.style.display = `block`;
+}
