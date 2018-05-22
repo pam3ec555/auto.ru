@@ -1,6 +1,6 @@
 import CarListView from './car-list-view';
 import {Car, CarPhotos} from '../car/car';
-import {pushUrl, ViewType} from '../util';
+import {getSearchVars, pushUrl, ViewType} from '../util';
 import Controller from '../controller';
 import Model from "../model";
 import DefaultAdapter from "../default-adapter";
@@ -24,6 +24,24 @@ const adapter = new class extends DefaultAdapter {
     }
 }();
 
+const setSortBySearch = (): void => {
+    const sortWrap: HTMLElement = document.querySelector(`#sort`);
+
+    if (sortWrap) {
+        const searchVars = getSearchVars();
+
+        for (const key in searchVars) {
+            if (searchVars[key]) {
+                const sortInput: HTMLInputElement = sortWrap.querySelector(`#sort-${key}`);
+
+                if (sortInput) {
+                    sortInput.value = searchVars[key];
+                }
+            }
+        }
+    }
+};
+
 export default class CarListController extends Controller {
     private carsData: Data;
 
@@ -33,12 +51,13 @@ export default class CarListController extends Controller {
 
     public async init() {
         const model: Model = new Model();
-        this.carsData = await model.load(`/cars-api/cars?brand=BMW`, {}, adapter);
+        this.carsData = await model.load(`/cars-api/cars${location.search}`, {}, adapter);
         const carListView: CarListView = new CarListView(this.carsData);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {
             contentBlock.appendChild(carListView.render());
+            setSortBySearch();
             this.bind();
         }
     }

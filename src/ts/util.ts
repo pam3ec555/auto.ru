@@ -69,3 +69,17 @@ export const hide = (elem: HTMLElement): void => {
 export const showBlock = (elem: HTMLElement): void => {
     elem.style.display = `block`;
 };
+
+type SearchUrlVars = {
+    [name: string]: string
+};
+
+export const getSearchVars = (): SearchUrlVars => {
+    const vars: SearchUrlVars = {};
+    location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m: any, key: string, value: string): any => {
+        vars[key] = value;
+    });
+
+    return vars;
+};
+

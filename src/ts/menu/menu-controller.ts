@@ -260,7 +260,7 @@ export default class MenuController extends Controller {
 
         if (sortYear) {
             if (validation.validateEmpty(sortYear.value)) {
-                if (validation.validateNum(sortYear.value)) {
+                if (validation.validateYear(sortYear.value)) {
                     sortByObj.year = sortYear.value;
                 } else {
                     alert(`Вы не правильно заполнили год в сортировке`);
@@ -305,6 +305,7 @@ export default class MenuController extends Controller {
             sortParams = sortParams.substring(0, sortParams.length - 1);
         }
 
+        toggleOverlay(false);
         pushUrl(sortParams);
     }
 

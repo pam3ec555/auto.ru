@@ -103,7 +103,7 @@ const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>
-  <div class="m-menu__section sort outer-block">${drawSort()}</div>
+  <div class="m-menu__section sort outer-block" id="sort">${drawSort()}</div>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>` : ``;
 

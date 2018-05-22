@@ -1,3 +1,5 @@
+const MIN_CARS_YEAR = 1900;
+
 export default class Validation {
     public validateNum(val: string): boolean {
         let result: boolean = false;
@@ -23,6 +25,17 @@ export default class Validation {
         let result: boolean = false;
 
         if (val.trim() !== ``) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public validateYear(val: string): boolean {
+        let result: boolean = false;
+        const today = new Date();
+
+        if (+(val) && val.length === 4 && +(val) <= today.getFullYear() && +(val) > MIN_CARS_YEAR) {
             result = true;
         }
 

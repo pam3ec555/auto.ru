@@ -19,11 +19,32 @@ const toPage = async (cursor, skip = 0, limit = 20) => {
     };
 };
 
+/**
+ * Method for parse integer body values from string to int
+ * @param body {object}
+ * @return {object}
+ */
+const parsePostDataToInt = (body) => {
+    const intParams = new Set([
+        `enginePower`,
+        `engineVolume`,
+        `mileage`,
+        `ownerCount`,
+        `price`,
+        `year`
+    ]);
+
+    intParams.forEach((param) => {
+        body[param] = +(body[param]);
+    });
+
+    return body;
+};
+
 router.get(`/cars-api/cars`, async(async (req, res) => {
     let data = {};
     if (req.query && Object.keys(req.query).length > 0) {
         data = await toPage(await carStore.getCarsBySort(req.query));
-        console.log(data);
     } else {
         data = await toPage(await carStore.getAllCars());
     }
@@ -67,7 +88,7 @@ router.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
 }));
 
 router.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res) => {
-    const data = req.body;
+    const data = parsePostDataToInt(req.body);
     const photos = req.files;
     data.id = generateId();
 

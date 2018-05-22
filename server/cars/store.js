@@ -15,18 +15,25 @@ class CarStore extends Store {
     }
 
     async getCarsBySort(sortObj) {
-        let sortResultData = await this.getAllCars();
-
-        for (const key in sortObj) {
-            const val = sortObj[key];
-
-            sortResultData = sortResultData.filter((car) => {
-                return car[key] === val;
-            });
-            // Todo make sort
+        if (sortObj.year) {
+            sortObj.year = {
+                $gte: +(sortObj.year)
+            }
         }
 
-        return sortResultData;
+        if (sortObj.price) {
+            sortObj.price = {
+                $lte: +(sortObj.price)
+            }
+        }
+
+        if (sortObj.mileage) {
+            sortObj.mileage = {
+                $lte: +(sortObj.mileage)
+            }
+        }
+
+        return (await this.collection).find(sortObj);
     }
 
     async getAllCars() {

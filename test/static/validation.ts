@@ -83,3 +83,25 @@ describe(`Check for empty`, () => {
         expect(emptyValidation).to.equal(true);
     });
 });
+
+describe(`Check for valid year`, () => {
+    it(`Try to correct year`, () => {
+        const yearValidation: boolean = validation.validateYear(`2016`);
+        expect(yearValidation).to.equal(true);
+    });
+
+    it(`Try to more/less symbols on year`, () => {
+        const yearValidation: boolean = validation.validateYear(`20162`);
+        expect(yearValidation).to.equal(false);
+    });
+
+    it(`Try to set future year`, () => {
+        const yearValidation: boolean = validation.validateYear(`2020`);
+        expect(yearValidation).to.equal(false);
+    });
+
+    it(`Try to set year less than 1900`, () => {
+        const yearValidation: boolean = validation.validateYear(`1800`);
+        expect(yearValidation).to.equal(false);
+    });
+});

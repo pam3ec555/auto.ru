@@ -5,6 +5,7 @@ import Model from '../model';
 import App from '../app';
 import {UserData} from "../menu/menu";
 import Validation from "../validation";
+import DefaultAdapter from "../default-adapter";
 
 declare const require: any;
 
