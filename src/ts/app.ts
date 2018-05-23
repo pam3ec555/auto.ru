@@ -7,7 +7,7 @@ import RegistryController from './registry/registry-controller';
 import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
-import {UserData} from "./menu/menu";
+import {UserData} from './menu/menu';
 
 enum ControllerID {
     CAR_LIST = 'car-list',
@@ -80,7 +80,7 @@ export default new class App {
             this.prevRoute.destroy();
         }
 
-        const route = getRoute();
+        const route: string = getRoute();
         this.prevRoute = this.routes[route];
         this.routes[route].init();
     }

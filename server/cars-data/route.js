@@ -1,13 +1,12 @@
 const express = require(`express`);
 const fs = require(`fs`);
-const async = require(`../util/async`);
 const util = require(`util`);
 const readFile = util.promisify(fs.readFile);
 
 const {Router} = express;
 const router = new Router();
 
-router.get(`/brand`, async(async (req, res) => {
+router.get(`/brand`, async (req, res) => {
     const text = req.query.q.toLowerCase();
     const brandData = await readFile(`./data/cars.json`, `utf-8`);
     const brandDataJson = JSON.parse(brandData);
@@ -16,7 +15,7 @@ router.get(`/brand`, async(async (req, res) => {
     });
 
     res.send(brandArray);
-}));
+});
 
 router.get(`/:brand`, async (req, res) => {
     const text = req.query.q.toLowerCase();

@@ -1,4 +1,4 @@
-import {default as DefaultAdapter, IAdapter} from "./default-adapter";
+import {default as DefaultAdapter, IAdapter} from './default-adapter';
 
 const defaultAdapter: IAdapter = new class extends DefaultAdapter {}();
 

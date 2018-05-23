@@ -2,9 +2,9 @@ import {Car, CarPhotos} from './car';
 import CarView from './car-view';
 import {ViewType} from '../util';
 import Controller from '../controller';
-import Slider from "../slider";
-import Model from "../model";
-import DefaultAdapter from "../default-adapter";
+import Slider from '../slider';
+import Model from '../model';
+import DefaultAdapter from '../default-adapter';
 
 const adapter = new class extends DefaultAdapter {
     public preprocess(data: Car): Car {

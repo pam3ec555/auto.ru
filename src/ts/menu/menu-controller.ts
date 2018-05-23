@@ -15,12 +15,11 @@ import {
 import {Menu} from './menu';
 import Controller from '../controller';
 import App from '../app';
-import Model from "../model";
-import Validation from "../validation";
+import Validation from '../validation';
 
 declare const require: any;
 
-const AutoComplete = require("autocomplete-js");
+const AutoComplete = require(`autocomplete-js`);
 
 const autocompleteOptions = {
     _Blur(): void {

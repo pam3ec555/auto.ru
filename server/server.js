@@ -5,7 +5,6 @@ const authorizationRouter = require(`./authorization/route`);
 const registryRouter = require(`./registry/route`);
 const carsDataRouter = require(`./cars-data/route`);
 const path = require(`path`);
-const async = require(`./util/async`);
 const bodyParser = require(`body-parser`);
 
 app.use(bodyParser.json());
@@ -22,9 +21,9 @@ app.use(`/cars-data-api`, carsDataRouter);
 
 const htmlFilePath = path.join(`${__dirname}/../dist/index.html`);
 
-app.get(`/*`, async(async (req, res) => {
+app.get(`/*`, async (req, res) => {
     return res.sendFile(htmlFilePath);
-}));
+});
 
 const PORT = 9001;
 const HOSTNAME = `127.0.0.1`;

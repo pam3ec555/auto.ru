@@ -1,6 +1,5 @@
 const express = require(`express`);
 const multer = require(`multer`);
-const async = require(`../util/async`);
 const carStore = require(`../cars/store`);
 const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
@@ -41,7 +40,7 @@ const parsePostDataToInt = (body) => {
     return body;
 };
 
-router.get(`/cars-api/cars`, async(async (req, res) => {
+router.get(`/cars-api/cars`, async (req, res) => {
     let data = {};
     if (req.query && Object.keys(req.query).length > 0) {
         data = await toPage(await carStore.getCarsBySort(req.query));
@@ -50,16 +49,16 @@ router.get(`/cars-api/cars`, async(async (req, res) => {
     }
 
     return res.send(data);
-}));
+});
 
-router.get(`/cars-api/cars/:id`, async(async (req, res) => {
+router.get(`/cars-api/cars/:id`, async (req, res) => {
     const {id} = req.params;
     const car = await carStore.getCar(id);
 
     return res.send(car);
-}));
+});
 
-router.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
+router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
     const {id, photoIndex} = req.params;
     const car = await carStore.getCar(id);
 
@@ -85,9 +84,9 @@ router.get(`/cars/:id/photo/:photoIndex`, async(async (req, res) => {
     res.set(`content-length`, info.length);
     res.status(200);
     stream.pipe(res);
-}));
+});
 
-router.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res) => {
+router.post(`/cars-api/add-post`, upload.array(`photos`), async (req, res) => {
     const data = parsePostDataToInt(req.body);
     const photos = req.files;
     data.id = generateId();
@@ -111,12 +110,12 @@ router.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res)
     await carStore.createCar(data);
 
     return res.send(data);
-}));
+});
 
-router.delete(`/drop-cars`, async(async (req, res) => {
+router.delete(`/drop-cars`, async (req, res) => {
     await carStore.removeAllCars();
 
     return res.send(`Removed all cars`);
-}));
+});
 
 module.exports = router;

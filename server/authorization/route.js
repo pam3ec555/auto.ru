@@ -1,5 +1,4 @@
 const express = require(`express`);
-const async = require(`../util/async`);
 const multer = require(`multer`);
 const authenticationStore = require(`./store`);
 const CodeStatus = require(`../util/code-status`);
@@ -29,7 +28,7 @@ const verifyToken = (req, res, next) => {
 }
 
 router.route(`/`)
-    .post(upload.none(), async(async (req, res) => {
+    .post(upload.none(), async (req, res) => {
         const {login, password} = req.body;
         const userData = await authenticationStore.getUser(login);
 
@@ -50,7 +49,7 @@ router.route(`/`)
         } else {
             res.sendStatus(CodeStatus.NOT_FOUND);
         }
-    }))
+    })
     .get(verifyToken, (req, res) => {
         jwt.verify(req.token, SECRET_KEY, (err, userData) => {
             if (err) {
