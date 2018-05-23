@@ -115,6 +115,7 @@ ${inner}`;
 const drawDesktopMenu = (data: Menu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<div class="inner" id="inner"></div>` : ``;
     const searchInput = (menuType === MenuType.LIST) ? `<div class="search-input__wrap" id="search-wrap">
+  <button type="button" class="search-submit" id="search-submit"></button>
   <input type="text" class="search-input" id="search-input">
   <div class="search-input__border"></div>
 </div>` : ``;

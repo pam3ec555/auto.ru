@@ -24,18 +24,28 @@ const adapter = new class extends DefaultAdapter {
     }
 }();
 
-const setSortBySearch = (): void => {
+const setDataBySearch = (): void => {
     const sortWrap: HTMLElement = document.querySelector(`#sort`);
 
     if (sortWrap) {
         const searchVars = getSearchVars();
+
+        if (searchVars.search) {
+            const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
+
+            if (searchInput) {
+                searchInput.value = decodeURI(searchVars.search);
+            }
+
+            delete searchVars.search;
+        }
 
         for (const key in searchVars) {
             if (searchVars[key]) {
                 const sortInput: HTMLInputElement = sortWrap.querySelector(`#sort-${key}`);
 
                 if (sortInput) {
-                    sortInput.value = searchVars[key];
+                    sortInput.value = decodeURI(searchVars[key]);
                 }
             }
         }
@@ -57,7 +67,7 @@ export default class CarListController extends Controller {
 
         if (contentBlock) {
             contentBlock.appendChild(carListView.render());
-            setSortBySearch();
+            setDataBySearch();
             this.bind();
         }
     }

@@ -197,6 +197,20 @@
 .search-input--hidden
   top: 0
 
+.search-submit
+  position: absolute
+  right: 0
+  top: 0
+  z-index: 3
+
+  width: 34px
+  height: 30px
+
+  background-image: url("../img/icons/search.svg")
+  background-repeat: no-repeat
+  background-position: top 5px right 10px
+  background-size: 20px
+
 .submit
   padding: 5px
   align-self: center
@@ -300,6 +314,7 @@
     padding-bottom: 1px
 
     border-bottom: 1px solid $dark-blue
+    background: #fff
 
     &:focus
       box-shadow: none

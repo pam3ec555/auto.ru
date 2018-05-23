@@ -93,7 +93,7 @@ router.post(`/cars-api/add-post`, upload.array(`photos`), async(async (req, res)
     data.id = generateId();
 
     while (await carStore.getCar(data.id) !== null) {
-        data.id = generateId();
+        data._id = generateId();
     }
 
     if (photos) {

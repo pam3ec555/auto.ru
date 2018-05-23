@@ -1,6 +1,17 @@
 import MenuModel from './menu-model';
 import MenuView from './menu-view';
-import {MenuType, toggleOverlay, ViewType, appWrap, pushUrl, hide, showBlock, StatusCode} from '../util';
+import {
+    MenuType,
+    toggleOverlay,
+    ViewType,
+    appWrap,
+    pushUrl,
+    hide,
+    showBlock,
+    StatusCode,
+    getSearchVars,
+    KeyCode
+} from '../util';
 import {Menu} from './menu';
 import Controller from '../controller';
 import App from '../app';
@@ -43,6 +54,25 @@ const autocompleteOptions = {
     }
 };
 
+const getSearchString = (obj: {
+    [name: string]: string
+}): string => {
+    let searchString: string = `/cars`;
+
+    if (Object.keys(obj).length > 0) {
+        searchString += `?`;
+
+        for (const key in obj) {
+            const val = obj[key];
+            searchString += `${key}=${val}&`;
+        }
+
+        searchString = searchString.substring(0, searchString.length - 1);
+    }
+
+    return searchString;
+};
+
 const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
 
@@ -79,6 +109,16 @@ const removeMenuElems = (viewState: ViewType): void => {
         removeElems(document.querySelector(`#sort`),
                     document.querySelector(`#search-wrap`),
                     document.querySelector(`#sort-results`));
+    }
+};
+
+const findBySearch = (): void => {
+    const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
+
+    if (searchInput) {
+        const searchParams = getSearchVars();
+        searchParams.search = searchInput.value.trim();
+        pushUrl(getSearchString(searchParams));
     }
 };
 
@@ -148,6 +188,7 @@ export default class MenuController extends Controller {
         const addPostBtn: HTMLHRElement = document.querySelector(`#add-post`);
         const backBtn: HTMLHRElement = document.querySelector(`#back-btn`);
         const sortSumit: HTMLButtonElement = document.querySelector(`#sort-submit`);
+        const searchSubmit: HTMLButtonElement = document.querySelector(`#search-submit`);
 
         if (menuShowBtn) {
             if (bind) {
@@ -165,13 +206,21 @@ export default class MenuController extends Controller {
             }
         }
 
-        if (searchBtn && searchInput) {
+        if (this.viewState === ViewType.MOBILE && searchBtn && searchInput) {
             if (bind) {
                 searchBtn.addEventListener(`click`, this.onSearchToggle);
                 searchInput.addEventListener(`blur`, this.onSearchToggle);
+                searchInput.addEventListener(`keydown`, this.onSearchSubmit);
             } else {
                 searchBtn.removeEventListener(`click`, this.onSearchToggle);
                 searchInput.removeEventListener(`blur`, this.onSearchToggle);
+                searchInput.removeEventListener(`keydown`, this.onSearchSubmit);
+            }
+        } else if (this.viewState === ViewType.DESKTOP && searchInput) {
+            if (bind) {
+                searchInput.addEventListener(`keydown`, this.onSearchSubmit);
+            } else {
+                searchInput.removeEventListener(`keydown`, this.onSearchSubmit);
             }
         }
 
@@ -196,6 +245,14 @@ export default class MenuController extends Controller {
                 sortSumit.addEventListener(`click`, this.onSortSubmit);
             } else {
                 sortSumit.removeEventListener(`click`, this.onSortSubmit);
+            }
+        }
+
+        if (searchSubmit) {
+            if (bind) {
+                searchSubmit.addEventListener(`click`, this.onSearchSubmit);
+            } else {
+                searchSubmit.removeEventListener(`click`, this.onSearchSubmit);
             }
         }
 
@@ -232,6 +289,16 @@ export default class MenuController extends Controller {
                     signUpBtn.removeEventListener(`click`, this.onSignUpClick);
                 }
             }
+        }
+    }
+
+    private onSearchSubmit = (e: Event): void => {
+        if ((e.target as HTMLInputElement|HTMLButtonElement).id === `search-input`) {
+            if ((e as any).keyCode === KeyCode.ENTER) {
+                findBySearch();
+            }
+        } else {
+            findBySearch();
         }
     }
 
@@ -292,17 +359,12 @@ export default class MenuController extends Controller {
             }
         }
 
-        let sortParams: string = `/cars`;
+        const searchParams = getSearchVars();
+        let sortParams = getSearchString(sortByObj);
 
-        if (Object.keys(sortByObj).length > 0) {
-            sortParams += `?`;
-
-            for (const key in sortByObj) {
-                const val = sortByObj[key];
-                sortParams += `${key}=${val}&`;
-            }
-
-            sortParams = sortParams.substring(0, sortParams.length - 1);
+        if (searchParams.search) {
+            const ampersand = (Object.keys(sortByObj).length > 0) ? `&` : ``;
+            sortParams += `${ampersand}search=${searchParams.search}`;
         }
 
         toggleOverlay(false);
@@ -359,7 +421,6 @@ export default class MenuController extends Controller {
         } else {
             searchInput.classList.add(`search-input--hidden`);
             searchBtn.classList.remove(`search-btn--hidden`);
-            searchInput.value = ``;
             searchBtn.disabled = false;
         }
     }

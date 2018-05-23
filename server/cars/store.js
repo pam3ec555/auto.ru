@@ -4,7 +4,10 @@ const Store = require(`../store`);
 const setupCollection = async () => {
     const dBase = await db;
     const collection = dBase.collection(`cars`);
-    collection.createIndex({unique: true});
+    collection.createIndex({
+        brand: `text`,
+        model: `text`
+    });
 
     return collection;
 };
@@ -18,19 +21,26 @@ class CarStore extends Store {
         if (sortObj.year) {
             sortObj.year = {
                 $gte: +(sortObj.year)
-            }
+            };
         }
 
         if (sortObj.price) {
             sortObj.price = {
                 $lte: +(sortObj.price)
-            }
+            };
         }
 
         if (sortObj.mileage) {
             sortObj.mileage = {
                 $lte: +(sortObj.mileage)
-            }
+            };
+        }
+
+        if (sortObj.search) {
+            sortObj.$text = {
+                $search: sortObj.search
+            };
+            delete sortObj.search;
         }
 
         return (await this.collection).find(sortObj);
