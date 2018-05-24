@@ -14,7 +14,7 @@ const drawSliders = (images: Array<CarPhotos>, id: string): string => {
 };
 
 const drawMobileCar = (data: Car): string => {
-    const sliders: string = drawSliders(data.photos, data.id);
+    const sliders: string = drawSliders(data.photos, data._id);
 
     return `<div class="outer-block">
   <h2 class="title">${data.brand} ${data.model}</h2>
@@ -107,6 +107,8 @@ const drawMobileCar = (data: Car): string => {
       <button class="slider__btn slider__btn--next slider__btn--list"></button>
     </div>
   </div>
+  <button type="button" id="remove-car">Удалить объявление</button>
+  <input type="hidden" id="car-id" value="${data._id}">
 </div>`;
 };
 

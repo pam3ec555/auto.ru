@@ -13,8 +13,8 @@ const setupCollection = async () => {
 };
 
 class CarStore extends Store {
-    async getCar(id) {
-        return (await this.collection).findOne({id});
+    async getCar(_id) {
+        return (await this.collection).findOne({_id});
     }
 
     async getCarsBySort(sortObj) {

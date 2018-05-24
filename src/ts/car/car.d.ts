@@ -8,7 +8,7 @@ export type CarPhotos = {
 };
 
 export type Car = {
-    readonly id: string,
+    readonly _id: string,
     readonly name: string,
     readonly price: number,
     readonly mileage: number,

@@ -4,15 +4,15 @@ import {Data} from "./car-list";
 
 const drawCard = (data: Car): string => {
     const imageSrc: string = (data.photos && (Array as any).from(data.photos).length > 0) ?
-        `/cars/${data.id}/photo/0` :
+        `/cars/${data._id}/photo/0` :
         ``;
 
     return `<section class="content__item">
-  <a href="/cars/${data.id}" class="content-link">
+  <a href="/cars/${data._id}" class="content-link">
       <img src="${imageSrc}"
          alt="photo" class="content__preview">
   </a>
-  <a href="/cars/${data.id}" class="content__title content-link">${data.brand} ${data.model}</a>
+  <a href="/cars/${data._id}" class="content__title content-link">${data.brand} ${data.model}</a>
   <div class="content__props">
     <span class="content__price">${data.price}</span>
     <span class="content__year">${data.year}</span>

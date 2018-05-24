@@ -89,9 +89,9 @@ router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
 router.post(`/cars-api/add-post`, upload.array(`photos`), async (req, res) => {
     const data = parsePostDataToInt(req.body);
     const photos = req.files;
-    data.id = generateId();
+    data._id = generateId();
 
-    while (await carStore.getCar(data.id) !== null) {
+    while (await carStore.getCar(data._id) !== null) {
         data._id = generateId();
     }
 
@@ -100,7 +100,7 @@ router.post(`/cars-api/add-post`, upload.array(`photos`), async (req, res) => {
         photos.forEach(async (photo, i) => {
             data.photos[i] = photo;
             const photoInfo = {
-                path: `/cars/${data.id}/photo/${i}`,
+                path: `/cars/${data._id}/photo/${i}`,
                 mimetype: photo.mimetype
             };
             await imageStore.save(photoInfo.path, createStreamFromBuffer(photo.buffer));
