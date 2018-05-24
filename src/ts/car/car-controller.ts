@@ -23,13 +23,15 @@ const adapter = new class extends DefaultAdapter {
 }();
 
 export default class CarController extends Controller {
+    private model: Model;
+
     constructor(viewState: ViewType) {
         super(viewState);
     }
 
     public async init() {
-        const model: Model = new Model();
-        const data: Car = await model.load(`/cars-api/${location.pathname.slice(1)}`, {}, adapter);
+        this.model = new Model();
+        const data: Car = await this.model.load(`/cars-api/${location.pathname.slice(1)}`, {}, adapter);
         const carView: CarView = new CarView(data);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
@@ -37,10 +39,31 @@ export default class CarController extends Controller {
             contentBlock.appendChild(carView.render());
             const slider = new Slider(`#slider`);
             slider.init();
+            this.bind();
         }
     }
 
     protected bind(bind: boolean = true): void {
-        // Todo bind this
+        const removeBtn: HTMLButtonElement = document.querySelector(`#remove-car`);
+
+        if (removeBtn) {
+            if (bind) {
+                removeBtn.addEventListener(`click`, this.onRemoveClick);
+            } else {
+                removeBtn.removeEventListener(`click`, this.onRemoveClick);
+            }
+        }
+    }
+
+    private onRemoveClick = (): void => {
+        const carIdInput: HTMLInputElement = document.querySelector(`#car-id`);
+
+        if (carIdInput) {
+            const id = carIdInput.value;
+
+            if (id) {
+                this.model.drop(`/cars-api/drop-car/${id}`);
+            }
+        }
     }
 }

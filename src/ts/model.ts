@@ -30,4 +30,12 @@ export default class Model {
                 throw new Error(`Failed to save data, ${err}`);
             });
     }
+
+    public drop(url: string) {
+        return fetch(url, {
+            method: `DELETE`
+        }).catch((err: Error) => {
+            throw new Error(`Failed to drop item|items, ${err}`);
+        });
+    };
 }

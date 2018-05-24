@@ -1,5 +1,3 @@
-// TODO see http://autocomplete-js.com/
-
 import MenuController from './menu/menu-controller';
 import CarListController from './car-list/car-list-controller';
 import CarController from './car/car-controller';

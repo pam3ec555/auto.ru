@@ -58,6 +58,10 @@ class CarStore extends Store {
         return (await this.collection).insertOne(carData);
     }
 
+    async removeCar(_id) {
+        return (await this.collection).deleteOne({_id});
+    }
+
     async removeAllCars() {
         return (await this.collection).drop();
     }

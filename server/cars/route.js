@@ -4,6 +4,7 @@ const carStore = require(`../cars/store`);
 const imageStore = require(`../images/store`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 const generateId = require(`../util/generate-id`);
+const CodeStatus = require(`../util/code-status`);
 
 const {Router} = express;
 const router = new Router();
@@ -110,6 +111,17 @@ router.post(`/cars-api/add-post`, upload.array(`photos`), async (req, res) => {
     await carStore.createCar(data);
 
     return res.send(data);
+});
+
+router.delete(`/cars-api/drop-car/:id`, async (req, res) => {
+    const {id} = req.params;
+
+    if (id) {
+        await carStore.removeCar(id);
+        res.sendStatus(CodeStatus.OK);
+    } else {
+        res.sendStatus(CodeStatus.NOT_FOUND);
+    }
 });
 
 router.delete(`/drop-cars`, async (req, res) => {
