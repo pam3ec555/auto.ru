@@ -36,14 +36,18 @@ class CarStore extends Store {
             };
         }
 
-        if (sortObj.search) {
-            sortObj.$text = {
-                $search: sortObj.search
-            };
+        if (typeof sortObj.search === `string`) {
+            if (sortObj.search.trim() !== ``) {
+                sortObj.$text = {
+                    $search: `${sortObj.search}`
+                };
+            }
             delete sortObj.search;
         }
 
-        return (await this.collection).find(sortObj);
+        return (await this.collection).find(sortObj)
+            .project({score: {$meta: `textScore`}})
+            .sort({score: {$meta: `textScore`}});
     }
 
     async getAllCars() {

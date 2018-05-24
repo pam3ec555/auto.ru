@@ -8,7 +8,6 @@ import {
     pushUrl,
     hide,
     showBlock,
-    StatusCode,
     getSearchVars,
     KeyCode
 } from '../util';
@@ -115,8 +114,15 @@ const findBySearch = (): void => {
     const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
 
     if (searchInput) {
+        const value = searchInput.value.trim();
         const searchParams = getSearchVars();
-        searchParams.search = searchInput.value.trim();
+
+        if (value !== ``) {
+            searchParams.search = value;
+        } else {
+            delete searchParams.search;
+        }
+
         pushUrl(getSearchString(searchParams));
     }
 };
@@ -362,7 +368,7 @@ export default class MenuController extends Controller {
         let sortParams = getSearchString(sortByObj);
 
         if (searchParams.search) {
-            const ampersand = (Object.keys(sortByObj).length > 0) ? `&` : ``;
+            const ampersand = (Object.keys(sortByObj).length > 0) ? `&` : `?`;
             sortParams += `${ampersand}search=${searchParams.search}`;
         }
 
