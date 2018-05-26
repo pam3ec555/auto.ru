@@ -3,8 +3,8 @@ import View from '../view';
 
 const drawEdit = (data: Car) => {
     return `<div class="form-block outer-block">
-  <h2 class="title">Добавление</h2>
-  <form class="form" id="add-post-form">
+  <h2 class="title">Редактирование</h2>
+  <form class="form" id="edit-form">
     <div class="row">
       <span class="label">Марка автомобиля</span>
       <div class="value">
@@ -124,12 +124,13 @@ const drawEdit = (data: Car) => {
     <input type="hidden" name="ownerName" value="${data.ownerName}">
     <input type="hidden" name="phoneNum" value="${data.phoneNum}">
     <input type="hidden" name="email" value="${data.email}">
+    <input type="hidden" name="_id" value="${data._id}">
     <ul class="error-list">
       <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
   </form>
-  <button type="button" class="submit" id="submit">Сохранить</button>
+  <button type="button" class="submit" id="submit" data-type="edit">Сохранить</button>
 </div>`;
 };
 

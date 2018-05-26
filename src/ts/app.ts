@@ -6,7 +6,6 @@ import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
 import {UserData} from './menu/menu';
-import {AsyncHook} from 'async_hooks';
 import EditController from './edit/edit-controller';
 
 enum ControllerID {
@@ -54,12 +53,12 @@ export default new class App {
     private menu: MenuController;
     private _userData: UserData;
     private routes: Routes = {
-        [ControllerID.CAR_LIST]: new CarListController(this.viewState),
-        [ControllerID.CAR]: new CarController(this.viewState),
-        [ControllerID.REGISTRY]: new RegistryController(this.viewState),
-        [ControllerID.LOGIN]: new LoginController(this.viewState),
-        [ControllerID.ADD_POST]: new AddPostController(this.viewState),
-        [ControllerID.EDIT]: new EditController(this.viewState)
+        [ControllerID.CAR_LIST]: new CarListController(),
+        [ControllerID.CAR]: new CarController(),
+        [ControllerID.REGISTRY]: new RegistryController(),
+        [ControllerID.LOGIN]: new LoginController(),
+        [ControllerID.ADD_POST]: new AddPostController(),
+        [ControllerID.EDIT]: new EditController()
     };
 
     constructor() {

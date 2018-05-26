@@ -1,6 +1,6 @@
 import CarListView from './car-list-view';
 import {Car, CarPhotos} from '../car/car';
-import {getSearchVars, pushUrl, ViewType} from '../util';
+import {getSearchVars, pushUrl} from '../util';
 import Controller from '../controller';
 import Model from "../model";
 import DefaultAdapter from "../default-adapter";
@@ -54,10 +54,6 @@ const setDataBySearch = (): void => {
 
 export default class CarListController extends Controller {
     private carsData: Data;
-
-    constructor(viewState: ViewType) {
-        super(viewState);
-    }
 
     public async init() {
         const model: Model = new Model();

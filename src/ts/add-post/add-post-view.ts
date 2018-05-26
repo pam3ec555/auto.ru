@@ -128,7 +128,7 @@ const drawAddingPost = (userData: UserData): string => {
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
   </form>
-  <button type="button" class="submit" id="submit">Добавить</button>
+  <button type="button" class="submit" id="submit" data-type="add">Добавить</button>
 </div>`;
 };
 

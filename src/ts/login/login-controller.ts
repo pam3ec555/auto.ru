@@ -1,14 +1,10 @@
 import LoginView from './login-view';
-import {CodeStatus, ViewType} from '../util';
+import {CodeStatus} from '../util';
 import Controller from '../controller';
 import Model from '../model';
 import App from '../app';
 
 export default class LoginController extends Controller {
-    constructor(viewState: ViewType) {
-        super(viewState);
-    }
-
     public init(): void {
         const loginView: LoginView = new LoginView();
         const contentBlock: HTMLElement = document.querySelector(`#inner`);

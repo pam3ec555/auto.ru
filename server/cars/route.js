@@ -48,6 +48,39 @@ const parsePostDataToInt = (body) => {
     return body;
 };
 
+const CarAction = {
+    ADD: 0,
+    EDIT: 1
+};
+
+const getDataForSave = async (req, action) => {
+    const data = parsePostDataToInt(req.body);
+    const photos = req.files;
+
+    if (action === CarAction.ADD) {
+        data._id = generateId();
+
+        while (await carStore.getCar(data._id) !== null) {
+            data._id = generateId();
+        }
+    }
+
+    if (photos) {
+        data.photos = {};
+        photos.forEach(async (photo, i) => {
+            data.photos[i] = photo;
+            const photoInfo = {
+                path: `/cars/${data._id}/photo/${i}`,
+                mimetype: photo.mimetype
+            };
+            await imageStore.save(photoInfo.path, createStreamFromBuffer(photo.buffer));
+            data.photos[i] = photoInfo;
+        });
+    }
+
+    return data;
+};
+
 router.get(`/cars-api/cars`, async (req, res) => {
     let data = {};
     if (req.query && Object.keys(req.query).length > 0) {
@@ -92,27 +125,15 @@ router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
 });
 
 router.post(`/cars-api/add-post`, upload.array(`photos`), async (req, res) => {
-    const data = parsePostDataToInt(req.body);
-    const photos = req.files;
-    data._id = generateId();
-
-    while (await carStore.getCar(data._id) !== null) {
-        data._id = generateId();
-    }
-
-    if (photos) {
-        data.photos = {};
-        photos.forEach(async (photo, i) => {
-            data.photos[i] = photo;
-            const photoInfo = {
-                path: `/cars/${data._id}/photo/${i}`,
-                mimetype: photo.mimetype
-            };
-            await imageStore.save(photoInfo.path, createStreamFromBuffer(photo.buffer));
-            data.photos[i] = photoInfo;
-        });
-    }
+    const data = await getDataForSave(req, CarAction.ADD);
     await carStore.createCar(data);
+
+    return res.send(data);
+});
+
+router.put(`/cars-api/edit/:id`, upload.array(`photos`), async (req, res) => {
+    const data = await getDataForSave(req, CarAction.EDIT);
+    await carStore.editCar(data._id, data);
 
     return res.send(data);
 });

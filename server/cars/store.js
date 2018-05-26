@@ -58,6 +58,12 @@ class CarStore extends Store {
         return (await this.collection).insertOne(carData);
     }
 
+    async editCar(_id, carData) {
+        return (await this.collection).updateOne({_id}, {
+            $set: carData
+        });
+    }
+
     async removeCar(_id) {
         return (await this.collection).deleteOne({_id});
     }

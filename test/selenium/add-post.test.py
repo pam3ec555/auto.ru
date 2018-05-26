@@ -29,7 +29,7 @@ addPostBtn.click()
 
 CAR = dict(
     brand='BMW',
-    model='X3',
+    model='X5',
     bodyType='jeep',
     engineVolume='3.6',
     enginePower='200',

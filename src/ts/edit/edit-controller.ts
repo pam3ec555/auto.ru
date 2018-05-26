@@ -1,20 +1,15 @@
-import Controller from '../controller';
-import {autocompleteSettings, ViewType} from '../util';
 import Model from '../model';
 import CarAdapter from '../car-adapter';
 import EditView from './edit-view';
 import {Car} from '../car/car';
+import CarActionController from '../car-action/car-action-controller';
 
 declare const require: any;
 
 const AutoComplete = require(`autocomplete-js`);
 
-export default class EditController extends Controller {
+export default class EditController extends CarActionController {
     private model: Model;
-
-    constructor(viewState: ViewType) {
-        super(viewState);
-    }
 
     public async init() {
         this.model = new Model();
@@ -26,12 +21,8 @@ export default class EditController extends Controller {
 
         if (contentBlock) {
             contentBlock.appendChild(editView.render());
-            AutoComplete(autocompleteSettings);
+            AutoComplete(this.autocompleteSettings);
             this.bind();
         }
-    }
-
-    protected bind(): void {
-        const
     }
 }

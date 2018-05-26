@@ -1,6 +1,6 @@
 import {Car} from './car';
 import CarView from './car-view';
-import {pushUrl, ViewType} from '../util';
+import {pushUrl} from '../util';
 import Controller from '../controller';
 import Slider from '../slider';
 import Model from '../model';
@@ -8,10 +8,6 @@ import CarAdapter from '../car-adapter';
 
 export default class CarController extends Controller {
     private model: Model;
-
-    constructor(viewState: ViewType) {
-        super(viewState);
-    }
 
     public async init() {
         this.model = new Model();
