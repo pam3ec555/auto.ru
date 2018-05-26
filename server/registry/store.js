@@ -10,6 +10,10 @@ const setupCollection = async () => {
 };
 
 class RegistryStore extends Store {
+    async checkForUser(login) {
+        return (await this.collection).findOne({login});
+    }
+
     async createUser(userData) {
         return (await this.collection).insertOne(userData);
     }

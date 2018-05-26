@@ -2,6 +2,7 @@ const express = require(`express`);
 const multer = require(`multer`);
 const registryStore = require(`./store`);
 const passwordHash = require(`password-hash`);
+const CodeStatus = require(`../util/code-status`);
 
 const {Router} = express;
 const router = new Router();
@@ -9,11 +10,16 @@ const upload = multer({storage: multer.memoryStorage()});
 
 router.post(``, upload.none(), async (req, res) => {
     const data = req.body;
-    const {password} = data;
-    data.password = passwordHash.generate(password);
-    await registryStore.createUser(data);
+    const {password, login} = data;
 
-    return res.send(data);
+    if (!await registryStore.checkForUser(login)) {
+        data.password = passwordHash.generate(password);
+        await registryStore.createUser(data);
+
+        return res.send(data);
+    } else {
+        return res.sendStatus(CodeStatus.BAD_REQUEST);
+    }
 });
 
 router.delete(`/drop`, async (req, res) => {

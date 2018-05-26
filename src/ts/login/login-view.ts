@@ -16,6 +16,9 @@ const drawLogin = (): string => {
           <input type="password" name="password" id="password">
         </div>
       </div>
+      <li class="error-list__item" id="login-error">Пользователь с таким логином не существует!</li>
+      <li class="error-list__item" id="password-error">Неверный пароль!</li>
+      <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
   </form>
   <button type="button" class="submit" id="submit">Войти</button>
 </div>`;

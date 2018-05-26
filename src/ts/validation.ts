@@ -4,7 +4,7 @@ export default class Validation {
     public validateNum(val: string): boolean {
         let result: boolean = false;
 
-        if (+(val)) {
+        if (this.validateEmpty(val) && (+(val) || +(val) === 0)) {
             result = true;
         }
 
@@ -22,23 +22,26 @@ export default class Validation {
     }
 
     public validateEmpty(val: string): boolean {
+        return val.trim() !== ``;
+    }
+
+    public validateYear(val: string): boolean {
+        const today = new Date();
+
+        return this.validateNum(val) && val.length === 4 && +(val) <= today.getFullYear() && +(val) > MIN_CARS_YEAR;
+    }
+
+    public validatePassword(password: string): boolean {
         let result: boolean = false;
 
-        if (val.trim() !== ``) {
+        if (password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
             result = true;
         }
 
         return result;
     }
 
-    public validateYear(val: string): boolean {
-        let result: boolean = false;
-        const today = new Date();
-
-        if (+(val) && val.length === 4 && +(val) <= today.getFullYear() && +(val) > MIN_CARS_YEAR) {
-            result = true;
-        }
-
-        return result;
+    public validateTel(tel: string): boolean {
+        return this.validateNum(tel) && tel.length === 10;
     }
 }

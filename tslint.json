@@ -24,6 +24,7 @@
         "typeLiterals": "never"
       }
     }],
+    "use-isnan": false,
     "new-parens": true,
     "no-arg": true,
     "no-bitwise": true,

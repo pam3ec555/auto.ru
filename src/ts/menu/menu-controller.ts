@@ -9,7 +9,7 @@ import {
     hide,
     showBlock,
     getSearchVars,
-    KeyCode
+    KeyCode, setClass
 } from '../util';
 import {Menu} from './menu';
 import Controller from '../controller';
@@ -75,7 +75,7 @@ const hideMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
 
     if (menu) {
-        menu.classList.add(`m-menu--hidden`);
+        setClass(menu, `m-menu--hidden`);
         toggleOverlay(false);
     }
 };
@@ -84,7 +84,7 @@ const showMenu = (): void => {
     const menu: HTMLElement = document.querySelector(`#mobile-menu`);
 
     if (menu) {
-        menu.classList.remove(`m-menu--hidden`);
+        setClass(menu, `m-menu--hidden`, false);
         toggleOverlay(true);
     }
 };
@@ -129,9 +129,9 @@ const findBySearch = (): void => {
 
 const setMenuTypeStatus = (menuType: MenuType) => {
     if (menuType === MenuType.LIST) {
-        appWrap.classList.add(`app--main`);
+        setClass(appWrap, `app--main`);
     } else {
-        appWrap.classList.remove(`app--main`);
+        setClass(appWrap, `app--main`, false);
     }
 };
 

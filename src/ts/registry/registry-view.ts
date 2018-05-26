@@ -40,6 +40,16 @@ const drawRegistry = (): string => {
         <input type="email" id="email" name="email">
       </div>
     </div>
+    <ul class="error-list">
+      <li class="error-list__item" id="tel-error">Вы неправильно заполнили телефон!</li>
+      <li class="error-list__item" id="password-error">
+        Вы неправильно заполнили пароль! Пароль должен состоять из латинских букв с разными регистрами и цифров.
+      </li>
+      <li class="error-list__item" id="repeat-password-error">Пароли различаются!</li>
+      <li class="error-list__item" id="email-error">Вы неправильно заполнили e-mail!</li>
+      <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
+      <li class="error-list__item" id="login-error">Пользователь с таким логином уже существует!</li>
+    </ul>
   </form>
   <button type="button" class="submit" id="submit">Зарегистрироваться</button>
 </div>`;

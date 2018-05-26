@@ -28,6 +28,11 @@ describe(`Num validation`, () => {
         const numValidate: boolean = validationTest.validateNum(``);
         expect(numValidate).to.equal(false);
     });
+
+    it(`Set zero`, () => {
+        const numValidate: boolean = validationTest.validateNum(`0`);
+        expect(numValidate).to.equal(true);
+    });
 });
 
 describe(`Email validation`, () => {
@@ -103,5 +108,37 @@ describe(`Check for valid year`, () => {
     it(`Try to set year less than 1900`, () => {
         const yearValidation: boolean = validationTest.validateYear(`1800`);
         expect(yearValidation).to.equal(false);
+    });
+});
+
+describe(`Validate password`, () => {
+    it(`Try to correct password`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`Pacan123`);
+        expect(passwordValidation).to.equal(true);
+    });
+
+    it(`Try to low symbols password`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`Pacan1`);
+        expect(passwordValidation).to.equal(false);
+    });
+
+    it(`Try to set password only lower case`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`pacan123`);
+        expect(passwordValidation).to.equal(false);
+    });
+
+    it(`Try to set password only upper case`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`PACAN123`);
+        expect(passwordValidation).to.equal(false);
+    });
+
+    it(`Try to set password without nums`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`Pacanpacan`);
+        expect(passwordValidation).to.equal(false);
+    });
+
+    it(`Try to set password with no-latin symbols`, () => {
+        const passwordValidation: boolean = validationTest.validatePassword(`ПРиветdWпацан123`);
+        expect(passwordValidation).to.equal(false);
     });
 });

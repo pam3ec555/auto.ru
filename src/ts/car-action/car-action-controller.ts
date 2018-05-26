@@ -1,5 +1,5 @@
 import Controller from '../controller';
-import {CodeStatus, hide, pushUrl, showBlock} from '../util';
+import {CodeStatus, hide, pushUrl, setClass, showBlock} from '../util';
 import Model from '../model';
 import Validation from '../validation';
 
@@ -31,11 +31,9 @@ const validateFields = (fields: any): boolean => {
                     numCorrect = false;
                 }
 
-                if (!field.classList.contains(`error`)) {
-                    field.classList.add(`error`);
-                }
-            } else if (field.classList.contains(`error`)) {
-                field.classList.remove(`error`);
+                setClass(field, `error`);
+            } else {
+                setClass(field, `error`, false);
             }
         } else {
             if (!validation.validateEmpty(field.value)) {
@@ -47,11 +45,9 @@ const validateFields = (fields: any): boolean => {
                     noEmptyFields = false;
                 }
 
-                if (!field.classList.contains(`error`)) {
-                    field.classList.add(`error`);
-                }
-            } else if (field.classList.contains(`error`)) {
-                field.classList.remove(`error`);
+                setClass(field, `error`);
+            } else {
+                setClass(field, `error`, false);
             }
         }
     });

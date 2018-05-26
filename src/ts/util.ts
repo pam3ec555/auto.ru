@@ -33,6 +33,7 @@ export enum KeyCode {
 
 export enum CodeStatus {
     OK = 200,
+    BAD_REQUEST = 400,
     NOT_FOUND = 404
 }
 
@@ -81,4 +82,18 @@ export const getSearchVars = (): SearchUrlVars => {
     });
 
     return vars;
+};
+
+export const setClass = (elem: any, className: string, set: boolean = true) => {
+    if (elem) {
+        if (set) {
+            if (!elem.classList.contains(className)) {
+                elem.classList.add(className);
+            }
+        } else {
+            if (elem.classList.contains(className)) {
+                elem.classList.remove(className);
+            }
+        }
+    }
 };
