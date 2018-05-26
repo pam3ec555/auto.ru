@@ -5,6 +5,7 @@ import Controller from '../controller';
 import Slider from '../slider';
 import Model from '../model';
 import CarAdapter from '../car-adapter';
+import NotFoundView from '../errors/not-found/not-found-view';
 
 export default class CarController extends Controller {
     private model: Model;
@@ -13,14 +14,19 @@ export default class CarController extends Controller {
         this.model = new Model();
         const adapter: CarAdapter = new CarAdapter();
         const data: Car = await this.model.load(`/cars-api/${location.pathname.slice(1)}`, {}, adapter);
-        const carView: CarView = new CarView(data);
+        const view: CarView|NotFoundView = (data) ?
+            new CarView(data) :
+            new NotFoundView();
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {
-            contentBlock.appendChild(carView.render());
-            const slider = new Slider(`#slider`);
-            slider.init();
-            this.bind();
+            contentBlock.appendChild(view.render());
+
+            if (data) {
+                const slider = new Slider(`#slider`);
+                slider.init();
+                this.bind();
+            }
         }
     }
 

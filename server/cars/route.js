@@ -23,7 +23,11 @@ const getCarData = async (req, res) => {
     const {id} = req.params;
     const car = await carStore.getCar(id);
 
-    return res.send(car);
+    if (car) {
+        res.send(car);
+    } else {
+        res.sendStatus(CodeStatus.NOT_FOUND);
+    }
 };
 
 /**
@@ -109,7 +113,7 @@ router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
     const photoPath = `/cars/${id}/photo/${photoIndex}`;
 
     if (!photo) {
-        // Todo throw new NotFoundError(`Wizard with name "${wizardName}" didn't upload avatar`);
+        // Todo throw new NotFoundError(`Wizard with name "${carName}" didn't upload photo`);
     }
 
     const {info, stream} = await imageStore.get(photoPath);

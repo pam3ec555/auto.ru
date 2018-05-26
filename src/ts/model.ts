@@ -12,7 +12,7 @@ export default class Model {
                 return adapter.preprocess(data);
             })
             .catch((err: Error) => {
-                throw new Error(`Failed to load data, ${err}`);
+                return null;
             });
     }
 

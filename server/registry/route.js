@@ -15,10 +15,9 @@ router.post(``, upload.none(), async (req, res) => {
     if (!await registryStore.checkForUser(login)) {
         data.password = passwordHash.generate(password);
         await registryStore.createUser(data);
-
-        return res.send(data);
+        res.send(data);
     } else {
-        return res.sendStatus(CodeStatus.BAD_REQUEST);
+        res.sendStatus(CodeStatus.BAD_REQUEST);
     }
 });
 

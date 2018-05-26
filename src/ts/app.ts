@@ -7,6 +7,7 @@ import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
 import {UserData} from './menu/menu';
 import EditController from './edit/edit-controller';
+import NotFoundController from './errors/not-found/not-found-controller';
 
 enum ControllerID {
     CAR_LIST = 'car-list',
@@ -14,7 +15,8 @@ enum ControllerID {
     REGISTRY = 'registry',
     LOGIN = 'login',
     ADD_POST = 'add-post',
-    EDIT = 'edit'
+    EDIT = 'edit',
+    NOT_FOUND = 'not-found'
 }
 
 type Routes = {
@@ -26,7 +28,8 @@ const getRoute = (): string => {
     const pathChunks: Array<string> = path.slice(1).split(`/`);
     let route: ControllerID;
 
-    if (pathChunks.length === 1 && (pathChunks[0] === `cars` || pathChunks[0] === ``)) {
+    if ((pathChunks.length === 1 && (pathChunks[0] === `cars` || pathChunks[0] === ``)) ||
+        (pathChunks.length === 2 && pathChunks[1] === `` && (pathChunks[0] === `cars` || pathChunks[0] === ``))) {
         route = ControllerID.CAR_LIST;
     } else if (pathChunks.length === 2 && pathChunks[0] === `cars`) {
         route = ControllerID.CAR;
@@ -38,6 +41,8 @@ const getRoute = (): string => {
         route = ControllerID.REGISTRY;
     } else if (pathChunks.length === 2 && pathChunks[0] === ControllerID.EDIT) {
         route = ControllerID.EDIT;
+    } else {
+        route = ControllerID.NOT_FOUND;
     }
 
     return route;
@@ -58,7 +63,8 @@ export default new class App {
         [ControllerID.REGISTRY]: new RegistryController(),
         [ControllerID.LOGIN]: new LoginController(),
         [ControllerID.ADD_POST]: new AddPostController(),
-        [ControllerID.EDIT]: new EditController()
+        [ControllerID.EDIT]: new EditController(),
+        [ControllerID.NOT_FOUND]: new NotFoundController()
     };
 
     constructor() {

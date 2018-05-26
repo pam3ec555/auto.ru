@@ -12,6 +12,6 @@ export default abstract class Controller {
     }
 
     protected bind(bind: boolean = true) {
-        //
+        // Empty method
     }
 }

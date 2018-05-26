@@ -4,6 +4,8 @@ import Controller from '../controller';
 import Model from '../model';
 import App from '../app';
 import Validation from '../validation';
+import AccessErrorView from '../errors/access-error/access-error-view';
+import {UserData} from '../menu/menu';
 
 enum ErrorType {
     PASSWORD = 0,
@@ -64,12 +66,17 @@ const validateFields = (form: HTMLFormElement): boolean => {
 
 export default class LoginController extends Controller {
     public init(): void {
-        const loginView: LoginView = new LoginView();
+        const userData: UserData = App.userData;
+        const view: LoginView|AccessErrorView = (userData) ?
+            new AccessErrorView(`Вы уже авторизованы!`) :
+            new LoginView();
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {
-            contentBlock.appendChild(loginView.render());
-            this.bind();
+            contentBlock.appendChild(view.render());
+            if (!userData) {
+                this.bind();
+            }
         }
     }
 

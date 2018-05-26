@@ -4,6 +4,7 @@ import Model from "../model";
 import Validation from '../validation';
 import {hide, setClass, showBlock, CodeStatus} from '../util';
 import App from '../app';
+import AccessErrorView from '../errors/access-error/access-error-view';
 
 const validateFields = (): boolean => {
     let result: boolean = true;
@@ -169,13 +170,18 @@ const validateFields = (): boolean => {
 
 export default class RegistryController extends Controller {
     public init(): void {
-        const registryView: RegistryView = new RegistryView();
+        const userData = App.userData;
+        const view: RegistryView|AccessErrorView = (userData) ?
+            new AccessErrorView(`Вы уже авторизованы!`) :
+            new RegistryView();
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 
         if (contentBlock) {
-            contentBlock.appendChild(registryView.render());
+            contentBlock.appendChild(view.render());
+            if (!userData) {
+                this.bind();
+            }
         }
-        this.bind();
     }
 
     protected bind(bind: boolean = true): void {
