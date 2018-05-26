@@ -1,15 +1,14 @@
 import AddPostView from './add-post-view';
-import {hide, pushUrl, showBlock, StatusCode, ViewType} from '../util';
+import {hide, pushUrl, showBlock, CodeStatus, ViewType, autocompleteSettings} from '../util';
 import Controller from '../controller';
 import Model from '../model';
 import App from '../app';
 import {UserData} from "../menu/menu";
 import Validation from "../validation";
-import DefaultAdapter from "../default-adapter";
 
 declare const require: any;
 
-const AutoComplete = require("autocomplete-js");
+const AutoComplete = require(`autocomplete-js`);
 
 const validateAddPostFields = (fields: any): boolean => {
     let result: boolean = true;
@@ -90,37 +89,7 @@ export default class AddPostController extends Controller {
 
         if (contentBlock) {
             contentBlock.appendChild(addPostView.render());
-            AutoComplete({
-                _Blur(): void {
-                    hide(this.DOMResults);
-                },
-                _Focus(): void {
-                    if (this.Input.id === `model-field`) {
-                        const brandField = document.querySelector(`#brand-field`);
-
-                        if (brandField) {
-                            const brandName = brandField.getAttribute(`data-autocomplete-old-value`);
-
-                            if (brandName !== ``) {
-                                const modelApiUrl = `/cars-data-api/${brandName}`;
-                                this.Input.setAttribute(`data-autocomplete`, modelApiUrl);
-                            }
-                        }
-                    }
-
-                    showBlock(this.DOMResults);
-                },
-                _Select(item: HTMLElement): void {
-                    if (item.hasAttribute(`data-autocomplete-value`)) {
-                        this.Input.value = item.getAttribute(`data-autocomplete-value`);
-                    } else {
-                        this.Input.value = item.innerHTML;
-                    }
-
-                    this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
-                    this._Blur();
-                }
-            });
+            AutoComplete(autocompleteSettings);
             this.bind();
         }
     }
@@ -151,7 +120,7 @@ export default class AddPostController extends Controller {
                     body: formData
                 })
                     .then((response: Response) => {
-                        if (response.status === StatusCode.OK) {
+                        if (response.status === CodeStatus.OK) {
                             pushUrl(`/`);
                         }
                     });

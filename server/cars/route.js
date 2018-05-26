@@ -19,6 +19,13 @@ const toPage = async (cursor, skip = 0, limit = 20) => {
     };
 };
 
+const getCarData = async (req, res) => {
+    const {id} = req.params;
+    const car = await carStore.getCar(id);
+
+    return res.send(car);
+};
+
 /**
  * Method for parse integer body values from string to int
  * @param body {object}
@@ -52,12 +59,9 @@ router.get(`/cars-api/cars`, async (req, res) => {
     return res.send(data);
 });
 
-router.get(`/cars-api/cars/:id`, async (req, res) => {
-    const {id} = req.params;
-    const car = await carStore.getCar(id);
+router.get(`/cars-api/cars/:id`, getCarData);
 
-    return res.send(car);
-});
+router.get(`/cars-api/edit/:id`, getCarData);
 
 router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
     const {id, photoIndex} = req.params;
@@ -127,7 +131,7 @@ router.delete(`/cars-api/drop-car/:id`, async (req, res) => {
 router.delete(`/drop-cars`, async (req, res) => {
     await carStore.removeAllCars();
 
-    return res.send(`Removed all cars`);
+    return res.sendStatus(CodeStatus.OK);
 });
 
 module.exports = router;

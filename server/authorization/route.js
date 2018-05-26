@@ -36,6 +36,7 @@ router.route(`/`)
             if (passwordHash.verify(password, userData.password)) {
                 jwt.sign({
                     user: {
+                        login,
                         name: userData.name,
                         email: userData.email,
                         tel: userData.tel

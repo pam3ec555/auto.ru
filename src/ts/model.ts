@@ -37,5 +37,5 @@ export default class Model {
         }).catch((err: Error) => {
             throw new Error(`Failed to drop item|items, ${err}`);
         });
-    };
+    }
 }

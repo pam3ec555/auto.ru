@@ -1,5 +1,7 @@
 import View from '../view';
 import {Car, CarPhotos} from './car';
+import App from '../app';
+import {UserData} from '../menu/menu';
 
 const drawSliders = (images: Array<CarPhotos>, id: string): string => {
     let sliders: string = `<ul class="slider__list">`;
@@ -15,6 +17,13 @@ const drawSliders = (images: Array<CarPhotos>, id: string): string => {
 
 const drawMobileCar = (data: Car): string => {
     const sliders: string = drawSliders(data.photos, data._id);
+    const userData: UserData = App.userData;
+    const removeBtn: string = (userData && data.login === userData.login) ?
+        `<button type="button" id="remove-car">Удалить объявление</button>` :
+        ``;
+    const editBtn: string = (userData && data.login === userData.login) ?
+        `<a href="/edit/${data._id}" id="edit-car">Редактировать объявление</a>` :
+        ``;
 
     return `<div class="outer-block">
   <h2 class="title">${data.brand} ${data.model}</h2>
@@ -107,7 +116,8 @@ const drawMobileCar = (data: Car): string => {
       <button class="slider__btn slider__btn--next slider__btn--list"></button>
     </div>
   </div>
-  <button type="button" id="remove-car">Удалить объявление</button>
+  ${removeBtn}
+  ${editBtn}
   <input type="hidden" id="car-id" value="${data._id}">
 </div>`;
 };

@@ -1,26 +1,10 @@
-import {Car, CarPhotos} from './car';
+import {Car} from './car';
 import CarView from './car-view';
-import {ViewType} from '../util';
+import {pushUrl, ViewType} from '../util';
 import Controller from '../controller';
 import Slider from '../slider';
 import Model from '../model';
-import DefaultAdapter from '../default-adapter';
-
-const adapter = new class extends DefaultAdapter {
-    public preprocess(data: Car): Car {
-        const preprocessed: Car = (Object as any).assign({}, data);
-        const photos: {
-            [name: number]: CarPhotos
-        } = preprocessed.photos;
-        preprocessed.photos = [];
-
-        for (const key in photos) {
-            preprocessed.photos.push(photos[key]);
-        }
-
-        return preprocessed;
-    }
-}();
+import CarAdapter from '../car-adapter';
 
 export default class CarController extends Controller {
     private model: Model;
@@ -31,6 +15,7 @@ export default class CarController extends Controller {
 
     public async init() {
         this.model = new Model();
+        const adapter: CarAdapter = new CarAdapter();
         const data: Car = await this.model.load(`/cars-api/${location.pathname.slice(1)}`, {}, adapter);
         const carView: CarView = new CarView(data);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
@@ -53,6 +38,21 @@ export default class CarController extends Controller {
                 removeBtn.removeEventListener(`click`, this.onRemoveClick);
             }
         }
+
+        const editBtn: HTMLHRElement = document.querySelector(`#edit-car`);
+
+        if (editBtn) {
+            if (bind) {
+                editBtn.addEventListener(`click`, this.onEditCar);
+            } else {
+                editBtn.removeEventListener(`click`, this.onEditCar);
+            }
+        }
+    }
+
+    private onEditCar = (e: Event): void => {
+        e.preventDefault();
+        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
     }
 
     private onRemoveClick = (): void => {

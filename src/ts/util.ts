@@ -31,7 +31,7 @@ export enum KeyCode {
     ESC = 27
 }
 
-export enum StatusCode {
+export enum CodeStatus {
     OK = 200,
     NOT_FOUND = 404
 }
@@ -83,3 +83,34 @@ export const getSearchVars = (): SearchUrlVars => {
     return vars;
 };
 
+export const autocompleteSettings: object = {
+    _Blur(): void {
+        hide(this.DOMResults);
+    },
+    _Focus(): void {
+        if (this.Input.id === `model-field`) {
+            const brandField = document.querySelector(`#brand-field`);
+
+            if (brandField) {
+                const brandName = brandField.getAttribute(`data-autocomplete-old-value`);
+
+                if (brandName !== ``) {
+                    const modelApiUrl = `/cars-data-api/${brandName}`;
+                    this.Input.setAttribute(`data-autocomplete`, modelApiUrl);
+                }
+            }
+        }
+
+        showBlock(this.DOMResults);
+    },
+    _Select(item: HTMLElement): void {
+        if (item.hasAttribute(`data-autocomplete-value`)) {
+            this.Input.value = item.getAttribute(`data-autocomplete-value`);
+        } else {
+            this.Input.value = item.innerHTML;
+        }
+
+        this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
+        this._Blur();
+    }
+};

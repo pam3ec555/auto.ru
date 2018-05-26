@@ -6,13 +6,16 @@ import LoginController from './login/login-controller';
 import AddPostController from './add-post/add-post-controller';
 import {MenuType, ViewType, ViewTypeWidths} from './util';
 import {UserData} from './menu/menu';
+import {AsyncHook} from 'async_hooks';
+import EditController from './edit/edit-controller';
 
 enum ControllerID {
     CAR_LIST = 'car-list',
     CAR = 'car',
     REGISTRY = 'registry',
     LOGIN = 'login',
-    ADD_POST = 'add-post'
+    ADD_POST = 'add-post',
+    EDIT = 'edit'
 }
 
 type Routes = {
@@ -34,6 +37,8 @@ const getRoute = (): string => {
         route = ControllerID.LOGIN;
     } else if (pathChunks.length === 1 && pathChunks[0] === ControllerID.REGISTRY) {
         route = ControllerID.REGISTRY;
+    } else if (pathChunks.length === 2 && pathChunks[0] === ControllerID.EDIT) {
+        route = ControllerID.EDIT;
     }
 
     return route;
@@ -53,7 +58,8 @@ export default new class App {
         [ControllerID.CAR]: new CarController(this.viewState),
         [ControllerID.REGISTRY]: new RegistryController(this.viewState),
         [ControllerID.LOGIN]: new LoginController(this.viewState),
-        [ControllerID.ADD_POST]: new AddPostController(this.viewState)
+        [ControllerID.ADD_POST]: new AddPostController(this.viewState),
+        [ControllerID.EDIT]: new EditController(this.viewState)
     };
 
     constructor() {
@@ -69,7 +75,7 @@ export default new class App {
         this.changeController();
     }
 
-    public get userData() {
+    public get userData(): UserData {
         return this._userData;
     }
 

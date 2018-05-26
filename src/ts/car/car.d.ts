@@ -9,7 +9,6 @@ export type CarPhotos = {
 
 export type Car = {
     readonly _id: string,
-    readonly name: string,
     readonly price: number,
     readonly mileage: number,
     readonly brand: string,
@@ -23,6 +22,7 @@ export type Car = {
     readonly phoneNum: number,
     readonly address: string,
     readonly email: string,
+    readonly login: string,
     readonly engineVolume: number,
     readonly enginePower: number,
     readonly engineType: string

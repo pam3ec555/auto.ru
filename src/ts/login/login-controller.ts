@@ -1,5 +1,5 @@
 import LoginView from './login-view';
-import {StatusCode, ViewType} from '../util';
+import {CodeStatus, ViewType} from '../util';
 import Controller from '../controller';
 import Model from '../model';
 import App from '../app';
@@ -41,7 +41,7 @@ export default class LoginController extends Controller {
                     body: formData
                 })
                 .then((response: Response) => {
-                    if (response.status === StatusCode.OK) {
+                    if (response.status === CodeStatus.OK) {
                         return response.json();
                     }
                 })
