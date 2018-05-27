@@ -12,7 +12,7 @@ export default class AddPostController extends CarActionController {
     public init(): void {
         const userData: UserData = App.userData;
         const view: AddPostView|AccessErrorView = (userData) ?
-            new AddPostView(userData) :
+            new AddPostView(userData, this.carCharacteristics) :
             new AccessErrorView(`Для добавления объявления вам необходимо авторизироваться!`);
         const contentBlock: HTMLElement = document.querySelector(`#inner`);
 

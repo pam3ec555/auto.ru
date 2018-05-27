@@ -2,6 +2,7 @@ import Controller from '../controller';
 import {bindElem, CodeStatus, hide, pushUrl, setClass, showBlock} from '../util';
 import Model from '../model';
 import Validation from '../validation';
+import {CarCharacteristics} from './car-action';
 
 enum CarActionType {
     ADD = 'add',
@@ -72,6 +73,61 @@ const validateFields = (fields: any): boolean => {
 };
 
 export default abstract class CarActionController extends Controller {
+    private _carCharacteristics: CarCharacteristics = {
+        bodyType: new Set([
+            `Седан`,
+            `Хэтчбек`,
+            `Универсал`,
+            `Лифтбэк`,
+            `Купе`,
+            `Кабриолет`,
+            `Родстер`,
+            `Тарга`,
+            `Лимузин`,
+            `Стретч`,
+            `Внедорожник`,
+            `Кроссовер`,
+            `Пикап`,
+            `Фургон`,
+            `Минивэн`,
+            `Микроавтобус`,
+            `Автобус`,
+            `Грузовик`
+        ]),
+        engineType: new Set([
+            `Бензин`,
+            `Дизель`,
+            `Газ`,
+            `Газодизель`,
+            `Роторно-поршевой`
+        ]),
+        boxTransmission: new Set([
+            `Механическая коробка`,
+            `Автоматическая коробка`,
+            `Роботизированная коробка`,
+            `Вариатор`
+        ]),
+        wheelTransmission: new Set([
+            `Передний`,
+            `Задний`,
+            `Полный`
+        ]),
+        leftHelm: new Set([
+            `Левый`,
+            `Правый`
+        ]),
+        state: new Set([
+            `Отличное`,
+            `Хорошее`,
+            `Плохое`,
+            `Битая`
+        ]),
+        originalPTS: new Set([
+            `Оригинал`,
+            `Дупликат`
+        ])
+    };
+
     private _autocompleteSettings: object = {
         _Blur(): void {
             hide(this.DOMResults);
@@ -110,6 +166,10 @@ export default abstract class CarActionController extends Controller {
         if (submit) {
             bindElem(submit, `click`, this.onFormSubmit, bind);
         }
+    }
+
+    protected get carCharacteristics(): CarCharacteristics {
+        return this._carCharacteristics;
     }
 
     protected get autocompleteSettings() {

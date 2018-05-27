@@ -1,7 +1,20 @@
 import View from '../view';
 import {UserData} from "../menu/menu";
+import {CarCharacteristics} from '../car-action/car-action';
 
-const drawAddingPost = (userData: UserData): string => {
+const getOptions = (carCharacteristic: Set<string>): string => {
+    let options: string = `<option value=""></option>`;
+
+    carCharacteristic.forEach((characteristic: string) => {
+        options += `<option value="${characteristic}">${characteristic}</option>`;
+    });
+
+    return options;
+};
+
+const drawAddingPost = (userData: UserData, carCharacteristics: CarCharacteristics): string => {
+    const date: Date = new Date();
+
     return `<div class="form-block outer-block">
   <h2 class="title">Добавление</h2>
   <form class="form" id="add-post-form">
@@ -20,55 +33,69 @@ const drawAddingPost = (userData: UserData): string => {
     <div class="row">
       <span class="label">Кузов</span>
       <div class="value">
-        <input type="text" name="bodyType">
+        <select name="bodyType">
+          ${getOptions(carCharacteristics.bodyType)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Объем двигателя</span>
       <div class="value">
-        <input type="text" name="engineVolume">
+        <input type="nubmer" name="engineVolume">
       </div>
     </div>
     <div class="row">
       <span class="label">Мощность двигателя</span>
       <div class="value">
-        <input type="text" name="enginePower">
+        <input type="number" name="enginePower" step="10">
       </div>
     </div>
     <div class="row">
       <span class="label">Тип двигателя</span>
       <div class="value">
-        <input type="text" name="engineType">
+        <select name="engineType">
+          ${getOptions(carCharacteristics.engineType)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Коробка</span>
       <div class="value">
-        <input type="text" name="boxTransmission">
+        <select name="boxTransmission">
+          ${getOptions(carCharacteristics.boxTransmission)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Привод</span>
       <div class="value">
-        <input type="text" name="wheelTransmission">
+        <select name="wheelTransmission">
+          ${getOptions(carCharacteristics.wheelTransmission)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Руль</span>
       <div class="value">
-        <input type="text" name="leftHelm">
+        <select name="leftHelm">
+          ${getOptions(carCharacteristics.leftHelm)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Состояние</span>
       <div class="value">
-        <input type="text" name="state">
+        <select  name="state">
+          ${getOptions(carCharacteristics.state)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">ПТС</span>
       <div class="value">
-        <input type="text" name="originalPTS">
+        <select name="originalPTS">
+          ${getOptions(carCharacteristics.originalPTS)}
+        </select>
       </div>
     </div>
     <div class="row">
@@ -80,13 +107,13 @@ const drawAddingPost = (userData: UserData): string => {
     <div class="row">
       <span class="label">Год выпуска</span>
       <div class="value">
-        <input type="text" name="year">
+        <input type="number" name="year" min="1900" max="${date.getFullYear()}">
       </div>
     </div>
     <div class="row">
       <span class="label">Пробег</span>
       <div class="value">
-        <input type="text" name="mileage">
+        <input type="number" name="mileage" step="10000">
       </div>
     </div>
     <div class="row">
@@ -104,7 +131,7 @@ const drawAddingPost = (userData: UserData): string => {
     <div class="row">
       <span class="label">Цена</span>
       <div class="value">
-        <input type="text" name="price">
+        <input type="number" name="price" step="10000">
       </div>
     </div>
     <div class="row">
@@ -133,11 +160,15 @@ const drawAddingPost = (userData: UserData): string => {
 };
 
 export default class AddPostView extends View {
-    constructor(data: UserData) {
+    private carCharacteristics: CarCharacteristics;
+
+    constructor(data: UserData, carCharacteristics: CarCharacteristics) {
         super(data);
+
+        this.carCharacteristics = carCharacteristics;
     }
 
     protected get template(): string {
-        return drawAddingPost(this.data);
+        return drawAddingPost(this.data, this.carCharacteristics);
     }
 }

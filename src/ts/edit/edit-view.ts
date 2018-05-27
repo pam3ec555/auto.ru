@@ -1,7 +1,19 @@
 import {Car} from '../car/car';
 import View from '../view';
+import {CarCharacteristics} from '../car-action/car-action';
 
-const drawEdit = (data: Car) => {
+const getOptions = (carCharacteristic: Set<string>, value: string): string => {
+    let options: string = `<option value=""></option>`;
+
+    carCharacteristic.forEach((characteristic: string) => {
+        const selected: string = (value === characteristic) ? ` selected` : ``;
+        options += `<option value="${characteristic}"${selected}>${characteristic}</option>`;
+    });
+
+    return options;
+};
+
+const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     return `<div class="form-block outer-block">
   <h2 class="title">Редактирование</h2>
   <form class="form" id="edit-form">
@@ -21,7 +33,9 @@ const drawEdit = (data: Car) => {
     <div class="row">
       <span class="label">Кузов</span>
       <div class="value">
-        <input type="text" name="bodyType" value="${data.bodyType}">
+         <select name="bodyType">
+          ${getOptions(carCharacteristics.bodyType, data.bodyType)}
+        </select>
       </div>
     </div>
     <div class="row">
@@ -39,37 +53,49 @@ const drawEdit = (data: Car) => {
     <div class="row">
       <span class="label">Тип двигателя</span>
       <div class="value">
-        <input type="text" name="engineType" value="${data.engineType}">
+        <select name="engineType">
+          ${getOptions(carCharacteristics.engineType, data.engineType)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Коробка</span>
       <div class="value">
-        <input type="text" name="boxTransmission" value="${data.boxTransmission}">
+        <select name="boxTransmission">
+          ${getOptions(carCharacteristics.boxTransmission, data.boxTransmission)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Привод</span>
       <div class="value">
-        <input type="text" name="wheelTransmission" value="${data.wheelTransmission}">
+        <select name="wheelTransmission">
+          ${getOptions(carCharacteristics.wheelTransmission, data.wheelTransmission)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Руль</span>
       <div class="value">
-        <input type="text" name="leftHelm" value="${data.leftHelm}">
+        <select name="leftHelm">
+          ${getOptions(carCharacteristics.leftHelm, data.leftHelm)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">Состояние</span>
       <div class="value">
-        <input type="text" name="state" value="${data.state}">
+        <select  name="state">
+          ${getOptions(carCharacteristics.state, data.state)}
+        </select>
       </div>
     </div>
     <div class="row">
       <span class="label">ПТС</span>
       <div class="value">
-        <input type="text" name="originalPTS" value="${data.originalPTS}">
+        <select name="originalPTS">
+          ${getOptions(carCharacteristics.originalPTS, data.originalPTS)}
+        </select>
       </div>
     </div>
     <div class="row">
@@ -135,11 +161,15 @@ const drawEdit = (data: Car) => {
 };
 
 export default class EditView extends View {
-    constructor(data: Car) {
+    private carCharacteristics: CarCharacteristics;
+
+    constructor(data: Car, carCharacteristics: CarCharacteristics) {
         super(data);
+
+        this.carCharacteristics = carCharacteristics;
     }
 
     protected get template(): string {
-        return drawEdit(this.data);
+        return drawEdit(this.data, this.carCharacteristics);
     }
 }

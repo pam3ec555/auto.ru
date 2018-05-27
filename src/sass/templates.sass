@@ -252,9 +252,11 @@
   width: 100%
 
   & input,
-  & textarea
+  & textarea,
+  & select
     padding: 5px
     width: 100%
+    height: 36px
 
     &:hover
       box-shadow: 0 0 3px 3px $light-blue
@@ -268,6 +270,12 @@
 
       box-shadow: 0 0 5px 0 $red
       border-color: $red
+
+  & textarea
+    height: auto
+
+  & select
+    padding: 5px 0
 
 .label
   width: 100%

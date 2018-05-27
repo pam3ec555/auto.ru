@@ -25,7 +25,7 @@ export default class EditController extends CarActionController {
         } else if (!userData) {
             view = new AccessErrorView(`Вам запрещен доступ на редактирование этого объявления!`);
         } else {
-            view = new EditView(data);
+            view = new EditView(data, this.carCharacteristics);
         }
 
         const contentBlock: HTMLElement = document.querySelector(`#inner`);

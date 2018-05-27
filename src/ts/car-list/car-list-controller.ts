@@ -1,6 +1,6 @@
 import CarListView from './car-list-view';
 import {Car, CarPhotos} from '../car/car';
-import {bindElem, getSearchVars, pushUrl} from '../util';
+import {bindElem, findAncestor, getSearchVars, pushUrl} from '../util';
 import Controller from '../controller';
 import Model from "../model";
 import DefaultAdapter from "../default-adapter";
@@ -80,6 +80,12 @@ export default class CarListController extends Controller {
 
     private onCardClick = (e: Event): void => {
         e.preventDefault();
-        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
+        let target = e.target as HTMLHRElement|HTMLElement;
+
+        if (!target.classList.contains(`content-link`)) {
+            target = findAncestor(target, `content-link`);
+        }
+
+        pushUrl(target.getAttribute(`href`));
     }
 }

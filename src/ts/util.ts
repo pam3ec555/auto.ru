@@ -105,3 +105,10 @@ export const bindElem = (elem: any, handler: string, callback: any, bind: boolea
         elem.removeEventListener(handler, callback);
     }
 };
+
+export const findAncestor = (element: HTMLElement, className: string) => {
+    while ((element = element.parentElement) && !element.classList.contains(className));
+
+    return element;
+};
+

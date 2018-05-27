@@ -6,7 +6,7 @@ LOGIN = 'test2'
 PASSWORD = 'test2'
 ACTION_TIMEOUT = 1
 HOSTNAME = 'localhost'
-PORT = '9000'
+PORT = '9002'
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 driver = webdriver.Chrome()
@@ -28,9 +28,9 @@ addPostBtn = driver.find_element_by_id('add-post')
 addPostBtn.click()
 
 CAR = dict(
-    brand='BMW',
-    model='X5',
-    bodyType='jeep',
+    brand='Kia',
+    model='Rio',
+    bodyType='Седан',
     engineVolume='3.6',
     enginePower='200',
     engineType='Бензин',
@@ -51,6 +51,6 @@ CAR = dict(
 for key in CAR:
     driver.find_element_by_name(key).send_keys(CAR[key])
 
-driver.find_element_by_name('photos').send_keys(ROOT_DIR + '/fixtures/photo.jpeg')
+# driver.find_element_by_name('photos').send_keys(ROOT_DIR + '/fixtures/photo.jpeg')
 
 driver.find_element_by_id('submit').click()
