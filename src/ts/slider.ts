@@ -6,6 +6,10 @@ type SliderOptions = {
 
 export default class Slider {
     private readonly selector: string;
+    private readonly list: HTMLUListElement;
+    private readonly listWidths: number;
+    private readonly listViewsCount: number;
+    private currentListView: number = 1;
     private readonly container: HTMLElement;
     private readonly options: SliderOptions;
     private readonly previewImage: HTMLImageElement;
@@ -21,6 +25,10 @@ export default class Slider {
             this.options = options;
             this.previewImage = document.querySelector(`${selector} .slider__preview`);
             this.totalImages = document.querySelectorAll(`${selector} .slider__item`).length;
+            this.list = document.querySelector(`${selector} .slider__list`);
+            this.listWidths = this.list.getBoundingClientRect().width;
+            const sliderWidths: number = this.list.parentElement.getBoundingClientRect().width;
+            this.listViewsCount = Math.ceil(this.listWidths / sliderWidths);
         } else {
             throw new Error(`Couldn't find slider wrapper by selector "${selector}"`);
         }
@@ -54,11 +62,43 @@ export default class Slider {
             bindElem(nextPreviewBtn, `click`, this.onNextPreviewClick, bind);
         }
 
-        const list = document.querySelector(`${this.selector} .slider__list`);
-
-        if (list) {
-            bindElem(list, `click`, this.onListClick, bind);
+        if (this.list) {
+            bindElem(this.list, `click`, this.onListClick, bind);
         }
+
+        if (this.listViewsCount > 1) {
+            const nextListView = document.querySelector(`${this.selector} .slider__btn--next.slider__btn--list`);
+            const prevListView = document.querySelector(`${this.selector} .slider__btn--prev.slider__btn--list`);
+
+            if (nextListView && prevListView) {
+                bindElem(nextListView, `click`, this.onNextListViewCLick, bind);
+                bindElem(prevListView, `click`, this.onPrevListViewCLick, bind);
+            }
+        }
+    }
+
+    private restateList = (): void => {
+        this.list.style.left = `-${(this.currentListView - 1) * 100}%`;
+    }
+
+    private onPrevListViewCLick = (): void => {
+        if (this.currentListView === 1) {
+            this.currentListView = this.listViewsCount;
+        } else {
+            this.currentListView--;
+        }
+
+        this.restateList();
+    }
+
+    private onNextListViewCLick = (): void => {
+        if (this.currentListView === this.listViewsCount) {
+            this.currentListView = 1;
+        } else {
+            this.currentListView++;
+        }
+
+        this.restateList();
     }
 
     private onPrevPreviewClick = (): void => {

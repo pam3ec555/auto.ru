@@ -11,8 +11,13 @@
         opacity: 1
 
 .slider__list-wrap
+  position: relative
+
   width: calc(100% - 60px) // full with minus 2 btns
   margin: 0 auto
+  height: 120px
+
+  overflow: hidden
 
 .slider__preview
   width: 100%
@@ -49,11 +54,13 @@
   background-image: url("../img/icons/right-arrow.svg")
 
 .slider__list
+  position: absolute
+
   display: flex
   align-items: center
   padding: 10px
 
-  overflow: hidden
+  transition: all 0.3s
 
 .slider__item
   width: 150px
