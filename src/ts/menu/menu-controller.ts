@@ -22,8 +22,21 @@ declare const require: any;
 const AutoComplete = require(`autocomplete-js`);
 
 const autocompleteOptions = {
-    _Blur(): void {
-        hide(this.DOMResults);
+    EmptyMessage: `Нет результатов!`,
+    _Open(): void {
+        (Array as any).from(this.DOMResults.querySelectorAll(`li`)).forEach((li: HTMLLIElement) => {
+            if (li.className !== `locked`) {
+                li.onmousedown = () => {
+                    this._Select(li);
+                    hide(this.DOMResults);
+                };
+            }
+        });
+    },
+    _Blur() {
+        setTimeout(() => {
+            hide(this.DOMResults);
+        }, 100);
     },
     _Focus(): void {
         if (this.Input.id === `sort-model`) {

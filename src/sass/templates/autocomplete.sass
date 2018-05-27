@@ -1,11 +1,12 @@
 .autocomplete
-  display: none
+  display: none !important
 
 input:focus+.autocomplete
   position: absolute
   z-index: 3
 
   max-height: 300px
+  display: block !important
 
   border-left: 1px solid $dark-blue
   border-right: 1px solid $dark-blue
@@ -19,8 +20,11 @@ input:focus+.autocomplete
 
     border-bottom: 1px solid $dark-blue
 
+    cursor: pointer
+
     &:last-child
       border-bottom: none
 
-    &.active
+    &.active,
+    &:hover
       background-color: $light-blue

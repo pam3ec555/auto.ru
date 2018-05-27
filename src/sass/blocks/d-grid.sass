@@ -4,15 +4,17 @@
   .inner
     margin: 0 auto
     padding: 20px 0
+    height: calc(100vh - 50px) // full height minus header`s height
     width: $desktop
 
     background-color: #fff
     border-right: 1px solid $dark-blue
     border-left: 1px solid $dark-blue
+    overflow: auto
 
   .app--main
     display: grid
-    grid-template-rows: 50px 30px 20px minmax(calc(100vh - 100px), auto)
+    grid-template-rows: 50px 30px 20px calc(100vh - 100px)
     grid-template-columns: auto 260px 940px auto
     grid-template-areas: "header header header header" ". sort search ." ". sort sort-results ." ". sort inner ."
 
@@ -42,6 +44,7 @@
     & .inner
       grid-area: inner
       width: 940px
+      height: calc(100vh - 100px)
       margin: 0
 
       border-left: none

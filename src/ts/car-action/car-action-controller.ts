@@ -129,6 +129,7 @@ export default abstract class CarActionController extends Controller {
     };
 
     private _autocompleteSettings: object = {
+        EmptyMessage: `Нет результатов!`,
         _Blur(): void {
             hide(this.DOMResults);
         },
