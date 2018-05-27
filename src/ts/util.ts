@@ -98,7 +98,7 @@ export const setClass = (elem: any, className: string, set: boolean = true) => {
     }
 };
 
-export const bindElem = (elem: any, handler: string, callback: void, bind: boolean = true) => {
+export const bindElem = (elem: any, handler: string, callback: any, bind: boolean = true) => {
     if (bind) {
         elem.addEventListener(handler, callback);
     } else {

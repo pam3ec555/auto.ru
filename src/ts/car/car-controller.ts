@@ -1,6 +1,6 @@
 import {Car} from './car';
 import CarView from './car-view';
-import {pushUrl} from '../util';
+import {bindElem, pushUrl} from '../util';
 import Controller from '../controller';
 import Slider from '../slider';
 import Model from '../model';
@@ -34,21 +34,13 @@ export default class CarController extends Controller {
         const removeBtn: HTMLButtonElement = document.querySelector(`#remove-car`);
 
         if (removeBtn) {
-            if (bind) {
-                removeBtn.addEventListener(`click`, this.onRemoveClick);
-            } else {
-                removeBtn.removeEventListener(`click`, this.onRemoveClick);
-            }
+            bindElem(removeBtn, `click`, this.onRemoveClick, bind);
         }
 
         const editBtn: HTMLHRElement = document.querySelector(`#edit-car`);
 
         if (editBtn) {
-            if (bind) {
-                editBtn.addEventListener(`click`, this.onEditCar);
-            } else {
-                editBtn.removeEventListener(`click`, this.onEditCar);
-            }
+            bindElem(editBtn, `click`, this.onEditCar, bind);
         }
     }
 

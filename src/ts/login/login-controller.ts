@@ -1,5 +1,5 @@
 import LoginView from './login-view';
-import {CodeStatus, hide, setClass, showBlock} from '../util';
+import {bindElem, CodeStatus, hide, setClass, showBlock} from '../util';
 import Controller from '../controller';
 import Model from '../model';
 import App from '../app';
@@ -84,11 +84,7 @@ export default class LoginController extends Controller {
         const submit: HTMLButtonElement = document.querySelector(`#submit`);
 
         if (submit) {
-            if (bind) {
-                submit.addEventListener(`click`, this.onFormSubmit);
-            } else {
-                submit.removeEventListener(`click`, this.onFormSubmit);
-            }
+            bindElem(submit, `click`, this.onFormSubmit, bind);
         }
     }
 

@@ -1,5 +1,5 @@
 import Controller from '../controller';
-import {CodeStatus, hide, pushUrl, setClass, showBlock} from '../util';
+import {bindElem, CodeStatus, hide, pushUrl, setClass, showBlock} from '../util';
 import Model from '../model';
 import Validation from '../validation';
 
@@ -108,11 +108,7 @@ export default abstract class CarActionController extends Controller {
         const submit: HTMLButtonElement = document.querySelector(`#submit`);
 
         if (submit) {
-            if (bind) {
-                submit.addEventListener(`click`, this.onFormSubmit);
-            } else {
-                submit.removeEventListener(`click`, this.onFormSubmit);
-            }
+            bindElem(submit, `click`, this.onFormSubmit, bind);
         }
     }
 

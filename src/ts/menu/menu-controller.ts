@@ -9,7 +9,7 @@ import {
     hide,
     showBlock,
     getSearchVars,
-    KeyCode, setClass
+    KeyCode, setClass, bindElem
 } from '../util';
 import {Menu} from './menu';
 import Controller from '../controller';
@@ -265,69 +265,35 @@ export default class MenuController extends Controller {
         const searchSubmit: HTMLButtonElement = document.querySelector(`#search-submit`);
 
         if (menuShowBtn) {
-            if (bind) {
-                menuShowBtn.addEventListener(`click`, this.onMenuShowClick);
-            } else {
-                menuShowBtn.removeEventListener(`click`, this.onMenuShowClick);
-            }
+            bindElem(menuShowBtn, `click`, this.onMenuShowClick, bind);
         }
 
         if (menuHideBtn) {
-            if (bind) {
-                menuHideBtn.addEventListener(`click`, this.onMenuHideClick);
-            } else {
-                menuHideBtn.removeEventListener(`click`, this.onMenuHideClick);
-            }
+            bindElem(menuHideBtn, `click`, this.onMenuHideClick, bind);
         }
 
         if (this.viewState === ViewType.MOBILE && searchBtn && searchInput) {
-            if (bind) {
-                searchBtn.addEventListener(`click`, this.onSearchToggle);
-                searchInput.addEventListener(`blur`, this.onSearchToggle);
-                searchInput.addEventListener(`keydown`, this.onSearchSubmit);
-            } else {
-                searchBtn.removeEventListener(`click`, this.onSearchToggle);
-                searchInput.removeEventListener(`blur`, this.onSearchToggle);
-                searchInput.removeEventListener(`keydown`, this.onSearchSubmit);
-            }
+            bindElem(searchBtn, `click`, this.onSearchToggle, bind);
+            bindElem(searchInput, `blur`, this.onSearchToggle, bind);
+            bindElem(searchInput, `keydown`, this.onSearchSubmit, bind);
         } else if (this.viewState === ViewType.DESKTOP && searchInput) {
-            if (bind) {
-                searchInput.addEventListener(`keydown`, this.onSearchSubmit);
-            } else {
-                searchInput.removeEventListener(`keydown`, this.onSearchSubmit);
-            }
+            bindElem(searchInput, `keydown`, this.onSearchSubmit, bind);
         }
 
         if (addPostBtn) {
-            if (bind) {
-                addPostBtn.addEventListener(`click`, this.onAddPostClick);
-            } else {
-                addPostBtn.removeEventListener(`click`, this.onAddPostClick);
-            }
+            bindElem(addPostBtn, `click`, this.onAddPostClick, bind);
         }
 
         if (backBtn) {
-            if (bind) {
-                backBtn.addEventListener(`click`, this.onBackClick);
-            } else {
-                backBtn.removeEventListener(`click`, this.onBackClick);
-            }
+            bindElem(backBtn, `click`, this.onBackClick, bind);
         }
 
         if (sortSumit) {
-            if (bind) {
-                sortSumit.addEventListener(`click`, this.onSortSubmit);
-            } else {
-                sortSumit.removeEventListener(`click`, this.onSortSubmit);
-            }
+            bindElem(sortSumit, `click`, this.onSortSubmit, bind);
         }
 
         if (searchSubmit) {
-            if (bind) {
-                searchSubmit.addEventListener(`click`, this.onSearchSubmit);
-            } else {
-                searchSubmit.removeEventListener(`click`, this.onSearchSubmit);
-            }
+            bindElem(searchSubmit, `click`, this.onSearchSubmit, bind);
         }
 
         this.bindLogLinks(bind);
@@ -338,30 +304,18 @@ export default class MenuController extends Controller {
             const logoutBtn: HTMLButtonElement = document.querySelector(`#log-out`);
 
             if (logoutBtn) {
-                if (bind) {
-                    logoutBtn.addEventListener(`click`, this.onLogoutClick);
-                } else {
-                    logoutBtn.removeEventListener(`click`, this.onLogoutClick);
-                }
+                bindElem(logoutBtn, `click`, this.onLogoutClick, bind);
             }
         } else {
             const loginBtn: HTMLHRElement = document.querySelector(`#log-in`);
             const signUpBtn: HTMLHRElement = document.querySelector(`#sign-up`);
 
             if (loginBtn) {
-                if (bind) {
-                    loginBtn.addEventListener(`click`, this.onLoginClick);
-                } else {
-                    loginBtn.removeEventListener(`click`, this.onLoginClick);
-                }
+                bindElem(loginBtn, `click`, this.onLoginClick, bind);
             }
 
             if (signUpBtn) {
-                if (bind) {
-                    signUpBtn.addEventListener(`click`, this.onSignUpClick);
-                } else {
-                    signUpBtn.removeEventListener(`click`, this.onSignUpClick);
-                }
+                bindElem(signUpBtn, `click`, this.onSignUpClick, bind);
             }
         }
     }

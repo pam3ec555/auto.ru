@@ -1,6 +1,6 @@
 import CarListView from './car-list-view';
 import {Car, CarPhotos} from '../car/car';
-import {getSearchVars, pushUrl} from '../util';
+import {bindElem, getSearchVars, pushUrl} from '../util';
 import Controller from '../controller';
 import Model from "../model";
 import DefaultAdapter from "../default-adapter";
@@ -73,11 +73,7 @@ export default class CarListController extends Controller {
 
         if (carLinks.length > 0) {
             (Array as any).from(carLinks).forEach((item: HTMLHRElement): void => {
-                if (bind) {
-                    item.addEventListener(`click`, this.onCardClick);
-                } else {
-                    item.removeEventListener(`click`, this.onCardClick);
-                }
+                bindElem(item, `click`, this.onCardClick, bind);
             });
         }
     }

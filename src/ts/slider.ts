@@ -1,3 +1,5 @@
+import {bindElem} from './util';
+
 type SliderOptions = {
 
 };
@@ -48,23 +50,14 @@ export default class Slider {
         const nextPreviewBtn = document.querySelector(`${this.selector} .slider__btn--next.slider__btn--preview`);
 
         if (nextPreviewBtn && prevPreviewBtn) {
-            if (bind) {
-                prevPreviewBtn.addEventListener(`click`, this.onPrevPreviewClick);
-                nextPreviewBtn.addEventListener(`click`, this.onNextPreviewClick);
-            } else {
-                prevPreviewBtn.removeEventListener(`click`, this.onPrevPreviewClick);
-                nextPreviewBtn.removeEventListener(`click`, this.onNextPreviewClick);
-            }
+            bindElem(prevPreviewBtn, `click`, this.onPrevPreviewClick, bind);
+            bindElem(nextPreviewBtn, `click`, this.onNextPreviewClick, bind);
         }
 
         const list = document.querySelector(`${this.selector} .slider__list`);
 
         if (list) {
-            if (bind) {
-                list.addEventListener(`click`, this.onListClick);
-            } else {
-                list.removeEventListener(`click`, this.onListClick);
-            }
+            bindElem(list, `click`, this.onListClick, bind);
         }
     }
 

@@ -2,7 +2,7 @@ import RegistryView from './registry-view';
 import Controller from '../controller';
 import Model from "../model";
 import Validation from '../validation';
-import {hide, setClass, showBlock, CodeStatus} from '../util';
+import {hide, setClass, showBlock, CodeStatus, bindElem} from '../util';
 import App from '../app';
 import AccessErrorView from '../errors/access-error/access-error-view';
 
@@ -188,11 +188,7 @@ export default class RegistryController extends Controller {
         const submit: HTMLButtonElement = document.querySelector(`#submit`);
 
         if (submit) {
-            if (bind) {
-                submit.addEventListener(`click`, this.onFormSubmit);
-            } else {
-                submit.removeEventListener(`click`, this.onFormSubmit);
-            }
+            bindElem(submit, `click`, this.onFormSubmit, bind);
         }
     }
 
