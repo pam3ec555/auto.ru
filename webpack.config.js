@@ -7,7 +7,8 @@ module.exports = {
     entry: {
         bundle: `./src/ts/app.ts`,
         style: `./src/sass/style.sass`,
-        icon: `./src/img/icons/logo.svg`
+        icon: `./src/img/icons/logo.svg`,
+        notFound: `./src/img/page-not-found.png`
     },
     output: {
         path: path.resolve(__dirname, `dist`),

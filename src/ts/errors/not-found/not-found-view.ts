@@ -1,7 +1,7 @@
 import View from '../../view';
 
 const drawNotFound = (): string => {
-    return `<h3>Not found</h3>`;
+    return `<img src="/src/img/page-not-found.png" class="not-found outer-block">`;
 };
 
 export default class NotFoundView extends View {

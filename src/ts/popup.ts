@@ -96,7 +96,8 @@ export default class Popup {
 
     private setCoords(): void {
         const box: any = this.popup.getBoundingClientRect();
-        this.popup.style.marginTop = `-${box.height / 2}px`;
         this.popup.style.marginLeft = `-${box.width / 2}px`;
+        this.popup.style.marginTop = `-${box.height / 2}px`;
+        this.popup.style.left = `50%`;
     }
 }
