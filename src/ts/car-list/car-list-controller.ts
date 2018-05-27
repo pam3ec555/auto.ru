@@ -46,6 +46,10 @@ const setDataBySearch = (): void => {
 
                 if (sortInput) {
                     sortInput.value = decodeURI(searchVars[key]);
+
+                    if (key === `brand` || key === `model`) {
+                        sortInput.setAttribute(`data-autocomplete-old-value`, decodeURI(searchVars[key]));
+                    }
                 }
             }
         }

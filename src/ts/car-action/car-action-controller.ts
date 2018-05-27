@@ -130,8 +130,8 @@ export default abstract class CarActionController extends Controller {
 
     private _autocompleteSettings: object = {
         EmptyMessage: `Нет результатов!`,
-        _Blur(): void {
-            hide(this.DOMResults);
+        _Blur() {
+            // Empty
         },
         _Focus(): void {
             if (this.Input.id === `model-field`) {
@@ -157,7 +157,7 @@ export default abstract class CarActionController extends Controller {
             }
 
             this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
-            this._Blur();
+            this.Input.blur();
         }
     };
 

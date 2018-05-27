@@ -34,9 +34,7 @@ const autocompleteOptions = {
         });
     },
     _Blur() {
-        setTimeout(() => {
-            hide(this.DOMResults);
-        }, 100);
+        // Empty
     },
     _Focus(): void {
         if (this.Input.id === `sort-model`) {
@@ -62,7 +60,7 @@ const autocompleteOptions = {
         }
 
         this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
-        this._Blur();
+        this.Input.blur();
     }
 };
 
@@ -270,8 +268,6 @@ export default class MenuController extends Controller {
     }
 
     protected bind(bind: boolean = true): void {
-        const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
-        const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
         const searchInput: HTMLInputElement = document.querySelector(`#search-input`);
         const searchBtn: HTMLButtonElement = document.querySelector(`#search-btn`);
         const addPostBtn: HTMLHRElement = document.querySelector(`#add-post`);
@@ -279,12 +275,19 @@ export default class MenuController extends Controller {
         const sortSumit: HTMLButtonElement = document.querySelector(`#sort-submit`);
         const searchSubmit: HTMLButtonElement = document.querySelector(`#search-submit`);
 
-        if (menuShowBtn) {
-            bindElem(menuShowBtn, `click`, this.onMenuShowClick, bind);
-        }
+        if (this.viewState === ViewType.MOBILE) {
+            const menuShowBtn: HTMLButtonElement = document.querySelector(`#menu-show`);
+            const menuHideBtn: HTMLButtonElement = document.querySelector(`#menu-hide`);
 
-        if (menuHideBtn) {
-            bindElem(menuHideBtn, `click`, this.onMenuHideClick, bind);
+            if (menuShowBtn) {
+                bindElem(menuShowBtn, `click`, this.onMenuShowClick, bind);
+            }
+
+            if (menuHideBtn) {
+                bindElem(menuHideBtn, `click`, this.onMenuHideClick, bind);
+            }
+
+            bindElem(window, `keydown`, this.onWindowKeyDown, bind);
         }
 
         if (this.viewState === ViewType.MOBILE && searchBtn && searchInput) {
@@ -312,6 +315,12 @@ export default class MenuController extends Controller {
         }
 
         this.bindLogLinks(bind);
+    }
+
+    private onWindowKeyDown = (e: Event) => {
+        if ((e as any).keyCode === KeyCode.ESC) {
+            hideMenu();
+        }
     }
 
     private bindLogLinks(bind: boolean = true): void {
@@ -385,7 +394,7 @@ export default class MenuController extends Controller {
 
     private onBackClick = (e: Event): void => {
         e.preventDefault();
-        pushUrl((e.target as HTMLHRElement).getAttribute(`href`));
+        history.back();
     }
 
     private onSearchToggle = (): void => {

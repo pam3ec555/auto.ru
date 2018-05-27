@@ -20,14 +20,15 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <div class="row">
       <span class="label">Марка автомобиля</span>
       <div class="value">
-        <input type="text" name="brand" data-autocomplete="/cars-data-api/brand" id="brand-field" value="${data.brand}">
+        <input type="text" name="brand" data-autocomplete="/cars-data-api/brand" id="brand-field" value="${data.brand}"
+            data-autocomplete-old-value="${data.brand}">
       </div>
     </div>
     <div class="row">
       <span class="label">Модель автомобиля</span>
       <div class="value">
         <input type="text" name="model" data-autocomplete="/cars-data-api/:brand" id="model-field"
-            value="${data.model}">
+            value="${data.model}" data-autocomplete-old-value="${data.model}">
       </div>
     </div>
     <div class="row">
