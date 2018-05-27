@@ -135,6 +135,75 @@ const setMenuTypeStatus = (menuType: MenuType) => {
     }
 };
 
+const sortSubmit = (): void => {
+    const validation: Validation = new Validation();
+    const sortByObj: {
+        [name: string]: string
+    } = {};
+    const sortBrand: HTMLInputElement = document.querySelector(`#sort-brand`);
+
+    if (sortBrand) {
+        if (validation.validateEmpty(sortBrand.value)) {
+            sortByObj.brand = sortBrand.value;
+        }
+    }
+
+    const sortModel: HTMLInputElement = document.querySelector(`#sort-model`);
+
+    if (sortModel) {
+        if (validation.validateEmpty(sortModel.value)) {
+            sortByObj.model = sortModel.value;
+        }
+    }
+
+    const sortYear: HTMLInputElement = document.querySelector(`#sort-year`);
+
+    if (sortYear) {
+        if (validation.validateEmpty(sortYear.value)) {
+            if (validation.validateYear(sortYear.value)) {
+                sortByObj.year = sortYear.value;
+            } else {
+                alert(`Вы не правильно заполнили год в сортировке`);
+            }
+        }
+    }
+
+    const sortPrice: HTMLInputElement = document.querySelector(`#sort-price`);
+
+    if (sortPrice) {
+        if (validation.validateEmpty(sortPrice.value)) {
+            if (validation.validateNum(sortPrice.value)) {
+                sortByObj.price = sortPrice.value;
+            } else {
+                alert(`Вы не правильно заполнили цену в сортировке`);
+            }
+        }
+    }
+
+    const sortMileage: HTMLInputElement = document.querySelector(`#sort-mileage`);
+
+    if (sortMileage) {
+        if (validation.validateEmpty(sortMileage.value)) {
+            if (validation.validateNum(sortMileage.value)) {
+                sortByObj.mileage = sortMileage.value;
+            } else {
+                alert(`Вы не правильно заполнили пробег в сортировке`);
+            }
+        }
+    }
+
+    const searchParams = getSearchVars();
+    let sortParams = getSearchString(sortByObj);
+
+    if (searchParams.search) {
+        const ampersand = (Object.keys(sortByObj).length > 0) ? `&` : `?`;
+        sortParams += `${ampersand}search=${searchParams.search}`;
+    }
+
+    toggleOverlay(false);
+    pushUrl(sortParams);
+};
+
 export default class MenuController extends Controller {
     private data: Menu;
     private menuModel: MenuModel;
@@ -308,72 +377,7 @@ export default class MenuController extends Controller {
     }
 
     private onSortSubmit = (): void => {
-        const validation: Validation = new Validation();
-        const sortByObj: {
-            [name: string]: string
-        } = {};
-        const sortBrand: HTMLInputElement = document.querySelector(`#sort-brand`);
-
-        if (sortBrand) {
-            if (validation.validateEmpty(sortBrand.value)) {
-                sortByObj.brand = sortBrand.value;
-            }
-        }
-
-        const sortModel: HTMLInputElement = document.querySelector(`#sort-model`);
-
-        if (sortModel) {
-            if (validation.validateEmpty(sortModel.value)) {
-                sortByObj.model = sortModel.value;
-            }
-        }
-
-        const sortYear: HTMLInputElement = document.querySelector(`#sort-year`);
-
-        if (sortYear) {
-            if (validation.validateEmpty(sortYear.value)) {
-                if (validation.validateYear(sortYear.value)) {
-                    sortByObj.year = sortYear.value;
-                } else {
-                    alert(`Вы не правильно заполнили год в сортировке`);
-                }
-            }
-        }
-
-        const sortPrice: HTMLInputElement = document.querySelector(`#sort-price`);
-
-        if (sortPrice) {
-            if (validation.validateEmpty(sortPrice.value)) {
-                if (validation.validateNum(sortPrice.value)) {
-                    sortByObj.price = sortPrice.value;
-                } else {
-                    alert(`Вы не правильно заполнили цену в сортировке`);
-                }
-            }
-        }
-
-        const sortMileage: HTMLInputElement = document.querySelector(`#sort-mileage`);
-
-        if (sortMileage) {
-            if (validation.validateEmpty(sortMileage.value)) {
-                if (validation.validateNum(sortMileage.value)) {
-                    sortByObj.mileage = sortMileage.value;
-                } else {
-                    alert(`Вы не правильно заполнили пробег в сортировке`);
-                }
-            }
-        }
-
-        const searchParams = getSearchVars();
-        let sortParams = getSearchString(sortByObj);
-
-        if (searchParams.search) {
-            const ampersand = (Object.keys(sortByObj).length > 0) ? `&` : `?`;
-            sortParams += `${ampersand}search=${searchParams.search}`;
-        }
-
-        toggleOverlay(false);
-        pushUrl(sortParams);
+        sortSubmit();
     }
 
     private onLogoutClick = (): void => {

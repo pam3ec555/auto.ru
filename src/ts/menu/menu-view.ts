@@ -3,17 +3,18 @@ import {Menu, NavData, UserData} from './menu';
 import {MenuType, ViewType} from '../util';
 
 const drawSort = (): string => {
-    return `
-<div class="empty-wrap">
-  <input type="text" data-autocomplete="/cars-data-api/brand" id="sort-brand" placeholder="Марка">
+    const date: Date = new Date();
+
+    return `<div class="empty-wrap">
+  <input type="text" data-autocomplete="/cars-data-api/brand" class="sort-input" id="sort-brand" placeholder="Марка">
 </div>
 <div class="empty-wrap">
-  <input type="text" data-autocomplete="/cars-data-api/:brand" id="sort-model" placeholder="Модель">
+  <input type="text" data-autocomplete="/cars-data-api/:brand" class="sort-input" id="sort-model" placeholder="Модель">
 </div>
-<input type="text" id="sort-year" placeholder="Год от">
-<input type="text" id="sort-price" placeholder="Цена до, &#8381;">
-<input type="text" id="sort-mileage" placeholder="Пробег до, км">
-<button type="button" id="sort-submit">Применить</button>`;
+<input type="number" id="sort-year" placeholder="Год от" class="sort-input" min="1900" max="${date.getFullYear()}">
+<input type="number" id="sort-price" placeholder="Цена до, &#8381;" class="sort-input" step="10000">
+<input type="number" id="sort-mileage" placeholder="Пробег до, км" class="sort-input" step="10000">
+<button type="button" id="sort-submit" class="submit submit--sort">Применить</button>`;
 };
 
 const drawLogo = (): string => {
@@ -99,7 +100,7 @@ const drawDesktopHeader = (data: Menu): string => {
 const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string => {
     const inner = (!resize) ? `<main class="inner" id="inner"></main>` : ``;
     const loginView: string = (data.userData) ? drawLog(data.userData) : drawGuest();
-    const emptyNav = (data.navData.length === 0) ? ` login__user-name--empty` : ``;
+    const emptyNav = (data.navData.length === 0) ? ` m-menu__section--empty` : ``;
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>
@@ -120,7 +121,7 @@ const drawDesktopMenu = (data: Menu, menuType: MenuType, resize: boolean): strin
   <div class="search-input__border"></div>
 </div>` : ``;
     const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results" id="sort-results"></div>` : ``;
-    const sort = (menuType === MenuType.LIST) ? `<div class="sort" id="sort">${drawSort()}</div>` : ``;
+    const sort = (menuType === MenuType.LIST) ? `<div class="sort outer-block" id="sort">${drawSort()}</div>` : ``;
 
     return `${drawDesktopHeader(data)}
 ${sort}
