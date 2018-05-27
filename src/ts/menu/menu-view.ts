@@ -14,7 +14,7 @@ const drawSort = (): string => {
 <input type="number" id="sort-year" placeholder="Год от" class="sort-input" min="1900" max="${date.getFullYear()}">
 <input type="number" id="sort-price" placeholder="Цена до, &#8381;" class="sort-input" step="10000">
 <input type="number" id="sort-mileage" placeholder="Пробег до, км" class="sort-input" step="10000">
-<button type="button" id="sort-submit" class="submit submit--sort">Применить</button>`;
+<button type="submit" id="sort-submit" class="btn btn--primary btn--submit-sort">Применить</button>`;
 };
 
 const drawLogo = (): string => {
@@ -104,7 +104,7 @@ const drawMobileMenu = (data: Menu, menuType: MenuType, resize: boolean): string
     const menu = (menuType === MenuType.LIST) ? `<div class="m-menu m-menu--hidden" id="mobile-menu">
   <div class="m-menu__section login outer-block">${loginView}</div>
   <nav class="m-menu__section nav outer-block${emptyNav}">${drawNav(data.navData)}</nav>
-  <div class="m-menu__section sort outer-block" id="sort">${drawSort()}</div>
+  <form class="m-menu__section sort outer-block" id="sort">${drawSort()}</form>
   <button type="button" class="close-btn m-menu__close-btn" id="menu-hide"></button>
 </div>` : ``;
 
@@ -121,7 +121,7 @@ const drawDesktopMenu = (data: Menu, menuType: MenuType, resize: boolean): strin
   <div class="search-input__border"></div>
 </div>` : ``;
     const sortResults = (menuType === MenuType.LIST) ? `<div class="sort-results" id="sort-results"></div>` : ``;
-    const sort = (menuType === MenuType.LIST) ? `<div class="sort outer-block" id="sort">${drawSort()}</div>` : ``;
+    const sort = (menuType === MenuType.LIST) ? `<form class="sort outer-block" id="sort">${drawSort()}</form>` : ``;
 
     return `${drawDesktopHeader(data)}
 ${sort}

@@ -192,7 +192,8 @@ export default class RegistryController extends Controller {
         }
     }
 
-    private onFormSubmit = (): void => {
+    private onFormSubmit = (e: Event): void => {
+        e.preventDefault();
         const form: HTMLFormElement = document.querySelector(`#registry-form`);
 
         if (form && validateFields()) {

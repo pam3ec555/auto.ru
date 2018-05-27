@@ -1,0 +1,44 @@
+.car-view
+  .slider
+    max-width: 500px
+    margin: 0 auto
+
+  .slider__preview-wrap
+    height: 370px
+    display: flex
+    align-items: center
+
+.car-view__settings
+  max-width: 500px
+  margin: 0 auto
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  justify-content: space-between
+
+  & .btn
+    width: 230px
+    min-width: unset
+    margin-bottom: 10px
+
+  & .btn--drop
+    margin-right: 10px
+
+@media (min-width: $desktop)
+  .car-view
+    display: grid
+    grid-template-rows: auto auto
+    grid-template-columns: 500px auto 500px auto
+    grid-template-areas: "title title title title" "data . gallery ."
+
+    & .car-view__wrap--gallery
+      grid-area: gallery
+
+    & .title
+      grid-area: title
+
+    & .car-view__wrap--data
+      grid-area: data
+
+  .car-view__wrap
+    width: 500px

@@ -50,8 +50,8 @@ const drawRegistry = (): string => {
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
       <li class="error-list__item" id="login-error">Пользователь с таким логином уже существует!</li>
     </ul>
+    <button type="submit" class="btn btn--primary" id="submit">Зарегистрироваться</button>
   </form>
-  <button type="button" class="submit" id="submit">Зарегистрироваться</button>
 </div>`;
 };
 

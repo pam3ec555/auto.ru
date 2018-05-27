@@ -41,13 +41,13 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <div class="row">
       <span class="label">Объем двигателя</span>
       <div class="value">
-        <input type="text" name="engineVolume" value="${data.engineVolume}">
+        <input type="number" name="engineVolume" value="${data.engineVolume}">
       </div>
     </div>
     <div class="row">
       <span class="label">Мощность двигателя</span>
       <div class="value">
-        <input type="text" name="enginePower" value="${data.enginePower}">
+        <input type="number" name="enginePower" value="${data.enginePower}" step="10">
       </div>
     </div>
     <div class="row">
@@ -107,13 +107,13 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <div class="row">
       <span class="label">Год выпуска</span>
       <div class="value">
-        <input type="text" name="year" value="${data.year}">
+        <input type="number" name="year" value="${data.year}">
       </div>
     </div>
     <div class="row">
       <span class="label">Пробег</span>
       <div class="value">
-        <input type="text" name="mileage" value="${data.mileage}">
+        <input type="number" name="mileage" value="${data.mileage}" step="10000">
       </div>
     </div>
     <div class="row">
@@ -131,7 +131,7 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <div class="row">
       <span class="label">Цена</span>
       <div class="value">
-        <input type="text" name="price" value="${data.price}">
+        <input type="number" name="price" value="${data.price}" step="10000">
       </div>
     </div>
     <div class="row">
@@ -155,8 +155,8 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
       <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
+    <button type="submit" class="btn btn--primary" id="submit" data-type="edit">Сохранить</button>
   </form>
-  <button type="button" class="submit" id="submit" data-type="edit">Сохранить</button>
 </div>`;
 };
 

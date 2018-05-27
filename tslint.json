@@ -42,6 +42,7 @@
       ]
     },
     "curly": false,
+    "member-ordering": false,
     "variable-name": false,
     "forin": false,
     "align": false,

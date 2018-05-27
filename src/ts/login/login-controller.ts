@@ -88,7 +88,8 @@ export default class LoginController extends Controller {
         }
     }
 
-    private onFormSubmit = (): void => {
+    private onFormSubmit = (e: Event): void => {
+        e.preventDefault();
         const form: HTMLFormElement = document.querySelector(`#login-form`);
 
         if (form && validateFields(form)) {

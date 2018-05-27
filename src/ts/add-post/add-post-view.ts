@@ -41,7 +41,7 @@ const drawAddingPost = (userData: UserData, carCharacteristics: CarCharacteristi
     <div class="row">
       <span class="label">Объем двигателя</span>
       <div class="value">
-        <input type="nubmer" name="engineVolume">
+        <input type="number" name="engineVolume">
       </div>
     </div>
     <div class="row">
@@ -154,8 +154,8 @@ const drawAddingPost = (userData: UserData, carCharacteristics: CarCharacteristi
       <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
+    <button type="submit" class="btn btn--primary" id="submit" data-type="add">Добавить</button>
   </form>
-  <button type="button" class="submit" id="submit" data-type="add">Добавить</button>
 </div>`;
 };
 

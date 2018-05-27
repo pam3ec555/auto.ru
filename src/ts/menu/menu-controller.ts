@@ -15,6 +15,7 @@ import {Menu} from './menu';
 import Controller from '../controller';
 import App from '../app';
 import Validation from '../validation';
+import Popup from '../popup';
 
 declare const require: any;
 
@@ -137,6 +138,7 @@ const setMenuTypeStatus = (menuType: MenuType) => {
 
 const sortSubmit = (): void => {
     const validation: Validation = new Validation();
+    const popup: Popup = new Popup();
     const sortByObj: {
         [name: string]: string
     } = {};
@@ -163,7 +165,7 @@ const sortSubmit = (): void => {
             if (validation.validateYear(sortYear.value)) {
                 sortByObj.year = sortYear.value;
             } else {
-                alert(`Вы не правильно заполнили год в сортировке`);
+                popup.alert(`Вы не правильно заполнили год при сортировке!`);
             }
         }
     }
@@ -175,7 +177,7 @@ const sortSubmit = (): void => {
             if (validation.validateNum(sortPrice.value)) {
                 sortByObj.price = sortPrice.value;
             } else {
-                alert(`Вы не правильно заполнили цену в сортировке`);
+                popup.alert(`Вы не правильно заполнили цену при сортировке!`);
             }
         }
     }
@@ -187,7 +189,7 @@ const sortSubmit = (): void => {
             if (validation.validateNum(sortMileage.value)) {
                 sortByObj.mileage = sortMileage.value;
             } else {
-                alert(`Вы не правильно заполнили пробег в сортировке`);
+                popup.alert(`Вы не правильно заполнили пробег при сортировке!`);
             }
         }
     }
@@ -330,7 +332,8 @@ export default class MenuController extends Controller {
         }
     }
 
-    private onSortSubmit = (): void => {
+    private onSortSubmit = (e: Event): void => {
+        e.preventDefault();
         sortSubmit();
     }
 

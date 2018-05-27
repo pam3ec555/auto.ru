@@ -19,8 +19,8 @@ const drawLogin = (): string => {
       <li class="error-list__item" id="login-error">Пользователь с таким логином не существует!</li>
       <li class="error-list__item" id="password-error">Неверный пароль!</li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
+      <button type="submit" class="btn btn--primary" id="submit">Войти</button>
   </form>
-  <button type="button" class="submit" id="submit">Войти</button>
 </div>`;
 };
 

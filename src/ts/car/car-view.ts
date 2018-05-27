@@ -19,15 +19,37 @@ const drawMobileCar = (data: Car): string => {
     const sliders: string = drawSliders(data.photos, data._id);
     const userData: UserData = App.userData;
     const removeBtn: string = (userData && data.login === userData.login) ?
-        `<button type="button" id="remove-car">Удалить объявление</button>` :
+        `<button type="button" id="remove-car" class="btn btn--drop">Удалить объявление</button>` :
         ``;
     const editBtn: string = (userData && data.login === userData.login) ?
-        `<a href="/edit/${data._id}" id="edit-car">Редактировать объявление</a>` :
+        `<a href="/edit/${data._id}" id="edit-car" class="btn btn--primary">Редактировать объявление</a>` :
         ``;
+    const sliderBlock: string = (data.photos.length > 0) ? `<div class="slider" id="slider">
+  <div class="slider__preview-wrap">
+    <button class="slider__btn slider__btn--prev slider__btn--preview"></button>
+    <img src="" alt="Фото машины" class="slider__preview" data-id="0">
+    <button class="slider__btn slider__btn--next slider__btn--preview"></button>
+  </div>
+  <div class="slider__image-list-wrap">
+    <button class="slider__btn slider__btn--prev slider__btn--list"></button>
+    <div class="slider__list-wrap">
+      ${sliders}
+    </div>
+    <button class="slider__btn slider__btn--next slider__btn--list"></button>
+  </div>
+</div>` : ``;
 
-    return `<div class="outer-block">
-  <h2 class="title">${data.brand} ${data.model}</h2>
-  <div class="gallery"></div>
+    return `<div class="outer-block car-view">
+<h2 class="title">${data.brand} ${data.model}</h2>
+<div class="car-view__wrap car-view__wrap--gallery">
+  ${sliderBlock}
+  <div class="car-view__settings">
+    ${removeBtn}
+    ${editBtn}
+  </div>
+  <input type="hidden" id="car-id" value="${data._id}">
+</div>
+<div class="car-view__wrap car-view__wrap--data">
   <div class="group-wrap">
     <h3 class="group-title">Контактные данные</h3>
     <div class="row row--nowrap">
@@ -102,23 +124,7 @@ const drawMobileCar = (data: Car): string => {
     <h3 class="group-title">Комментарий продавца</h3>
     <p class="car__descr">${data.description}</p>
   </div>
-  <div class="slider" id="slider">
-    <div class="slider__preview-wrap">
-      <button class="slider__btn slider__btn--prev slider__btn--preview"></button>
-      <img src="" alt="Фото машины" class="slider__preview" data-id="0">
-      <button class="slider__btn slider__btn--next slider__btn--preview"></button>
-    </div>
-    <div class="slider__image-list-wrap">
-      <button class="slider__btn slider__btn--prev slider__btn--list"></button>
-      <div class="slider__list-wrap">
-        ${sliders}
-      </div>
-      <button class="slider__btn slider__btn--next slider__btn--list"></button>
-    </div>
-  </div>
-  ${removeBtn}
-  ${editBtn}
-  <input type="hidden" id="car-id" value="${data._id}">
+</div>
 </div>`;
 };
 

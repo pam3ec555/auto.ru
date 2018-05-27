@@ -211,24 +211,45 @@
   background-position: top 5px right 10px
   background-size: 20px
 
-.submit
+.btn
   padding: 5px
   align-self: center
   min-width: 50%
+  height: 38px
+  display: inline-block
 
   font-weight: bold
+  text-align: center
 
-  border: 2px solid $dark-blue
+  border: 2px solid
 
   transition: all 0.1s
+
+.btn--primary
+  border-color: $dark-blue
 
   &:hover
     color: $light-blue
 
     background-color: $dark-blue
 
+.btn--drop
+  color: $red
+
+  border-color: $red
+
+  &:hover
+    color: #fff
+
+    background-color: $red
+
 .form
-  margin-bottom: 20px
+  display: flex
+  flex-direction: column
+
+  & .btn
+    margin-top: 20px
+    align-self: center
 
 .form-block
   display: flex

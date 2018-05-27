@@ -2,8 +2,8 @@ from selenium import webdriver
 import time
 import os
 
-LOGIN = 'test2'
-PASSWORD = 'test2'
+LOGIN = 'pam3ec555'
+PASSWORD = 'Recon116'
 ACTION_TIMEOUT = 1
 HOSTNAME = 'localhost'
 PORT = '9002'

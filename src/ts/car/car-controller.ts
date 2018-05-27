@@ -1,11 +1,12 @@
 import {Car} from './car';
 import CarView from './car-view';
-import {bindElem, pushUrl} from '../util';
+import {bindElem, CodeStatus, pushUrl} from '../util';
 import Controller from '../controller';
 import Slider from '../slider';
 import Model from '../model';
 import CarAdapter from '../car-adapter';
 import NotFoundView from '../errors/not-found/not-found-view';
+import Popup from '../popup';
 
 export default class CarController extends Controller {
     private model: Model;
@@ -23,8 +24,11 @@ export default class CarController extends Controller {
             contentBlock.appendChild(view.render());
 
             if (data) {
-                const slider = new Slider(`#slider`);
-                slider.init();
+                if (data.photos.length > 0) {
+                    const slider = new Slider(`#slider`);
+                    slider.init();
+                }
+
                 this.bind();
             }
         }
@@ -56,7 +60,22 @@ export default class CarController extends Controller {
             const id = carIdInput.value;
 
             if (id) {
-                this.model.drop(`/cars-api/drop-car/${id}`);
+                const popup: Popup = new Popup();
+                popup.confirm(`Вы действительно хотите удалить это объявление?`, {
+                    confirm: () => {
+                        this.model.drop(`/cars-api/drop-car/${id}`)
+                            .then((response: Response) => {
+                                if (response.status === CodeStatus.OK) {
+                                    pushUrl(`/`);
+                                }
+                            })
+                            .catch((err: Error) => {
+                                throw new Error(`Error with drop car: ${err}`);
+                            });
+                    },
+                    confirmText: `Да`,
+                    cancelText: `Нет`
+                });
             }
         }
     }
