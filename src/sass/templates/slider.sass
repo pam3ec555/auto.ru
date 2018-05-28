@@ -1,8 +1,13 @@
+.slider
+  border: 1px solid $dark-blue
+
 .slider__preview-wrap,
 .slider__image-list-wrap
   position: relative
 
 .slider__preview-wrap
+  border-bottom: 1px solid $dark-blue
+
   &:hover
     & .slider__btn--preview
       opacity: 0.7
@@ -15,12 +20,12 @@
 
   width: calc(100% - 60px) // full with minus 2 btns
   margin: 0 auto
-  height: 120px
 
   overflow: hidden
 
 .slider__preview
   width: 100%
+  max-height: 369px
 
 .slider__btn
   position: absolute

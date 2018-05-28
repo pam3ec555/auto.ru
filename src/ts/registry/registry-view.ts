@@ -33,6 +33,7 @@ const drawRegistry = (): string => {
       <div class="value">
         <input type="tel" id="tel" name="tel">
       </div>
+      <b>Номер без 8</b>
     </div>
     <div class="row">
       <label for="email" class="label">E-mail</label>

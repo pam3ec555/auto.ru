@@ -93,9 +93,15 @@ export default class CarListController extends Controller {
             const inner: HTMLElement = document.querySelector(`#inner`);
 
             if (inner) {
+                inner.scrollTo({
+                    top: App.lastScrollTop
+                });
                 bindElem(inner, `scroll`, this.onInnerScroll, bind);
             }
         } else {
+            window.scrollTo({
+                top: App.lastScrollTop
+            });
             bindElem(window, `scroll`, this.onWindowScroll, bind);
         }
     }
@@ -140,6 +146,7 @@ export default class CarListController extends Controller {
         clearTimeout((timer as number));
         timer = setTimeout(() => {
             const target = e.target as HTMLElement;
+            App.lastScrollTop = target.scrollTop;
 
             if (target.scrollTop + target.getBoundingClientRect().height === target.scrollHeight) {
                 this.getNextData();
@@ -147,9 +154,11 @@ export default class CarListController extends Controller {
         }, SCROLL_TIMEOUT);
     }
 
-    private onWindowScroll = (e: Event): void => {
+    private onWindowScroll = (): void => {
         clearTimeout((timer as number));
         timer = setTimeout(() => {
+            App.lastScrollTop = window.pageYOffset;
+
             if (window.pageYOffset + window.innerHeight > document.body.getBoundingClientRect().height) {
                 this.getNextData();
             }

@@ -69,6 +69,7 @@ const calcViewState = (): ViewType => {
 export default new class App {
     private viewState: ViewType = calcViewState();
     private _carListData: Data;
+    private _lastScrollTop: number = 0;
     private _prevLocationSearch: string = ``;
     private prevRoute: Routes;
     private menu: MenuController;
@@ -96,6 +97,14 @@ export default new class App {
         this.changeController();
     }
 
+    public set lastScrollTop(top: number) {
+        this._lastScrollTop = top;
+    }
+
+    public get lastScrollTop(): number {
+        return this._lastScrollTop;
+    }
+
     public get userData(): UserData {
         return this._userData;
     }
@@ -110,7 +119,7 @@ export default new class App {
 
     private changeController(): void {
         if (this.prevRoute) {
-            this.prevRoute.destroy();
+            this.prevRoute.destroy(this.viewState);
         }
 
         const route: string = getRoute();
