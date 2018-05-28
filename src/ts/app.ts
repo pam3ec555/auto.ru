@@ -8,6 +8,8 @@ import {MenuType, ViewType, ViewTypeWidths} from './util';
 import {UserData} from './menu/menu';
 import EditController from './edit/edit-controller';
 import NotFoundController from './errors/not-found/not-found-controller';
+import {Car} from './car/car';
+import {Data} from './car-list/car-list';
 
 enum ControllerID {
     CAR_LIST = 'car-list',
@@ -52,13 +54,27 @@ const getMenuType = (): MenuType => {
     return (getRoute() === ControllerID.CAR_LIST) ? MenuType.LIST : MenuType.OTHER;
 };
 
+const calcViewState = (): ViewType => {
+    let viewState: ViewType;
+
+    if (window.innerWidth >= ViewTypeWidths.DESKTOP) {
+        viewState = ViewType.DESKTOP;
+    } else {
+        viewState = ViewType.MOBILE;
+    }
+
+    return viewState;
+}
+
 export default new class App {
-    private viewState: ViewType;
+    private viewState: ViewType = calcViewState();
+    private _carListData: Data;
+    private _prevLocationSearch: string = ``;
     private prevRoute: Routes;
     private menu: MenuController;
     private _userData: UserData;
     private routes: Routes = {
-        [ControllerID.CAR_LIST]: new CarListController(),
+        [ControllerID.CAR_LIST]: new CarListController(this.viewState),
         [ControllerID.CAR]: new CarController(),
         [ControllerID.REGISTRY]: new RegistryController(),
         [ControllerID.LOGIN]: new LoginController(),
@@ -84,26 +100,33 @@ export default new class App {
         return this._userData;
     }
 
+    public get carListData(): Data {
+        return this._carListData;
+    }
+
+    public set carListData(data: Data) {
+        this._carListData = data;
+    }
+
     private changeController(): void {
         if (this.prevRoute) {
             this.prevRoute.destroy();
         }
 
         const route: string = getRoute();
+
+        if (route === ControllerID.CAR_LIST) {
+            if (location.search !== this._prevLocationSearch) {
+                this._carListData = null;
+                this._prevLocationSearch = location.search;
+            }
+        }
+
         this.prevRoute = this.routes[route];
         this.routes[route].init();
     }
 
-    private calcViewState(): void {
-        if (window.innerWidth >= ViewTypeWidths.DESKTOP) {
-            this.viewState = ViewType.DESKTOP;
-        } else {
-            this.viewState = ViewType.MOBILE;
-        }
-    }
-
     private async init() {
-        this.calcViewState();
         this.menu = new MenuController(this.viewState, getMenuType());
         await this.menu.init();
         this._userData = this.menu.menuData.userData;
@@ -116,7 +139,7 @@ export default new class App {
 
         window.addEventListener(`resize`, () => {
             const prevViewState = this.viewState;
-            this.calcViewState();
+            this.viewState = calcViewState();
             if (prevViewState !== this.viewState) {
                 this.menu.resize(this.viewState);
             }

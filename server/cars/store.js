@@ -45,6 +45,10 @@ class CarStore extends Store {
             delete sortObj.search;
         }
 
+        if (typeof sortObj.skip === `string`) {
+            delete sortObj.skip;
+        }
+
         return (await this.collection).find(sortObj)
             .project({score: {$meta: `textScore`}})
             .sort({score: {$meta: `textScore`}});

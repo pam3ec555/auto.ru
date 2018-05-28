@@ -3,7 +3,7 @@ import {ViewType} from './util';
 export default abstract class Controller {
     protected viewState: ViewType;
 
-    constructor(viewState: ViewType = 0) {
+    constructor(viewState: ViewType = ViewType.MOBILE) {
         this.viewState = viewState;
     }
 

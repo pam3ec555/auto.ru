@@ -87,10 +87,13 @@ const getDataForSave = async (req, action) => {
 
 router.get(`/cars-api/cars`, async (req, res) => {
     let data = {};
-    if (req.query && Object.keys(req.query).length > 0) {
-        data = await toPage(await carStore.getCarsBySort(req.query));
+    const skip = (+(req.query.skip)) ? +(req.query.skip) : 0;
+
+    if (req.query && Object.keys(req.query).length > 0 &&
+        !(Object.keys(req.query).length === 1 && req.query.skip)) {
+        data = await toPage(await carStore.getCarsBySort(req.query), skip);
     } else {
-        data = await toPage(await carStore.getAllCars());
+        data = await toPage(await carStore.getAllCars(), skip);
     }
 
     return res.send(data);

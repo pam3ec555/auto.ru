@@ -36,7 +36,7 @@ const showErrors = (error: ErrorType): void => {
 const validateFields = (form: HTMLFormElement): boolean => {
     let result: boolean = true;
     const validation: Validation = new Validation();
-    const inputs: any = form.querySelectorAll(`input`);
+    const inputs: NodeListOf<HTMLInputElement> = form.querySelectorAll(`input`);
     const emptyError: HTMLElement = document.querySelector(`#empty-fields`);
 
     if (inputs.length > 0 && emptyError) {

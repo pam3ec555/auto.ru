@@ -183,7 +183,8 @@ export default abstract class CarActionController extends Controller {
         const actionType = target.getAttribute(`data-type`);
         const formSelector = (actionType === CarActionType.ADD) ? `#add-post-form` : `#edit-form`;
         const form: HTMLFormElement = document.querySelector(formSelector);
-        const fields = form.querySelectorAll(`input[type="text"], input[type="number"], textarea, select`);
+        const inputsSelector: string = `input[type="text"], input[type="number"], textarea, select`;
+        const fields: NodeListOf<HTMLInputElement> = form.querySelectorAll(inputsSelector);
 
         if (form && fields.length > 0) {
             const correctForm = validateFields(fields);
