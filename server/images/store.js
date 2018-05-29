@@ -23,6 +23,7 @@ class ImageStore {
         if (!entity) {
             return false;
         }
+
         return {info: entity, stream: bucket.openDownloadStreamByName(filename)};
     }
 

@@ -19,10 +19,10 @@ const drawMobileCar = (data: Car): string => {
     const sliders: string = drawSliders(data.photos, data._id);
     const userData: UserData = App.userData;
     const removeBtn: string = (userData && data.login === userData.login) ?
-        `<button type="button" id="remove-car" class="btn btn--drop">Удалить объявление</button>` :
+        `<button type="button" id="remove-car" class="btn btn--drop">Удалить</button>` :
         ``;
     const editBtn: string = (userData && data.login === userData.login) ?
-        `<a href="/edit/${data._id}" id="edit-car" class="btn btn--primary">Редактировать объявление</a>` :
+        `<a href="/edit/${data._id}" id="edit-car" class="btn btn--primary">Редактировать</a>` :
         ``;
     const sliderBlock: string = (data.photos.length > 0) ? `<div class="slider" id="slider">
   <div class="slider__preview-wrap">

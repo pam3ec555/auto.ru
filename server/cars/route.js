@@ -108,7 +108,7 @@ router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
     const car = await carStore.getCar(id);
 
     if (!car) {
-        // Todo throw new NotFoundError(`Car with id "${id}" not found`);
+        throw new Error(`Car is not found`);
     }
 
     const {photos} = car;
@@ -116,13 +116,13 @@ router.get(`/cars/:id/photo/:photoIndex`, async (req, res) => {
     const photoPath = `/cars/${id}/photo/${photoIndex}`;
 
     if (!photo) {
-        // Todo throw new NotFoundError(`Wizard with name "${carName}" didn't upload photo`);
+        throw new Error(`Photo is not found`);
     }
 
     const {info, stream} = await imageStore.get(photoPath);
 
     if (!info) {
-        // Todo throw new NotFoundError(`File was not found`);
+        throw new Error(`Photo is not found`);
     }
 
     res.set(`content-type`, photo.mimetype);

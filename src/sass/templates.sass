@@ -235,6 +235,7 @@
   border: 2px solid
 
   transition: all 0.1s
+  cursor: pointer
 
 .btn--primary
   border-color: $dark-blue
@@ -259,8 +260,10 @@
   flex-direction: column
 
   & .btn
-    margin-top: 20px
     align-self: center
+
+  & .btn[type="submit"]
+    margin-top: 20px
 
 .form-block
   display: flex

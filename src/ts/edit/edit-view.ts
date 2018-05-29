@@ -144,7 +144,8 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <div class="row">
       <span class="label">Фотографии</span>
       <div class="value">
-        <input type="file" name="photos" multiple>
+        <label for="photos" class="btn btn--primary">Загрузить</label>
+        <input type="file" name="photos" id="photos" multiple>
       </div>
     </div>
     <input type="hidden" name="login" value="${data.login}">
