@@ -12,13 +12,23 @@ enum CarActionType {
 const validateFields = (fields: any): boolean => {
     let result: boolean = true;
     const validation: Validation = new Validation();
-    let numCorrect = true;
-    let noEmptyFields = true;
+    let numCorrect: boolean = true;
+    let noEmptyFields: boolean = true;
+    let imageCorrect: boolean = true;
     const numErrorText: HTMLElement = document.querySelector(`#num-error`);
     const emptyErrorText: HTMLElement = document.querySelector(`#empty-fields`);
+    const imageFormatError: HTMLInputElement = document.querySelector(`#image-error`);
 
     (Array as any).from(fields).forEach((field: HTMLInputElement) => {
-        if (field.name === `price` ||
+        if (field.name === `photos`) {
+            if (!validation.validateImages(field)) {
+                imageCorrect = false;
+
+                if (result) {
+                    result = false;
+                }
+            }
+        } else if (field.name === `price` ||
             field.name === `engineVolume` ||
             field.name === `enginePower` ||
             field.name === `ownerCount` ||
@@ -66,6 +76,14 @@ const validateFields = (fields: any): boolean => {
             showBlock(emptyErrorText);
         } else if (noEmptyFields && emptyErrorText.style.display === `block`) {
             hide(emptyErrorText);
+        }
+    }
+
+    if (imageFormatError) {
+        if (!imageCorrect && (imageFormatError.style.display === `none` || imageFormatError.style.display === ``)) {
+            showBlock(imageFormatError);
+        } else if (imageCorrect && imageFormatError.style.display === `block`) {
+            hide(imageFormatError);
         }
     }
 
@@ -158,7 +176,17 @@ export default abstract class CarActionController extends Controller {
 
             this.Input.setAttribute(`data-autocomplete-old-value`, this.Input.value);
             this.Input.blur();
-        }
+        },
+        _Open(): void {
+            (Array as any).from(this.DOMResults.querySelectorAll(`li`)).forEach((li: HTMLLIElement) => {
+                if (li.className !== `locked`) {
+                    li.onmousedown = () => {
+                        this._Select(li);
+                        hide(this.DOMResults);
+                    };
+                }
+            });
+        },
     };
 
     protected bind(bind: boolean = true): void {
@@ -166,6 +194,12 @@ export default abstract class CarActionController extends Controller {
 
         if (submit) {
             bindElem(submit, `click`, this.onFormSubmit, bind);
+        }
+
+        const uploadInput: HTMLInputElement = document.querySelector(`#photos`);
+
+        if (uploadInput) {
+            bindElem(uploadInput, `change`, this.onUploadChange, bind);
         }
     }
 
@@ -177,13 +211,22 @@ export default abstract class CarActionController extends Controller {
         return this._autocompleteSettings;
     }
 
+    private onUploadChange = (e: Event): void => {
+        const uploadCountField = document.querySelector(`#upload-count`);
+
+        if (uploadCountField) {
+            console.log((e.target as HTMLInputElement).files);
+            uploadCountField.textContent = (e.target as HTMLInputElement).files.length.toString();
+        }
+    }
+
     private onFormSubmit = (e: Event): void => {
         e.preventDefault();
         const target: HTMLButtonElement = e.target as HTMLButtonElement;
         const actionType = target.getAttribute(`data-type`);
         const formSelector = (actionType === CarActionType.ADD) ? `#add-post-form` : `#edit-form`;
         const form: HTMLFormElement = document.querySelector(formSelector);
-        const inputsSelector: string = `input[type="text"], input[type="number"], textarea, select`;
+        const inputsSelector: string = `input[type="text"], input[type="number"], input[type="file"], textarea, select`;
         const fields: NodeListOf<HTMLInputElement> = form.querySelectorAll(inputsSelector);
 
         if (form && fields.length > 0) {

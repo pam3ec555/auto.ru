@@ -6,6 +6,7 @@ class ImageStore {
         if (this._bucket) {
             return this._bucket;
         }
+
         const dBase = await db;
         if (!this._bucket) {
             this._bucket = new mongodb.GridFSBucket(dBase, {
@@ -13,6 +14,7 @@ class ImageStore {
                 bucketName: `car's images`
             });
         }
+
         return this._bucket;
     }
 
@@ -20,6 +22,7 @@ class ImageStore {
         const bucket = await this.getBucket();
         const results = await (bucket).find({filename}).toArray();
         const entity = results[0];
+
         if (!entity) {
             return false;
         }

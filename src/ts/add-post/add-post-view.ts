@@ -143,7 +143,9 @@ const drawAddingPost = (userData: UserData, carCharacteristics: CarCharacteristi
     <div class="row">
       <span class="label">Фотографии</span>
       <div class="value">
-        <input type="file" name="photos" multiple>
+        <label for="photos" class="btn btn--primary">Загрузить</label>
+        <input type="file" name="photos" id="photos" multiple>
+        <span>Выбрано <span id="upload-count">0</span> файлов.</span>
       </div>
     </div>
     <input type="hidden" name="login" value="${userData.login}">
@@ -152,6 +154,9 @@ const drawAddingPost = (userData: UserData, carCharacteristics: CarCharacteristi
     <input type="hidden" name="email" value="${userData.email}">
     <ul class="error-list">
       <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
+      <li class="error-list__item" id="image-error">
+        Вы загрузили неверный формат! Разрешены следующие расширения: ".png", ".jpg", ".jpeg", ".gif".
+      </li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
     <button type="submit" class="btn btn--primary" id="submit" data-type="add">Добавить</button>

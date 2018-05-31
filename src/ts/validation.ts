@@ -1,4 +1,5 @@
-const MIN_CARS_YEAR = 1900;
+const MIN_CARS_YEAR: number = 1900;
+const validFilesExt: Set<string> = new Set([`.png`, `.jpg`, `.jpeg`, `.gif`]);
 
 export default class Validation {
     public validateNum(val: string): boolean {
@@ -43,5 +44,20 @@ export default class Validation {
 
     public validateTel(tel: string): boolean {
         return this.validateNum(tel) && tel.length === 10;
+    }
+
+    public validateImages(field: HTMLInputElement): boolean {
+        let result: boolean = false;
+        const notImage: any|undefined = (Array as any).from(field.files).find((file: any) => {
+            return !(Array as any).from(validFilesExt).some((ext: string) => {
+                return file.name.toLowerCase().endsWith(ext);
+            });
+        });
+
+        if (typeof notImage === `undefined`) {
+            result = true;
+        }
+
+        return result;
     }
 }

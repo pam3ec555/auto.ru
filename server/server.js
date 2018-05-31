@@ -25,7 +25,7 @@ app.get(`/*`, async (req, res) => {
     return res.sendFile(htmlFilePath);
 });
 
-const PORT = 9002;
+const PORT = 9000;
 const HOSTNAME = `127.0.0.1`;
 const serverAddress = `http://${HOSTNAME}:${PORT}`;
 

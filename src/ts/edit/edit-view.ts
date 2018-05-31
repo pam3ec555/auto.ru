@@ -146,6 +146,7 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
       <div class="value">
         <label for="photos" class="btn btn--primary">Загрузить</label>
         <input type="file" name="photos" id="photos" multiple>
+        <span>Выбрано <span id="upload-count">0</span> файлов.</span>
       </div>
     </div>
     <input type="hidden" name="login" value="${data.login}">
@@ -155,6 +156,9 @@ const drawEdit = (data: Car, carCharacteristics: CarCharacteristics) => {
     <input type="hidden" name="_id" value="${data._id}">
     <ul class="error-list">
       <li class="error-list__item" id="num-error">Вы неправильно заполнили числовые поля!</li>
+      <li class="error-list__item" id="image-error">
+        Вы загрузили неверный формат! Разрешены следующие расширения: ".png", ".jpg", ".jpeg", ".gif".
+      </li>
       <li class="error-list__item" id="empty-fields">Заполните все обязательные поля!</li>
     </ul>
     <button type="submit" class="btn btn--primary" id="submit" data-type="edit">Сохранить</button>
