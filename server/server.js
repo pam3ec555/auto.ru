@@ -26,13 +26,13 @@ app.get(`/*`, async (req, res) => {
     return res.sendFile(htmlFilePath);
 });
 
-const PORT = +(process.env.PORT) || 9000;
-const HOSTNAME = `127.0.0.1`;
-const serverAddress = `http://${HOSTNAME}:${PORT}`;
+const PORT = +(process.env.PORT) || 3000;
+const HOST_NAME = +(process.env.HOST) || `127.0.0.1`;
+const serverAddress = `http://${HOST_NAME}:${PORT}`;
 
 module.exports = {
     run() {
-        app.listen(PORT, HOSTNAME, () => {
+        app.listen(PORT, HOST_NAME, () => {
             console.info(`Server run at ${serverAddress}`);
         });
     },

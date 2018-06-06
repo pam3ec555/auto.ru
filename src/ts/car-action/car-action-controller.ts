@@ -186,7 +186,7 @@ export default abstract class CarActionController extends Controller {
                     };
                 }
             });
-        },
+        }
     };
 
     protected bind(bind: boolean = true): void {
